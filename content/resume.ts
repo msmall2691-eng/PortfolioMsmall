@@ -62,6 +62,11 @@ export const resumeProjects = [
     detail: 'Intake through payouts, role-based access and automated tests. Python, FastAPI, React, PostgreSQL.',
   },
   {
+    title: 'Power BI portfolio',
+    sub: 'Four reports on real data',
+    detail: 'Business, code and school data in star-schema models with time-intelligence and retention measures, versioned in Git.',
+  },
+  {
     title: 'linx',
     sub: 'Two-sided marketplace',
     detail: 'Owners post cleanings, vetted cleaners bid; Stripe Connect payouts.',
