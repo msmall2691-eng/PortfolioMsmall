@@ -27,14 +27,14 @@ const jetbrains = localFont({
 });
 
 const description =
-  'Business systems, implementation and front-end work by Megan Small — websites, workflows, integrations and the data underneath, shaped by running a multi-crew service company in Maine.';
+  'Megan Small designs, models and builds business systems — data models, workflows, integrations and the interfaces on top of them, shaped by running a multi-crew service company in Maine.';
 
 export const metadata: Metadata = {
-  title: `${profile.name} — Business Systems & Implementation`,
+  title: `${profile.name} — Business Systems & Front-End Development`,
   description,
   authors: [{ name: profile.name }],
   openGraph: {
-    title: `${profile.name} — Business Systems & Implementation`,
+    title: `${profile.name} — Business Systems & Front-End Development`,
     description,
     type: 'website',
     locale: 'en_US',

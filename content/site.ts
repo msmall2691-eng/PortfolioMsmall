@@ -73,11 +73,13 @@ export const iconLinks = [
 ] as const;
 
 export const hero = {
-  eyebrow: 'BUSINESS SYSTEMS · IMPLEMENTATION · NORTH WATERBORO, ME',
+  // Derived from profile.discipline so the hero and the résumé card always
+  // state the same thing. Change it in one place: profile.discipline.
+  eyebrow: profile.discipline.toUpperCase(),
   headlinePlain: 'Building the systems ',
   headlineAccent: 'small businesses run on.',
   lede: `Websites, workflows, integrations and the data underneath — shaped by ${YEARS_IN_BUSINESS.toLocaleString()} years running a cleaning company, and designed for the people who actually use the tools.`,
-  status: 'Open to business systems and implementation roles',
+  status: 'Open to roles designing and building business systems',
   links: [
     { href: '#work', label: 'Selected work', current: true },
     { href: '#contact', label: 'Résumé' },

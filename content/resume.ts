@@ -9,7 +9,7 @@ import { profile, links, YEARS_IN_BUSINESS_WORD } from './site';
 export const resumeHeader = {
   eyebrow: 'RÉSUMÉ',
   heading: 'Experience, education and skills',
-  line: 'Open to business systems analyst, implementation and business applications roles.',
+  line: 'Open to business systems, business applications and front-end development roles — the design and build end of the work.',
 } as const;
 
 export const resumeCard = {
