@@ -27,7 +27,7 @@ export const jobs = [
     points: [
       'Built a residential, commercial and short-term rental cleaning business to $1M+ collected since 2023 across 4,900+ visits in 40+ Maine towns.',
       'Raised visits with a cleaner assigned from 74% to 96% (2023–2025) and recurring work from 90% to 97% of visits.',
-      'Evaluated 28 paid software tools, documented their gaps, then defined the requirements and data model for BrightBase and moved the office and crews onto it.',
+      'Tested many field-service, scheduling and CRM apps; when none fit, defined the requirements and data model for BrightBase and moved the office and crews onto it.',
       'Integrated Stripe, Google Calendar and Gmail, Twilio, Airbnb/VRBO calendars and Facebook lead ads into one workflow.',
       'Hired, trained and managed 50+ employees and subcontractors.',
     ],
@@ -59,7 +59,7 @@ export const resumeProjects = [
   {
     title: 'BrightBase',
     sub: 'Operations platform',
-    detail: 'Intake through payouts, role-based access and automated tests. Python, FastAPI, React, PostgreSQL.',
+    detail: 'Affordable system built in-house: turnover scheduling from booking calendars, client texts, one lead inbox, Google Workspace. Python, FastAPI, React, PostgreSQL.',
   },
   {
     title: 'Power BI portfolio',

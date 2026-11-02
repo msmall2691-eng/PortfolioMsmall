@@ -94,7 +94,7 @@ export const hero = {
 } as const;
 
 export const workIndex = [
-  { n: '01', title: 'BrightBase', description: 'Operations platform that replaced 12 tools', year: '2026', href: '#work' },
+  { n: '01', title: 'BrightBase', description: 'Affordable operations platform built in-house', year: '2026', href: '#work' },
   { n: '02', title: 'maineclean.co', description: 'Booking site with instant estimates', year: 'Live', href: '#more' },
   { n: '03', title: 'Service-area graph', description: 'Interactive map of services and communities', year: 'Live', href: '#more' },
   { n: '04', title: 'M Studio', description: 'Sites and tools for small businesses', year: '2026', href: '#more' },

@@ -9,9 +9,9 @@ import { links, pendingLinks } from './site';
 
 export const caseStudy = {
   eyebrow: 'FEATURED CASE STUDY',
-  heading: 'From a dozen disconnected tools to one operations system',
+  heading: 'From service apps that didn’t fit to one operations system',
   summary:
-    'The Maine Cleaning Company had paid for 28 software tools. Every stage of a job lived somewhere different, and a person carried the data between them. BrightBase, which I specified, built and rolled out, replaced 12 of them.',
+    'I tested one field-service, scheduling and CRM app after another, and none fit how The Maine Cleaning Company worked. Every stage of a job lived somewhere different, and a person carried the data between them. So I specified, built and rolled out BrightBase, an affordable system of our own: it schedules rental turnovers from booking calendars, texts clients, pulls leads into one place and connects to Google Workspace.',
   credit:
     'Requirements, data model, review, testing and rollout were mine end to end, built with an AI coding agent (Claude Code) and reviewed line by line.',
   stack: 'Python · FastAPI · React · PostgreSQL · Stripe · Twilio · Google APIs',
@@ -20,7 +20,7 @@ export const caseStudy = {
 } as const;
 
 export const beforeAfter = [
-  { before: '12 overlapping tools for jobs, CRM, phone and booking', after: 'One system; Jobber is the last being retired' },
+  { before: 'Overlapping apps for jobs, CRM, phone and booking', after: 'One system; Jobber is the last being retired' },
   { before: 'Subcontractor pay typed into the bank by hand', after: 'Every payout tracked to paid, with 1099 totals' },
   { before: '74% of visits with a cleaner recorded (2023)', after: '96% (2025)' },
   { before: 'Website requests created duplicate clients', after: 'One intake path with duplicate checks' },
@@ -271,6 +271,11 @@ export const builds: readonly Build[] = [
     tag: 'M STUDIO TOOL ↗',
     description: 'Hours and people in, yearly cost out, plus how fast automation pays for itself.',
     href: 'https://mlinx.studio/tools?tool=cost',
+  },
+  {
+    title: 'Twenty CRM build',
+    tag: 'OPEN SOURCE · CRM',
+    description: 'A second version of the system on the open-source Twenty CRM: custom objects for properties, quotes, jobs and visits, with bookings synced in as jobs.',
   },
   {
     title: 'Knowledge Extractor',

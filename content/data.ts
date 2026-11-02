@@ -9,7 +9,7 @@ export const dataSection = {
   eyebrow: 'DATA ANALYTICS · POWER BI · PYTHON · SQL',
   heading: 'Data analytics: how the business actually runs',
   intro:
-    'Turning operational data into decisions: 3.5 years of Jobber exports and bank records, cleaned and anonymized, modeled in Power BI with DAX and tracked in a Python dashboard for crew coverage, service mix, retention and software spend. The software audit (28 paid tools, 12 overlapping) became the requirements for BrightBase.',
+    'Turning operational data into decisions: 3.5 years of Jobber exports and bank records, cleaned and anonymized, modeled in Power BI with DAX and tracked in a Python dashboard for crew coverage, service mix, retention and software spend. The software audit, what we paid for and what each app could not do, became the requirements for BrightBase.',
   privacyNote:
     'Client IDs are hashed and no names or addresses are stored. 2026 is left out of yearly trends because billing moved to BrightBase partway through the year.',
 } as const;
@@ -70,8 +70,8 @@ export const charts: readonly Chart[] = [
   {
     id: 'tools',
     label: 'Software audit',
-    note: 'The tools BrightBase replaced, ranked by what we had spent on each.',
-    source: 'Software Charges where replaced_by = BrightBase · 12 of 28 tools',
+    note: 'Service apps we paid for and tested before building BrightBase, ranked by what we spent on each. The bank records are partial, so these are floors.',
+    source: 'Bank records, Mar 2025 – Jan 2026 · partial',
     scale: 'max',
     rows: [
       { key: 'Jobber', value: 1855, display: '' },
