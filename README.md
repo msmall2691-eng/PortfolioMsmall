@@ -47,6 +47,18 @@ and point the registrar at the records Vercel shows.
 
 ---
 
+## Résumé PDF
+
+`public/Megan-Small-Resume.pdf` is generated from `resume/resume.html`. Edit the
+HTML, then run `node resume/build-pdf.mjs` (needs Playwright with Chromium) and
+commit both files. Keep it two pages, keep its links on megan.mlinx.studio, and
+keep it in step with `content/resume.ts`.
+
+## Sharing
+
+Link previews use `public/og.jpg` (1200×630) and the URLs in `app/layout.tsx`,
+built from `siteUrl` in `content/site.ts`. The favicon is `app/icon.svg`.
+
 ## How it's organised
 
 ```

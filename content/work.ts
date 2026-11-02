@@ -69,7 +69,7 @@ export const steps = [
 export const pains = [
   { title: 'Overlapping tools', description: 'Two field-service apps, three CRMs and two automation tools billed in the same year.' },
   { title: 'Payroll by hand', description: 'The time clock didn’t connect to payroll, so hours were re-keyed every period.' },
-  { title: 'Pay off the books', description: 'Subcontractor pay was typed into the bank by hand — no ledger, no 1099 total.' },
+  { title: 'No payout ledger', description: 'Subcontractor pay was typed into the bank by hand — no ledger, no running 1099 total.' },
   { title: 'Unassigned visits', description: 'In 2023, 26% of completed visits had no cleaner recorded.' },
   { title: 'Duplicate records', description: 'Automatic client creation from the website produced duplicate clients and properties.' },
   { title: 'Silent failure', description: 'A misrouted phone webhook dropped inbound calls for months before anyone noticed.' },
