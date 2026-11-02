@@ -75,11 +75,13 @@ export const skillGroups: readonly SkillGroup[] = [
   {
     n: '06',
     name: 'Platforms',
-    sub: 'Configured, evaluated, migrated',
+    sub: 'Used, tested, configured and migrated',
     color: '#9db8f5',
     tools: [
-      'Jobber', 'Connecteam', 'Airtable', 'Twenty CRM', 'HubSpot', 'Housecall Pro', 'Zapier', 'Bubble',
-      'Adalo · Glide · Softr', 'QuickBooks', 'Square Payroll', 'Google Workspace',
+      'Jobber', 'Housecall Pro', 'Connecteam', 'Maidily', 'Turno', 'Breezeway', 'BookingKoala',
+      'HubSpot', 'HighLevel', 'Attio', 'Twenty CRM', 'Airtable', 'Zapier', 'AppSheet', 'Google Apps Script',
+      'Bubble', 'Noloco', 'Softr', 'Adalo', 'Glide', 'Base44', 'Replit', 'monday.com', 'QuickBooks', 'Square',
+      'Square Payroll', 'OpenPhone', 'Lodgify', 'Wix', 'Notion', 'Google Workspace',
     ],
   },
   {
