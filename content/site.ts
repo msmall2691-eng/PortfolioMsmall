@@ -106,7 +106,7 @@ export const about = {
   heading: "Hi, I'm Meg.",
   paragraphs: [
     'My software work started with everyday problems in my own cleaning business: booking, quoting, scheduling and keeping customer information in one place. Connecting those pieces became the work I love most.',
-    "Now the work is understanding how a business really runs, then designing and building the systems around it. Currently finishing a B.S. in Business Analytics and AI at the University of Southern Maine, with a minor in Computer Science. Off the clock, you'll find me with my kids and our dog near the water, fishing when the day allows.",
+    "Now the work is understanding how a business really runs, then designing and building the systems around it. I'm stepping back from running the cleaning company to do this work full-time, as part of a team. I'm also finishing a B.S. in Business Analytics and AI at the University of Southern Maine, with a minor in Computer Science. Off the clock, you'll find me with my kids and our dog near the water, fishing when the day allows.",
   ],
   facts: [
     { value: `${YEARS_IN_BUSINESS} yrs`, label: 'Running a service business' },
