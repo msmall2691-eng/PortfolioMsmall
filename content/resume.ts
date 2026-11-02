@@ -16,7 +16,7 @@ export const resumeCard = {
   name: profile.fullName,
   title: profile.discipline,
   contact: `${profile.locationShort} · ${profile.email} · ${links.studioLabel} · github.com/${links.githubLabel}`,
-  summary: `Business systems builder moving from running a company to building systems full-time as part of a team. Turns dated software and manual workflows into systems people find easy to use, after ${YEARS_IN_BUSINESS_WORD.toLowerCase()} years running a multi-crew service company and owning every system behind it, from the office to the field crews to the customer. Most recently defined and built BrightBase, the operations platform that now runs the company day to day.`,
+  summary: `Business systems builder moving from running a company into a full-time systems role on a team. ${YEARS_IN_BUSINESS_WORD} years running a multi-crew service company and owning every system behind it, from booking to payroll. When off-the-shelf service apps fell short, designed and built BrightBase, the operations system the company runs on.`,
 } as const;
 
 export const jobs = [
