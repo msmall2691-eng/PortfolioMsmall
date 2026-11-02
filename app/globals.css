@@ -1,0 +1,188 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Design tokens — translated from the Nocturne theme in the design handoff.
+   Hex values are final; change them here, not in components.
+--------------------------------------------------------------------------- */
+@theme {
+  /* Ground + text */
+  --color-page: #212539;
+  --color-ink: #e9e9ed;
+  --color-ink-invert: #161826;
+
+  /* Neutral text ramp (Nocturne) */
+  --color-neutral-100: #f3f5fe;
+  --color-neutral-200: #e4e7f5;
+  --color-neutral-300: #cfd3e5;
+  --color-neutral-400: #b2b6ca;
+  --color-neutral-500: #9397ab;
+  --color-neutral-600: #75798c;
+  --color-neutral-700: #595d6c;
+  --color-neutral-800: #3f424d;
+  --color-neutral-900: #292b31;
+
+  /* Accent ramp */
+  --color-accent: #9184d9;
+  --color-accent-100: #f5f4ff;
+  --color-accent-300: #d2cefd;
+  --color-accent-400: #b5abfc;
+  --color-accent-700: #5d5294;
+  --color-accent-800: #423a6a;
+  --color-accent-soft: #c9c1ff;
+
+  /* Signals */
+  --color-cyan: #5fc4d6;
+  --color-status: #6fcf97;
+
+  /* Surfaces */
+  --color-surface: #2a2f46;
+  --color-surface-2: #2c3150;
+  --color-surface-3: #1f2238;
+  --color-code: #1b1e30;
+  --color-card: rgba(48, 53, 78, 0.55);
+
+  /* Rules */
+  --color-rule-section: #363b52;
+  --color-rule-inner: #454b66;
+  --color-rule-outline: #595d6c;
+
+  /* Paper (résumé + turnover cards) */
+  --color-paper: #fbfaf7;
+  --color-paper-ink: #1d1f26;
+  --color-paper-muted: #595d6c;
+  --color-paper-soft: #75798c;
+  --color-paper-rule: #e4e2dc;
+  --color-paper-label: #5d5294;
+
+  /* Light UI chrome used inside the product mocks */
+  --color-mock-bg: #f7f7f9;
+  --color-mock-chrome: #ececf1;
+  --color-mock-rule: #e4e4ea;
+  --color-mock-muted: #6b6f7d;
+  --color-mock-slate: #3f4558;
+  --color-mock-blue: #2f6bff;
+
+  /* Radii */
+  --radius-btn: 10px;
+  --radius-card: 14px;
+  --radius-panel: 20px;
+
+  /* Layout */
+  --spacing-gutter: 24px;
+  --container-content: 1160px;
+}
+
+@layer base {
+  :root {
+    /* Fallback until <HeaderOffset> measures the real header. */
+    --header-h: 150px;
+  }
+
+  @media (min-width: 640px) {
+    :root {
+      --header-h: 118px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    :root {
+      --header-h: 68px;
+    }
+  }
+
+  html,
+  body {
+    margin: 0;
+    background: var(--color-page);
+    color: var(--color-ink);
+  }
+
+  body {
+    font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  p,
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+  }
+
+  a {
+    color: var(--color-accent-300);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #ffffff;
+  }
+
+  /* In-body prose links keep an underline for legibility. */
+  p a,
+  li a {
+    color: var(--color-accent-400);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Anchor offset = the sticky header's real height, published as
+     --header-h by <HeaderOffset>. The values below are the no-JS
+     fallbacks, measured at each breakpoint. */
+  .section-anchor {
+    scroll-margin-top: calc(var(--header-h, 150px) + 10px);
+  }
+
+  /* The two soft radial glows behind the page. */
+  .page-glow {
+    background:
+      radial-gradient(900px 520px at 8% -10%, #3a3460 0%, transparent 70%),
+      radial-gradient(700px 480px at 100% 20%, #23405a 0%, transparent 70%),
+      var(--color-page);
+  }
+
+  .font-mono-ui {
+    font-family: var(--font-jetbrains), 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  /* Gradient text clip used on the hero headline. */
+  .text-gradient {
+    background: linear-gradient(90deg, #b5abfc 0%, #9184d9 40%, #5fc4d6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* 2px accent underline on in-page link rows. */
+  .rule-link {
+    border-bottom: 2px solid var(--color-accent);
+    padding-bottom: 3px;
+  }
+}

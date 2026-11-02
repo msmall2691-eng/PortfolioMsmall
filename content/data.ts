@@ -1,0 +1,121 @@
+/**
+ * Data section: KPIs, the three tabbed charts and the DAX sample.
+ *
+ * Bar widths are computed from the raw figures so the numbers and the
+ * bars can never disagree — each chart scales to its own largest row.
+ */
+
+export const dataSection = {
+  eyebrow: 'DATA ANALYTICS · POWER BI · PYTHON · SQL',
+  heading: 'Data analytics: how the business actually runs',
+  intro:
+    'Turning operational data into decisions: 3.5 years of Jobber exports and bank records, cleaned and anonymized, modeled in Power BI with DAX and tracked in a Python dashboard for crew coverage, service mix, retention and software spend. The software audit (28 paid tools, 12 overlapping) became the requirements for BrightBase.',
+  privacyNote:
+    'Client IDs are hashed and no names or addresses are stored. 2026 is left out of yearly trends because billing moved to BrightBase partway through the year.',
+} as const;
+
+export const kpis = [
+  { value: '95.9%', label: 'Visits with a cleaner assigned (2025)' },
+  { value: '62.9%', label: 'Clients who rebooked' },
+  { value: '40', label: 'Towns served' },
+  { value: '13', label: 'DAX measures in the model' },
+] as const;
+
+export type ChartId = 'crew' | 'mix' | 'tools';
+
+type ChartRow = { key: string; value: number; display: string };
+
+export type Chart = {
+  id: ChartId;
+  label: string;
+  note: string;
+  source: string;
+  /**
+   * How bar widths are scaled.
+   * 'percent' — the values ARE percentages, so the track is a full 100%
+   *   and 95.9% must read as 95.9% of the track, not as a full bar.
+   * 'max' — counts, scaled against the chart's own largest row.
+   */
+  scale: 'percent' | 'max';
+  rows: readonly ChartRow[];
+};
+
+export const charts: readonly Chart[] = [
+  {
+    id: 'crew',
+    label: 'Crew coverage',
+    note: 'Share of visits with a cleaner assigned. Assignments became a required step, and coverage climbed every year.',
+    source: 'Cleaner Assigned % · 4,596 visits, 2023–2025',
+    scale: 'percent',
+    rows: [
+      { key: '2023', value: 74.4, display: '74.4%' },
+      { key: '2024', value: 88.9, display: '88.9%' },
+      { key: '2025', value: 95.9, display: '95.9%' },
+    ],
+  },
+  {
+    id: 'mix',
+    label: 'Visit mix',
+    note: 'Completed visits by service line. Commercial work carried the volume; turnovers were the fastest-growing line.',
+    source: 'Visits by service · 4,916 visits, Feb 2023 – Oct 2026',
+    scale: 'max',
+    rows: [
+      { key: 'Commercial', value: 2428, display: '2,428' },
+      { key: 'Residential', value: 1349, display: '1,349' },
+      { key: 'STR turnover', value: 956, display: '956' },
+      { key: 'Other', value: 108, display: '108' },
+      { key: 'Deep / move-out', value: 64, display: '64' },
+    ],
+  },
+  {
+    id: 'tools',
+    label: 'Software audit',
+    note: 'The tools BrightBase replaced, ranked by what we had spent on each.',
+    source: 'Software Charges where replaced_by = BrightBase · 12 of 28 tools',
+    scale: 'max',
+    rows: [
+      { key: 'Jobber', value: 1855, display: '' },
+      { key: 'Bubble', value: 637, display: '' },
+      { key: 'Housecall Pro', value: 431, display: '' },
+      { key: 'OpenPhone', value: 270, display: '' },
+      { key: 'Zappter', value: 150, display: '' },
+      { key: 'Connecteam', value: 129, display: '' },
+      { key: 'Airtable', value: 116, display: '' },
+      { key: 'BookingKoala', value: 114, display: '' },
+      { key: 'Noloco', value: 105, display: '' },
+      { key: 'HighLevel', value: 97, display: '' },
+      { key: 'HubSpot', value: 80, display: '' },
+      { key: 'Zapier', value: 60, display: '' },
+    ],
+  },
+];
+
+/**
+ * Bar width for one row.
+ *
+ * Percentage charts measure against a full 100% track so the bar length
+ * matches the figure printed beside it. Count charts measure against the
+ * chart's own largest row.
+ */
+export function barWidth(chart: Chart, row: ChartRow): string {
+  const denominator =
+    chart.scale === 'percent' ? 100 : Math.max(...chart.rows.map((r) => r.value));
+  if (denominator <= 0) return '0%';
+  const pct = Math.max(0, Math.min(100, (row.value / denominator) * 100));
+  return `${pct}%`;
+}
+
+export const daxMeasure = {
+  title: 'Rebook Rate measure',
+  code: `Rebook Rate =
+DIVIDE (
+  COUNTROWS (
+    FILTER (
+      VALUES ( Invoices[client_key] ),
+      CALCULATE ( COUNTROWS ( Invoices ),
+        Invoices[paid] > 0 ) >= 2
+    )
+  ),
+  [Paying Clients]
+)`,
+} as const;
