@@ -16,7 +16,7 @@ export const resumeCard = {
   name: profile.fullName,
   title: profile.discipline,
   contact: `${profile.locationShort} · ${profile.email} · ${links.studioLabel} · github.com/${links.githubLabel}`,
-  summary: `Helping businesses replace dated software and manual workflows with systems people find easy to use. ${YEARS_IN_BUSINESS_WORD} years running a multi-crew service company and owning every system behind it. Most recently, defined and built BrightBase, the operations platform that replaced Connecteam and now runs the office and field teams day to day.`,
+  summary: `Business systems builder who turns dated software and manual workflows into systems people find easy to use. ${YEARS_IN_BUSINESS_WORD} years running a multi-crew service company and owning every system behind it, from the office to the field crews to the customer. Most recently defined and built BrightBase, the operations platform that now runs the company day to day.`,
 } as const;
 
 export const jobs = [
