@@ -98,9 +98,18 @@ export const requirement = {
     { id: 'FR-6', text: 'Year-to-date totals per subcontractor, by the year the work was done, flagged at the 1099 threshold.' },
     { id: 'NFR-1', text: 'Generating twice for the same period creates no duplicates — enforced by the database.' },
   ],
-  // NOTE (open item): the total automated-test count across BrightBase is not
-  // stated anywhere. Confirm it on GitHub and add it here. See README.md.
-  note: 'Every acceptance criterion maps to a named automated test — 19 for the ledger alone.',
+  /**
+   * Test counts verified against msmall2691-eng/Bright-Space @ 5789aa6
+   * (2 Nov 2026) by counting declared test functions:
+   *   backend  2,656 pytest functions across 365 files
+   *   frontend 1,522 vitest/jest cases across 200 files
+   *   total    4,178 — and test_sub_payouts.py has exactly 19, which is
+   *                   where the ledger figure below comes from.
+   * Both suites run in CI (.github/workflows/ci.yml) on every pull request.
+   * The copy says "4,100+" so it stays true as the suite grows. Parametrized
+   * cases execute more than once, so this is a floor, not a ceiling.
+   */
+  note: 'Every acceptance criterion maps to a named automated test — 19 for the payout ledger alone, out of 4,100+ across the project, all run in CI on every pull request.',
 } as const;
 
 export const rollout = {

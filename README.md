@@ -1,5 +1,7 @@
 # Megan Small — Portfolio
 
+**Live: https://megan.mlinx.studio**
+
 Single-page portfolio and résumé. Static site, no backend, no sign-in anywhere.
 
 Built from the `design_handoff_portfolio` package: the HTML prototype in that
@@ -37,13 +39,20 @@ npm run typecheck
 
 ---
 
-## Deploying to Vercel
+## Deploying
 
-Import the repo on Vercel and accept the detected Next.js defaults. `output: 'export'`
-means the build produces static files; no serverless functions are created.
+Already deployed. Vercel project **`msmall`** (team `msmall2691-engs-projects`) is
+connected to this repo, so **any push to `main` builds and ships automatically**.
 
-For a custom domain (e.g. `msmall.org`), add it under **Project → Settings → Domains**
-and point the registrar at the records Vercel shows.
+- Production: https://megan.mlinx.studio
+- Vercel default: https://msmall-kappa.vercel.app
+
+`output: 'export'` means the build produces static files — no serverless functions,
+nothing to keep warm.
+
+`mlinx.studio` sits on Vercel's own nameservers, so the subdomain's DNS record and
+TLS certificate are managed by Vercel. Adding another subdomain later needs no
+registrar changes: add it under **Project → Settings → Domains**.
 
 ---
 
@@ -85,7 +94,7 @@ These are defined once and derived everywhere, so the copies cannot drift:
 
 ## Before launch
 
-Open items carried over from the design handoff. Each one is marked with a
+Open items carried over from the design handoff. Item 3 is now closed. Each one is marked with a
 `NOTE (open item)` comment at the exact line in `content/`.
 
 ### 1. Links that still point at private claude.ai artifacts
@@ -120,10 +129,15 @@ The portfolio copy says 8; mlinx.studio says 10. Set the true number once in
 `content/site.ts` (`YEARS_IN_BUSINESS` and `YEARS_IN_BUSINESS_WORD`) and every
 mention updates together.
 
-### 3. BrightBase automated-test count
+### 3. BrightBase automated-test count — ✅ done
 
-The case study says "19 for the ledger alone" but never gives the project total.
-Confirm it on GitHub and add it to `requirement.note` in `content/work.ts`.
+Counted against `msmall2691-eng/Bright-Space` @ `5789aa6`: 2,656 backend pytest
+functions across 365 files, 1,522 frontend cases across 200 files — 4,178 total,
+and `test_sub_payouts.py` has exactly 19, confirming the ledger figure. Both
+suites run in CI on every pull request.
+
+The copy says "4,100+" so it stays true as the suite grows. Re-count and update
+`requirement.note` in `content/work.ts` if you ever want the exact number.
 
 ### 4. USM dashboard description
 
