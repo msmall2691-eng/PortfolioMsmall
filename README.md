@@ -193,5 +193,23 @@ All colour, radius and layout tokens come from the Nocturne theme in the handoff
 and live in the `@theme` block in `app/globals.css`. Change them there, not in
 components.
 
-Fonts are Inter (400/500/600/700) and JetBrains Mono (400/500), self-hosted via
-`next/font` — no runtime request to Google Fonts.
+## Fonts
+
+Inter and JetBrains Mono are **committed to the repo** in `app/fonts/` and loaded
+with `next/font/local`.
+
+They are deliberately not loaded with `next/font/google`, which fetches from
+Google at build time: that makes the build fail if the font request fails, which
+it did here. Local files mean the build needs no network at all and cannot break
+on someone else's service.
+
+Both files are variable fonts — one file covers the whole weight range (Inter
+400–700, JetBrains Mono 400–500) — and carry the `latin` subset, 78 KB together.
+
+`latin` covers every character on the page, including é/É, –, —, ’, ·, ° and the
+↑ ↓ arrows. Four characters fall back to the system font: → ↗ ▪ ●. Those are
+absent from Google's `latin-ext` subset too, so they fell back in the original
+design prototype as well — this is not a regression.
+
+If you add copy needing other scripts, download that subset's woff2 into
+`app/fonts/` and add it to the `src` array in `app/layout.tsx`.

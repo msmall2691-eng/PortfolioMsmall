@@ -1,20 +1,29 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
 import { profile } from '@/content/site';
 import './globals.css';
 
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+/**
+ * Fonts are committed to the repo and loaded from disk rather than fetched
+ * from Google at build time, so the build needs no network and cannot fail
+ * on a font request. Both files are variable (one file covers the whole
+ * weight range) and carry the `latin` subset, which covers every character
+ * on this page. See README.md → Fonts.
+ */
+const inter = localFont({
+  src: [{ path: './fonts/inter-latin-var.woff2', weight: '400 700', style: 'normal' }],
   variable: '--font-inter',
   display: 'swap',
+  fallback: ['system-ui', 'sans-serif'],
 });
 
-const jetbrains = JetBrains_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500'],
+const jetbrains = localFont({
+  src: [
+    { path: './fonts/jetbrains-mono-latin-var.woff2', weight: '400 500', style: 'normal' },
+  ],
   variable: '--font-jetbrains',
   display: 'swap',
+  fallback: ['ui-monospace', 'monospace'],
 });
 
 const description =
