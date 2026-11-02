@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
-import { profile } from '@/content/site';
+import { profile, siteUrl } from '@/content/site';
 import './globals.css';
 
 /**
@@ -29,15 +29,34 @@ const jetbrains = localFont({
 const description =
   'Megan Small designs, models and builds business systems — data models, workflows, integrations and the interfaces on top of them, shaped by running a multi-crew service company in Maine.';
 
+const title = `${profile.name} — Business Systems & Front-End Development`;
+
+/**
+ * Link previews (LinkedIn, email, iMessage, Slack) read these tags. The
+ * share image is public/og.jpg, 1200×630. metadataBase makes every URL
+ * absolute on the custom domain, and the canonical tag keeps the
+ * *.vercel.app aliases from competing with it in search.
+ */
 export const metadata: Metadata = {
-  title: `${profile.name} — Business Systems & Front-End Development`,
+  metadataBase: new URL(siteUrl),
+  title,
   description,
   authors: [{ name: profile.name }],
+  alternates: { canonical: '/' },
   openGraph: {
-    title: `${profile.name} — Business Systems & Front-End Development`,
+    title,
     description,
+    url: '/',
+    siteName: profile.name,
     type: 'website',
     locale: 'en_US',
+    images: [{ url: '/og.jpg', width: 1200, height: 630, alt: `${profile.name} — Building the systems small businesses run on` }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: ['/og.jpg'],
   },
   robots: { index: true, follow: true },
 };

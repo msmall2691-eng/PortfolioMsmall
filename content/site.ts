@@ -16,6 +16,9 @@
 export const YEARS_IN_BUSINESS = 8;
 export const YEARS_IN_BUSINESS_WORD = 'Eight';
 
+/** The public address of this site. Used for share previews and the canonical URL. */
+export const siteUrl = 'https://megan.mlinx.studio';
+
 export const profile = {
   name: 'Megan Small',
   fullName: 'Megan M. Small',
