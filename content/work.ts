@@ -11,9 +11,9 @@ export const caseStudy = {
   eyebrow: 'FEATURED CASE STUDY',
   heading: 'From service apps that didn’t fit to one operations system',
   summary:
-    'I tested one field-service, scheduling and CRM app after another, and none fit how The Maine Cleaning Company worked. Every stage of a job lived somewhere different, and a person carried the data between them. So I specified, built and rolled out BrightBase, an affordable system of our own: it schedules rental turnovers from booking calendars, texts clients, pulls leads into one place and connects to Google Workspace.',
+    'None of the service apps I tried fit how The Maine Cleaning Company worked, so I designed and built BrightBase: one affordable system for scheduling, rental turnovers, client texts, leads and payouts.',
   credit:
-    'Requirements, data model, review, testing and rollout were mine end to end, built with an AI coding agent (Claude Code) and reviewed line by line.',
+    'Requirements, data model, testing and rollout were mine; built with Claude Code and reviewed line by line.',
   stack: 'Python · FastAPI · React · PostgreSQL · Stripe · Twilio · Google APIs',
   mockAlt:
     "BrightBase office dashboard beside the cleaner's phone app showing today's job at a property",
@@ -154,7 +154,7 @@ export const selectedWork: readonly SelectedWork[] = [
     tag: 'MARKETPLACE · STRIPE CONNECT',
     title: 'linx: a marketplace for rental turnovers',
     description:
-      'Owners post the clean between guests, vetted cleaners bid, the owner awards. Row-locked awards, Stripe Connect payouts and 900+ automated tests.',
+      'Owners post the clean between guests; vetted cleaners bid. Stripe payouts, 900+ tests.',
     frame: 'image',
     img: '/img/linx-flow.webp',
     alt: 'Diagram of a turnover moving through linx',
@@ -166,7 +166,7 @@ export const selectedWork: readonly SelectedWork[] = [
     tag: 'AI AGENTS · CLAUDE AGENT SDK',
     title: 'Agent Command Center',
     description:
-      'Fifteen AI agents in three crews, for the business, code and school. Reads run on their own; every write waits for approval.',
+      'AI agents for the business, code and school. Every change waits for my approval.',
     frame: 'browser',
     img: '/img/acc-console.webp',
     url: 'command center',
@@ -179,7 +179,7 @@ export const selectedWork: readonly SelectedWork[] = [
     tag: 'LIVE · MAINECLEAN.CO',
     title: 'Booking site with instant estimates',
     description:
-      'Customers get a price by property type, size and frequency, then book — wired into BrightBase intake.',
+      'Customers get a price and book. Requests land in BrightBase.',
     frame: 'browser',
     img: '/img/tmcc-estimate.webp',
     url: 'maineclean.co',
@@ -192,7 +192,7 @@ export const selectedWork: readonly SelectedWork[] = [
     tag: 'LIVE · SERVICE AREAS',
     title: 'Interactive service-area graph',
     description:
-      'How services connect to the communities served — one shared data source so every page agrees.',
+      'Services and towns from one shared data source.',
     frame: 'browser',
     img: '/img/service-graph.webp',
     url: 'maineclean.co/service-areas',
@@ -205,7 +205,7 @@ export const selectedWork: readonly SelectedWork[] = [
     tag: 'M STUDIO · CLIENT WORK',
     title: 'Sites and tools for small businesses',
     description:
-      'Client sites plus eight small browser tools for service businesses, including an instant quote that needs no signup.',
+      'My studio site, with eight free tools for small businesses.',
     frame: 'browser',
     img: '/img/mstudio-hero.webp',
     url: 'mlinx.studio',
@@ -218,7 +218,7 @@ export const selectedWork: readonly SelectedWork[] = [
     tag: 'M LINX GUIDE · PRODUCT',
     title: 'Digital guest guides for rental hosts',
     description:
-      'Guest guides for short-term rentals, with private details like door codes kept behind a key in the link.',
+      'Phone-friendly guides for rental guests, with door codes kept private.',
     frame: 'phones',
     alt: 'Three guest-guide layouts on phones',
     stage: 'radial-gradient(120% 90% at 100% 0%, #8a6a4a 0%, #3b3245 55%, #22243a 100%)',
@@ -233,7 +233,7 @@ export const clientSites = [
     name: 'Nash Construction',
     tag: 'CLIENT · NASHUA, NH',
     description:
-      'Rebuilt a commercial and industrial contractor’s site off Wix and moved it to Vercel, set up so the company can own the code outright.',
+      'Rebuilt off Wix and moved to Vercel.',
     img: '/img/client-nash.webp',
     url: 'nashconstructionnh.com',
     href: 'https://nashconstructionnh.com',
@@ -242,7 +242,7 @@ export const clientSites = [
     name: 'The Remote Admin',
     tag: 'CLIENT · SOUTHERN NH',
     description:
-      'A site for a virtual admin business serving contractors and small service companies, built to match its existing brand.',
+      'Built to match an existing brand.',
     img: '/img/client-remote-admin.webp',
     url: 'the-remote-admin.com',
     href: 'https://the-remote-admin.com',
@@ -257,21 +257,6 @@ export const phoneShots = [
 
 /* --- Turnover spotlight ------------------------------------------------ */
 
-export const turnoverSpotlight = {
-  eyebrow: 'SPOTLIGHT · INSIDE BRIGHTBASE',
-  heading: 'Guest checks out. The clean is already on the schedule.',
-  body:
-    "Rental hosts' Airbnb and VRBO booking calendars feed into BrightBase, and each guest checkout becomes a scheduled turnover visit. No one retypes bookings.",
-  columns: { left: 'BOOKING CALENDAR', right: 'BRIGHTBASE SCHEDULE' },
-  caption: 'Sample properties and dates.',
-  /** Sample properties and dates — not real bookings. */
-  rows: [
-    { stay: 'Harbor Cottage · Airbnb', dates: 'Fri Jun 12 – Sun Jun 14', visit: 'Turnover · Sun', window: '10:00–3:00 · next guest 4:00' },
-    { stay: 'Lakeside Loft · VRBO', dates: 'Sat Jun 13 – Tue Jun 16', visit: 'Turnover · Tue', window: '11:00–2:30 · same-day flip' },
-    { stay: 'Pine Ridge House · Airbnb', dates: 'Sun Jun 14 – Sat Jun 20', visit: 'Turnover · Sat', window: '10:00–4:00 · open window' },
-  ],
-} as const;
-
 /* --- More builds ------------------------------------------------------- */
 
 export type Build = {
@@ -284,34 +269,27 @@ export type Build = {
 
 export const builds: readonly Build[] = [
   {
-    title: 'Operations analytics dashboard',
-    tag: 'PYTHON · DATA',
-    description:
-      'Revenue, visits, crew coverage and software spend, checked against Jobber exports and bank records.',
-    href: '#data',
-  },
-  {
     title: 'USM academic progress',
     tag: 'POWER BI · PBIP ↗',
     description:
-      'Degree progress, a Fall 2026 workload view over 73 deadlines, and a what-if parameter that recalculates terms remaining for any credit load.',
+      'Degree progress, a semester workload view and a what-if for credit load.',
     href: links.powerbiUsm,
   },
   {
     title: 'Software stack: build vs buy',
     tag: 'POWER BI · PBIP ↗',
     description:
-      'The 31 tools bought, outgrown and replaced by my own build, traced against the dependency files of 10 code projects.',
+      'The 31 tools bought, outgrown and replaced, mapped against 10 code projects.',
     href: links.powerbiStack,
   },
   {
     title: 'Twenty CRM build',
     tag: 'OPEN SOURCE · CRM',
-    description: 'A second version of the system on the open-source Twenty CRM: custom objects for properties, quotes, jobs and visits, with bookings synced in as jobs.',
+    description: 'An earlier version on open-source Twenty CRM, with custom objects for properties, quotes and jobs.',
   },
   {
     title: 'Knowledge Extractor',
     tag: 'REPLIT',
-    description: 'Filters exported AI conversations and organizes them into an Obsidian knowledge base.',
+    description: 'Turns exported AI chats into an organized Obsidian knowledge base.',
   },
 ];

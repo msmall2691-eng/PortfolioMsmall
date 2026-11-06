@@ -8,7 +8,7 @@ import { YEARS_IN_BUSINESS_WORD } from './site';
 
 export const toolkit = {
   heading: 'Toolkit',
-  intro: 'From the data model to the screen people actually use — the skills behind the work above.',
+  intro: 'From the data model to the screen.',
 } as const;
 
 export type SkillGroup = {
@@ -127,21 +127,21 @@ export const credentials = [
   {
     tag: 'COURSEWORK',
     title: 'Relevant USM courses',
-    detail: 'Completed: Macroeconomics, Microeconomics, Academic Writing, Linguistics · Fall 2026: Technical Writing, Marketing, Legal Environment of Business',
+    detail: 'Economics, writing, linguistics, marketing, business law',
   },
   {
     tag: 'CERTIFICATE · IN PROGRESS',
     title: 'IBM Full Stack Software Developer',
-    detail: 'Coursera Professional Certificate · Expected Dec 2026',
+    detail: 'Coursera · Expected Dec 2026',
   },
   {
     tag: 'JOB SIMULATION',
     title: 'Vista Equity Partners: AI in Action',
-    detail: 'Forage · Feb 2026 · Structured prompts, output review, repeatable AI workflows',
+    detail: 'Forage · Feb 2026',
   },
   {
     tag: 'JOB SIMULATION',
     title: 'BCG: GenAI',
-    detail: 'Forage · Feb 2026 · Financial data extraction and a question-answering chatbot',
+    detail: 'Forage · Feb 2026',
   },
 ] as const;

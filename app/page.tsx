@@ -8,7 +8,6 @@ import { ToolsSection, SmallBuilds } from '@/components/ToolsSection';
 import { Toolkit } from '@/components/Toolkit';
 import { ResumeSection } from '@/components/ResumeSection';
 import { SiteFooter } from '@/components/SiteFooter';
-import { FloatingPill } from '@/components/FloatingPill';
 
 export default function Page() {
   return (
@@ -26,7 +25,6 @@ export default function Page() {
         <ResumeSection />
         <SiteFooter />
       </main>
-      <FloatingPill />
     </div>
   );
 }

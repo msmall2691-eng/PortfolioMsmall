@@ -57,10 +57,10 @@ export const PENDING_LINKS_ARE_PUBLIC = false;
 export const nav = [
   { href: '#about', label: 'About' },
   { href: '#work', label: 'Work' },
-  { href: '#tools', label: 'Free tools' },
+  { href: '#tools', label: 'Tools' },
   { href: '#data', label: 'Data' },
-  { href: '#skills', label: 'Toolkit' },
-  { href: '#contact', label: 'Résumé & contact' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#contact', label: 'Contact' },
 ] as const;
 
 export const iconLinks = [
@@ -75,15 +75,12 @@ export const hero = {
   eyebrow: profile.discipline.toUpperCase(),
   headlinePlain: 'Building the systems ',
   headlineAccent: 'small businesses run on.',
-  lede: `Websites, workflows, integrations and the data underneath — shaped by ${YEARS_IN_BUSINESS.toLocaleString()} years running a cleaning company, and designed for the people who actually use the tools.`,
+  lede: `Websites, workflows and the data underneath, shaped by ${YEARS_IN_BUSINESS.toLocaleString()} years running a cleaning company.`,
   status: 'Open to roles designing and building business systems',
   links: [
     { href: '#work', label: 'Selected work', current: true },
     { href: '#contact', label: 'Résumé' },
     { href: `mailto:${profile.email}`, label: 'Email' },
-    { href: links.linkedin, label: 'LinkedIn ↗', external: true },
-    { href: links.github, label: 'GitHub ↗', external: true },
-    { href: links.studio, label: 'mlinx.studio ↗', external: true },
   ],
 } as const;
 
@@ -100,8 +97,8 @@ export const about = {
   eyebrow: 'ABOUT',
   heading: "Hi, I'm Meg.",
   paragraphs: [
-    'My software work started with everyday problems in my own cleaning business: booking, quoting, scheduling and keeping customer information in one place. Connecting those pieces became the work I love most.',
-    "Now the work is understanding how a business really runs, then designing and building the systems around it. I'm stepping back from running the cleaning company to do this work full-time, as part of a team. I'm also finishing a B.S. in Business Analytics and AI at the University of Southern Maine, with a minor in Computer Science. Off the clock, you'll find me with my kids and our dog near the water, fishing when the day allows.",
+    'My software work started with problems in my own cleaning business: booking, quoting, scheduling and keeping customer information in one place. Connecting those pieces became the work I love most.',
+    "Now I want to do it full-time, as part of a team, while I finish a B.S. in Business Analytics and AI at the University of Southern Maine. Off the clock, I'm with my kids and our dog near the water.",
   ],
   facts: [
     { value: `${YEARS_IN_BUSINESS} yrs`, label: 'Running a service business' },

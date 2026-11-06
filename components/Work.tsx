@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { Container, Eyebrow, BlockLabel, SmartLink, isReachable } from './ui';
 import { BrightBaseMock } from './BrightBaseMock';
 import { CaseExpand } from './CaseExpand';
@@ -11,7 +10,6 @@ import {
   steps,
   selectedWork,
   phoneShots,
-  turnoverSpotlight,
   builds,
   clientSites,
 } from '@/content/work';
@@ -60,6 +58,8 @@ export function Work() {
               </div>
             </div>
 
+            <CaseExpand>
+              <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-3 rounded-[14px] bg-surface px-[22px] py-5">
               <BlockLabel>{glanceStats.label}</BlockLabel>
               <dl className="m-0 grid grid-cols-[repeat(auto-fit,minmax(min(100%,150px),1fr))] gap-5">
@@ -106,15 +106,14 @@ export function Work() {
               ))}
             </ol>
 
-            <CaseExpand>
-              <CaseDetail />
+                <CaseDetail />
+              </div>
             </CaseExpand>
           </div>
         </article>
 
         <SelectedWork />
         <ClientSites />
-        <TurnoverSpotlight />
         <MoreBuilds />
       </Container>
     </section>
@@ -261,52 +260,6 @@ function ClientSites() {
             </div>
           </a>
         ))}
-      </div>
-    </div>
-  );
-}
-
-function TurnoverSpotlight() {
-  const { eyebrow, heading, body, columns, caption, rows } = turnoverSpotlight;
-  return (
-    <div
-      id="turnovers"
-      className="mt-10 flex section-anchor flex-wrap items-center gap-9 rounded-panel border border-rule-inner bg-[linear-gradient(135deg,#2e2a55_0%,#243a52_100%)] p-[clamp(22px,4vw,40px)]"
-    >
-      <div className="flex min-w-0 flex-[1_1_300px] flex-col gap-3.5">
-        <Eyebrow>{eyebrow}</Eyebrow>
-        <h3 className="text-[clamp(24px,3vw,32px)] leading-[1.12] font-semibold tracking-[-0.02em] text-balance">
-          {heading}
-        </h3>
-        <p className="text-[15.5px] leading-[1.6] text-neutral-200 text-pretty">{body}</p>
-      </div>
-
-      <div className="grid min-w-0 flex-[1_1_420px] grid-cols-[minmax(0,1fr)_28px_minmax(0,1fr)] items-center gap-2.5">
-        <p className="font-mono-ui text-[11px] tracking-[0.1em] text-neutral-400">
-          {columns.left}
-        </p>
-        <span />
-        <p className="font-mono-ui text-[11px] tracking-[0.1em] text-neutral-400">
-          {columns.right}
-        </p>
-
-        {rows.map((row) => (
-          <Fragment key={row.stay}>
-            <div className="flex flex-col gap-[3px] rounded-xl border border-[#3f4462] bg-surface-3 px-3.5 py-3">
-              <span className="text-[13.5px] font-semibold">{row.stay}</span>
-              <span className="text-[12.5px] text-neutral-400">{row.dates}</span>
-            </div>
-            <span aria-hidden="true" className="text-center text-[18px] text-cyan">
-              →
-            </span>
-            <div className="flex flex-col gap-[3px] rounded-xl bg-paper px-3.5 py-3 text-paper-ink">
-              <span className="text-[13.5px] font-bold">{row.visit}</span>
-              <span className="text-[12.5px] text-paper-muted">{row.window}</span>
-            </div>
-          </Fragment>
-        ))}
-
-        <p className="col-span-full pt-1 text-[12px] text-neutral-500">{caption}</p>
       </div>
     </div>
   );

@@ -35,10 +35,7 @@ export function Toolkit() {
                 >
                   {group.n}
                 </span>
-                <div className="flex flex-col gap-px">
-                  <span className="text-[16.5px] font-semibold">{group.name}</span>
-                  <span className="text-[12.5px] text-neutral-400">{group.sub}</span>
-                </div>
+                <span className="text-[16.5px] font-semibold">{group.name}</span>
               </div>
               {/* One dot-separated line per group — deliberately not chips. */}
               <p className="text-[14px] leading-[1.75] text-neutral-300">

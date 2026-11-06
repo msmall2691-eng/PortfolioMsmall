@@ -6,12 +6,12 @@
  */
 
 export const dataSection = {
-  eyebrow: 'DATA ANALYTICS · POWER BI · PYTHON · SQL',
-  heading: 'Data analytics: how the business actually runs',
+  eyebrow: 'DATA · POWER BI · PYTHON · SQL',
+  heading: 'How the business actually runs',
   intro:
-    'Turning operational data into decisions: 3.5 years of Jobber exports and bank records, cleaned and anonymized, modeled in Power BI with DAX and tracked in a Python dashboard for crew coverage, service mix, retention and software spend. The software audit, what we paid for and what each app could not do, became the requirements for BrightBase.',
+    '3.5 years of job and bank records, cleaned, anonymized and modeled in Power BI. The software audit became the requirements for BrightBase.',
   privacyNote:
-    'Client IDs are hashed and no names or addresses are stored. In the published models, dollar amounts carry one constant privacy factor — growth, shares, rankings and retention are exact; totals are not the real figures. 2026 is left out of yearly trends because billing moved to BrightBase partway through the year.',
+    'No client names or addresses. Published dollar totals are scaled for privacy; percentages and trends are exact.',
 } as const;
 
 export const kpis = [
@@ -44,7 +44,7 @@ export const charts: readonly Chart[] = [
   {
     id: 'crew',
     label: 'Crew coverage',
-    note: 'Share of visits with a cleaner assigned. Assignments became a required step, and coverage climbed every year.',
+    note: 'Share of visits with a cleaner assigned, by year.',
     source: 'Cleaner Assigned % · 4,596 visits, 2023–2025',
     scale: 'percent',
     rows: [
@@ -56,7 +56,7 @@ export const charts: readonly Chart[] = [
   {
     id: 'mix',
     label: 'Visit mix',
-    note: 'Completed visits by service line. Commercial work carried the volume; turnovers were the fastest-growing line.',
+    note: 'Completed visits by service line.',
     source: 'Visits by service · 4,916 visits, Feb 2023 – Oct 2026',
     scale: 'max',
     rows: [
@@ -70,7 +70,7 @@ export const charts: readonly Chart[] = [
   {
     id: 'tools',
     label: 'Software audit',
-    note: 'Service apps we paid for and tested before building BrightBase, ranked by what we spent on each. The bank records are partial, so these are floors.',
+    note: 'Service apps paid for before BrightBase, by spend (a floor).',
     source: 'Bank records, Mar 2025 – Jan 2026 · partial',
     scale: 'max',
     rows: [
