@@ -10,15 +10,13 @@ import {
   daxMeasure,
   type ChartId,
 } from '@/content/data';
-import { pendingLinks, links } from '@/content/site';
+import { links } from '@/content/site';
 
 type SectionLink = { href: string; label: string; pending?: boolean };
 
 const sectionLinks: readonly SectionLink[] = [
   // Public: four .pbip projects, model and measures readable in Git.
   { href: links.powerbi, label: 'Read the Power BI models ↗' },
-  { href: pendingLinks.opsDashboard, label: 'Open the dashboard ↗', pending: true },
-  { href: pendingLinks.consolidationWriteup, label: 'Read the tool-consolidation write-up ↗', pending: true },
 ];
 
 export function DataSection() {

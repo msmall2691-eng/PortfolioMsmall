@@ -5,7 +5,7 @@
  * Every number in the product mocks is sample data and must stay fake.
  * No client names, addresses, gate codes or phone numbers anywhere.
  */
-import { links, pendingLinks } from './site';
+import { links } from './site';
 
 export const caseStudy = {
   eyebrow: 'FEATURED CASE STUDY',
@@ -145,7 +145,7 @@ export type SelectedWork = {
   objectPosition?: string;
   stage: string;
   href: string;
-  /** True when href still points at a private claude.ai artifact. */
+  /** True when the destination is not publicly reachable yet. */
   pending?: boolean;
 };
 
@@ -187,8 +187,7 @@ export const selectedWork: readonly SelectedWork[] = [
     alt: 'M Studio website',
     objectPosition: 'left top',
     stage: 'radial-gradient(120% 90% at 0% 0%, #5a4a9a 0%, #2e2a55 60%, #1f2040 100%)',
-    href: pendingLinks.studioCaseStudy,
-    pending: true,
+    href: '/work/m-studio-tools/',
   },
   {
     tag: 'M LINX GUIDE · PRODUCT',
@@ -198,8 +197,7 @@ export const selectedWork: readonly SelectedWork[] = [
     frame: 'phones',
     alt: 'Three guest-guide layouts on phones',
     stage: 'radial-gradient(120% 90% at 100% 0%, #8a6a4a 0%, #3b3245 55%, #22243a 100%)',
-    href: pendingLinks.guideCaseStudy,
-    pending: true,
+    href: '/work/m-linx-guide/',
   },
 ];
 
@@ -242,8 +240,7 @@ export const builds: readonly Build[] = [
     tag: 'PYTHON · DATA',
     description:
       'Revenue, visits, crew coverage and software spend, checked against Jobber exports and bank records.',
-    href: pendingLinks.opsDashboard,
-    pending: true,
+    href: '#data',
   },
   {
     title: 'USM academic progress',

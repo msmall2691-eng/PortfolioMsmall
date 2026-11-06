@@ -48,22 +48,11 @@ export const links = {
 } as const;
 
 /**
- * Links that still point at private claude.ai artifacts.
- *
- * NOTE (open item from the design handoff): each of these must be made
- * public or swapped for a self-hosted page before launch, or a visitor
- * hits a sign-in wall. Flip `PENDING_LINKS_ARE_PUBLIC` to true once they
- * resolve for a signed-out visitor; while it is false the page renders
- * them as plain text instead of dead links.
+ * Guard for links whose destination is not public yet. A link marked
+ * `pending: true` renders as plain text while this is false. Nothing on the
+ * site uses it today: every link points at a public page.
  */
 export const PENDING_LINKS_ARE_PUBLIC = false;
-
-export const pendingLinks = {
-  opsDashboard: 'https://claude.ai/artifact/D9xNvR55RXAt4iyVFyCemd',
-  consolidationWriteup: 'https://claude.ai/artifact/FX5N6dpPVhpJpCiM54WBUL',
-  studioCaseStudy: 'https://claude.ai/artifact/M34MazbUgsEFhvGG8sm1Ue',
-  guideCaseStudy: 'https://claude.ai/artifact/JCNityX7CFu3BZEJyUKoX4',
-} as const;
 
 export const nav = [
   { href: '#about', label: 'About' },

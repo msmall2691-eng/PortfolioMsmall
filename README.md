@@ -109,33 +109,13 @@ These are defined once and derived everywhere, so the copies cannot drift:
 Open items carried over from the design handoff. Items 3, 4 and 5 are closed. Each one is marked with a
 `NOTE (open item)` comment at the exact line in `content/`.
 
-### 1. Links that still point at private claude.ai artifacts
+### 1. Case studies live on this site
 
-Three links are not reachable by a signed-out visitor — a recruiter clicking one
-would hit a sign-in wall. **The site currently renders them as plain text rather
-than as dead links.**
-
-They are listed in `pendingLinks` in `content/site.ts`:
-
-- Operations analytics dashboard
-- Tool-consolidation write-up
-- M Studio case study
-- M Linx Guide case study
-
-(The USM dashboard was one of these. It now points at the public
-`powerbi-portfolio` repo instead.)
-
-Once every one of those is public (or replaced with a self-hosted page), flip one
-line in `content/site.ts`:
-
-```ts
-export const PENDING_LINKS_ARE_PUBLIC = true;
-```
-
-That restores them as real links, brings back the "View project ↗" call to action
-on the two affected Selected-work cards, and re-shows the two links in the Data
-section. If only *some* become public, move those out of `pendingLinks` and drop
-the `pending: true` flag on their entries instead.
+The M Studio Tools and M Linx Guide case studies are pages at
+`/work/m-studio-tools/` and `/work/m-linx-guide/`, written in
+`content/caseStudies.ts` and rendered by `app/work/[slug]/page.tsx`. They replaced
+private claude.ai links, so no link on the site depends on Claude's sharing
+settings. The operations dashboard entry points at the Data section.
 
 ### 2. Years running the business — 8 or 10?
 

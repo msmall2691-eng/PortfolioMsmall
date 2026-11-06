@@ -4,5 +4,9 @@ import { siteUrl } from '@/content/site';
 export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [{ url: `${siteUrl}/`, changeFrequency: 'monthly', priority: 1 }];
+  return [
+    { url: `${siteUrl}/`, changeFrequency: 'monthly', priority: 1 },
+    { url: `${siteUrl}/work/m-studio-tools/`, changeFrequency: 'yearly', priority: 0.6 },
+    { url: `${siteUrl}/work/m-linx-guide/`, changeFrequency: 'yearly', priority: 0.6 },
+  ];
 }
