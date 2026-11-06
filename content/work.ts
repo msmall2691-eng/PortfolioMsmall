@@ -137,8 +137,8 @@ export type SelectedWork = {
   tag: string;
   title: string;
   description: string;
-  /** 'browser' frames one screenshot; 'phones' fans three phone screens. */
-  frame: 'browser' | 'phones';
+  /** 'browser' frames one screenshot; 'phones' fans three phone screens; 'image' fills the panel. */
+  frame: 'browser' | 'phones' | 'image';
   img?: string;
   url?: string;
   alt: string;
@@ -150,6 +150,31 @@ export type SelectedWork = {
 };
 
 export const selectedWork: readonly SelectedWork[] = [
+  {
+    tag: 'MARKETPLACE · STRIPE CONNECT',
+    title: 'linx: a marketplace for rental turnovers',
+    description:
+      'Owners post the clean between guests, vetted cleaners bid, the owner awards. Row-locked awards, Stripe Connect payouts and 900+ automated tests.',
+    frame: 'image',
+    img: '/img/linx-flow.webp',
+    alt: 'Diagram of a turnover moving through linx',
+    objectPosition: 'center',
+    stage: '#141726',
+    href: '/work/linx/',
+  },
+  {
+    tag: 'AI AGENTS · CLAUDE AGENT SDK',
+    title: 'Agent Command Center',
+    description:
+      'Fifteen AI agents in three crews, for the business, code and school. Reads run on their own; every write waits for approval.',
+    frame: 'browser',
+    img: '/img/acc-console.webp',
+    url: 'command center',
+    alt: 'Agent Command Center console',
+    objectPosition: 'left top',
+    stage: 'radial-gradient(120% 90% at 0% 0%, #3d5a4a 0%, #1f3330 60%, #172320 100%)',
+    href: '/work/agent-command-center/',
+  },
   {
     tag: 'LIVE · MAINECLEAN.CO',
     title: 'Booking site with instant estimates',
@@ -200,6 +225,29 @@ export const selectedWork: readonly SelectedWork[] = [
     href: '/work/m-linx-guide/',
   },
 ];
+
+/* --- Client sites ------------------------------------------------------ */
+
+export const clientSites = [
+  {
+    name: 'Nash Construction',
+    tag: 'CLIENT · NASHUA, NH',
+    description:
+      'Rebuilt a commercial and industrial contractor’s site off Wix and moved it to Vercel, set up so the company can own the code outright.',
+    img: '/img/client-nash.webp',
+    url: 'nashconstructionnh.com',
+    href: 'https://nashconstructionnh.com',
+  },
+  {
+    name: 'The Remote Admin',
+    tag: 'CLIENT · SOUTHERN NH',
+    description:
+      'A site for a virtual admin business serving contractors and small service companies, built to match its existing brand.',
+    img: '/img/client-remote-admin.webp',
+    url: 'the-remote-admin.com',
+    href: 'https://the-remote-admin.com',
+  },
+] as const;
 
 export const phoneShots = [
   { src: '/img/gg-tiles.jpg', rotate: -6, lift: 6, z: 1 },
@@ -255,24 +303,6 @@ export const builds: readonly Build[] = [
     description:
       'The 31 tools bought, outgrown and replaced by my own build, traced against the dependency files of 10 code projects.',
     href: links.powerbiStack,
-  },
-  {
-    title: 'Instant quote',
-    tag: 'M STUDIO TOOL ↗',
-    description: 'Pick a service and size, get a live price range to send a customer. No signup.',
-    href: 'https://mlinx.studio/tools?tool=quote',
-  },
-  {
-    title: 'Website check',
-    tag: 'M STUDIO TOOL ↗',
-    description: 'Paste any URL for a real Lighthouse speed, SEO and accessibility report.',
-    href: 'https://mlinx.studio/tools?tool=sitecheck',
-  },
-  {
-    title: 'Cost of manual work',
-    tag: 'M STUDIO TOOL ↗',
-    description: 'Hours and people in, yearly cost out, plus how fast automation pays for itself.',
-    href: 'https://mlinx.studio/tools?tool=cost',
   },
   {
     title: 'Twenty CRM build',

@@ -161,6 +161,24 @@ export default async function CaseStudyPage({ params }: Props) {
           ) : null}
         </Container>
 
+        {study.image ? (
+          <Container className="pb-12">
+            <figure className="flex flex-col gap-3">
+              <div className="overflow-hidden rounded-panel border border-rule-inner bg-[#0f1220] shadow-[0_24px_60px_rgba(0,0,0,0.35)]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={study.image.src}
+                  alt={study.image.alt}
+                  width={study.image.width}
+                  height={study.image.height}
+                  className="block h-auto w-full"
+                />
+              </div>
+              <figcaption className="text-[13.5px] text-neutral-400">{study.image.caption}</figcaption>
+            </figure>
+          </Container>
+        ) : null}
+
         {study.sections.map((section) => (
           <section key={section.heading} className="border-t border-rule-section">
             <Container className="flex flex-col gap-5 py-14">

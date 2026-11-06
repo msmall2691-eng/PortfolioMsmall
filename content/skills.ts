@@ -125,6 +125,11 @@ export const credentials = [
     detail: 'University of Southern Maine · CS minor · Expected Dec 2028',
   },
   {
+    tag: 'COURSEWORK',
+    title: 'Relevant USM courses',
+    detail: 'Completed: Macroeconomics, Microeconomics, Academic Writing, Linguistics · Fall 2026: Technical Writing, Marketing, Legal Environment of Business',
+  },
+  {
     tag: 'CERTIFICATE · IN PROGRESS',
     title: 'IBM Full Stack Software Developer',
     detail: 'Coursera Professional Certificate · Expected Dec 2026',

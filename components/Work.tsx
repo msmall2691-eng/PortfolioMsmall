@@ -13,6 +13,7 @@ import {
   phoneShots,
   turnoverSpotlight,
   builds,
+  clientSites,
 } from '@/content/work';
 
 export function Work() {
@@ -112,6 +113,7 @@ export function Work() {
         </article>
 
         <SelectedWork />
+        <ClientSites />
         <TurnoverSpotlight />
         <MoreBuilds />
       </Container>
@@ -170,6 +172,17 @@ function SelectedWork() {
                   </div>
                 ) : null}
 
+                {project.frame === 'image' && project.img ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={project.img}
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-0 block size-full object-cover"
+                    style={{ objectPosition: project.objectPosition }}
+                  />
+                ) : null}
+
                 {project.frame === 'phones' ? (
                   <div className="absolute inset-0 flex items-center justify-center gap-[4%] pt-[6%]">
                     {phoneShots.map((shot) => (
@@ -215,6 +228,39 @@ function SelectedWork() {
             </SmartLink>
           );
         })}
+      </div>
+    </div>
+  );
+}
+
+function ClientSites() {
+  return (
+    <div className="flex flex-col gap-3.5 pt-10">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h3 className="text-[20px] font-semibold">Client sites</h3>
+        <span className="font-mono-ui text-[12px] text-neutral-500">LIVE · BUILT AND HOSTED BY ME</span>
+      </div>
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] gap-5">
+        {clientSites.map((site) => (
+          <a
+            key={site.name}
+            href={site.href}
+            target="_blank"
+            rel="noopener"
+            className="group flex flex-col overflow-hidden rounded-card border border-rule-inner bg-card text-ink transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(0,0,0,0.4)] sm:flex-row"
+          >
+            <div className="relative aspect-16/10 shrink-0 overflow-hidden border-b border-rule-inner sm:aspect-auto sm:w-[46%] sm:border-r sm:border-b-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={site.img} alt={`${site.name} website`} loading="lazy" className="absolute inset-0 block size-full object-cover object-left-top" />
+            </div>
+            <div className="flex flex-col gap-1.5 p-5">
+              <span className="font-mono-ui text-[11px] tracking-[0.1em] text-cyan">{site.tag}</span>
+              <span className="text-[18px] font-semibold">{site.name}</span>
+              <span className="text-[14px] leading-[1.5] text-neutral-400">{site.description}</span>
+              <span className="mt-auto pt-2 text-[13.5px] font-semibold text-accent-soft group-hover:text-white">{site.url} ↗</span>
+            </div>
+          </a>
+        ))}
       </div>
     </div>
   );

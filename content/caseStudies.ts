@@ -15,6 +15,8 @@ export type CaseStudy = {
   meta: readonly { label: string; value: string }[];
   sections: readonly CaseSection[];
   liveUrl?: { href: string; label: string };
+  /** Optional figure shown under the hero. */
+  image?: { src: string; alt: string; caption: string; width: number; height: number };
 };
 
 export type CaseSection =
@@ -24,6 +26,216 @@ export type CaseSection =
   | { kind: 'boxes'; eyebrow: string; heading: string; intro?: string; facts?: readonly { value: string; label: string }[]; boxes: readonly { title: string; items: readonly string[] }[]; note?: string };
 
 export const caseStudies: readonly CaseStudy[] = [
+  {
+    slug: 'linx',
+    title: 'linx',
+    lede: 'A two-sided marketplace for short-term rental turnovers. Owners post the clean between one guest and the next, vetted local cleaners bid, and the owner awards the job.',
+    metaDescription:
+      'Case study: linx, a two-sided marketplace for rental turnover cleanings with vetting, bidding, row-locked awards and Stripe Connect payouts. Built by Megan Small.',
+    meta: [
+      { label: 'Role', value: 'Requirements, data model and build, solo, with an AI coding agent' },
+      { label: 'Status', value: 'Launch readiness' },
+      { label: 'Stack', value: 'FastAPI, SQLAlchemy 2.0, Alembic, PostgreSQL, React 18, Vite, Tailwind, Stripe Connect' },
+      { label: 'Tests', value: '900+ automated tests gate every change' },
+    ],
+    image: {
+      src: '/img/linx-flow.webp',
+      alt: 'Diagram of one turnover moving from posted to bids, awarded, done and paid',
+      caption: 'How one turnover moves through linx, and what each of the three roles can do.',
+      width: 1200,
+      height: 900,
+    },
+    sections: [
+      {
+        kind: 'prose',
+        eyebrow: 'THE IDEA',
+        heading: 'A standing relationship, not a one-off lead',
+        paragraphs: [
+          'Rental hosts need a reliable cleaner in the window between checkout and the next check-in, and local cleaners want steady work without paying for leads. linx keeps it to one category and one region at launch: owners post turnovers, cleared cleaners bid, and the owner hires.',
+          'It is a separate codebase from BrightBase on purpose. Nothing imports from or depends on the cleaning company’s system.',
+        ],
+      },
+      {
+        kind: 'flow',
+        eyebrow: 'HOW IT WORKS',
+        heading: 'One turnover, start to finish',
+        steps: [
+          { title: 'Post', detail: 'The owner sets checkout and the next check-in for a property' },
+          { title: 'Bench', detail: 'Urgency is worked out on the server from the gap between guests' },
+          { title: 'Bid', detail: 'Vetted cleaners within their own service radius name a price' },
+          { title: 'Award', detail: 'The owner hires one cleaner; the address opens up to them only' },
+          { title: 'Pay', detail: 'The owner pays on Stripe’s page and the cleaner’s share transfers' },
+          { title: 'Review', detail: 'Both sides review; neither sees the other’s until both are in' },
+        ],
+      },
+      {
+        kind: 'decisions',
+        eyebrow: 'DECISIONS',
+        heading: 'Five choices and what each cost',
+        items: [
+          {
+            title: 'Address withheld until the award',
+            why: 'Open jobs show the area, not the street address or access notes. Those open to the hired cleaner and close again the moment the award ends.',
+            cost: 'Cleaners bid knowing the area and the job, not the exact house.',
+          },
+          {
+            title: 'Awards taken under a row lock',
+            why: 'The check and the write happen under one database lock, so two owners accepting at the same moment cannot both win.',
+            cost: 'Awards on the same job wait their turn, a fair trade at this volume.',
+          },
+          {
+            title: 'The bidding gate lives in Postgres',
+            why: 'Whether a cleaner can take jobs is computed by the database from the vetting and background-check statuses. No screen or API call can override it.',
+            cost: 'Changing the rule is a migration, not a settings toggle.',
+          },
+          {
+            title: 'One Stripe charge settles both sides',
+            why: 'A destination charge pays the cleaner’s Stripe Express account and takes the platform fee in the same transaction. Every Stripe call carries an idempotency key from a database id, and the attempt is written down before the call.',
+            cost: 'Every cleaner has to finish Stripe onboarding before their first payout.',
+          },
+          {
+            title: 'A closed list of notifications',
+            why: 'Fifteen events, each recorded in the same transaction as the change that caused it, with a unique key so a retry can never send twice.',
+            cost: 'Adding an event takes a migration and a failing test, which is the point.',
+          },
+        ],
+      },
+      {
+        kind: 'boxes',
+        eyebrow: 'STATUS',
+        heading: 'Where it stands',
+        facts: [
+          { value: '900+', label: 'automated tests' },
+          { value: '14', label: 'tables, built by migrations' },
+          { value: '15', label: 'notification events' },
+        ],
+        boxes: [
+          {
+            title: 'Built',
+            items: [
+              'Owner, cleaner and admin roles enforced on the server',
+              'Properties, turnovers, bidding and awards',
+              'Admin vetting queue with ID, reference and background check',
+              'Cancellations and no-shows that put the job back on the bench',
+              'Stripe Connect payments, admin-only refunds and mutual reviews',
+            ],
+          },
+          {
+            title: 'Before launch',
+            items: [
+              'A launch runbook of decisions only a person can make',
+              'Stripe Connect tax reporting switched on before the first live payout',
+              'Opening the first region to real owners and cleaners',
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'agent-command-center',
+    title: 'Agent Command Center',
+    lede: 'One console for a team of AI agents, grouped into crews for the business, for code and for school. Every agent hands back a draft, and a person approves anything that changes something.',
+    metaDescription:
+      'Case study: an AI agent command center with three crews, read-only connectors and an approval gate on every write. Built by Megan Small on Claude and the Claude Agent SDK.',
+    meta: [
+      { label: 'Role', value: 'Design and build, solo' },
+      { label: 'Versions', value: 'A browser version that runs inside Claude, and a local version on the Claude Agent SDK' },
+      { label: 'Stack', value: 'React, Vite, FastAPI, WebSockets, Claude Agent SDK' },
+      { label: 'Rule', value: 'Drafts first. Nothing sends, pays or deploys without a person’s tap' },
+    ],
+    image: {
+      src: '/img/acc-console.webp',
+      alt: 'The Agent Command Center: a roster of agents on the left and the Lead Intake agent open on the right',
+      caption: 'The browser version, shown with its built-in sample roster. The Lead Intake agent reads Gmail but cannot send.',
+      width: 1400,
+      height: 875,
+    },
+    sections: [
+      {
+        kind: 'prose',
+        eyebrow: 'THE IDEA',
+        heading: 'Different work needs different rules',
+        paragraphs: [
+          'Business tasks, code changes and coursework each need their own instructions and their own limits. A dispatch briefing can read the schedule but should never message a customer. A build agent can edit code, but not without someone looking first. A tutor should explain and quiz, not do the work.',
+          'So each agent belongs to a crew, and the crew decides the rules. Shared business context and the crew’s rules are added to every agent automatically, including agents created later in the editor.',
+        ],
+      },
+      {
+        kind: 'flow',
+        eyebrow: 'HOW A REQUEST MOVES',
+        heading: 'Reads run, writes wait',
+        steps: [
+          { title: 'Pick', detail: 'Choose an agent from the roster and brief it' },
+          { title: 'Context', detail: 'Its instructions, crew rules and any connectors are attached' },
+          { title: 'Read', detail: 'Reading and searching files or the web runs on its own' },
+          { title: 'Pause', detail: 'Writing a file or running a command waits for approval' },
+          { title: 'Decide', detail: 'Approve or deny each step from the console, even from a phone' },
+        ],
+      },
+      {
+        kind: 'decisions',
+        eyebrow: 'DECISIONS',
+        heading: 'Four choices and what each cost',
+        items: [
+          {
+            title: 'Rules belong to the crew',
+            why: 'Field, Build and School each carry one rule set that every agent in the crew inherits, so a new agent starts out safe without anyone remembering to add it.',
+            cost: 'Changing a crew rule changes every agent in that crew at once.',
+          },
+          {
+            title: 'An approval gate on every change',
+            why: 'In the local version, reading and searching tools are auto-approved. Writing files, editing them and running shell commands, git included, go through a gate that waits for a tap.',
+            cost: 'A build task with many edits means many taps.',
+          },
+          {
+            title: 'Connectors are read-only',
+            why: 'Agents can pull from Gmail, Calendar, Drive and other connected tools to work with real information, but they are told never to send, reply, pay or delete through them.',
+            cost: 'The last step, like actually sending the reply, is still done by hand.',
+          },
+          {
+            title: 'Runs on a machine I control',
+            why: 'The local version runs as a background service on one computer and is reached over a private network, never the open internet, because anyone who can reach it can drive the build agents.',
+            cost: 'It needs a computer left on, and setup is not one click.',
+          },
+        ],
+      },
+      {
+        kind: 'boxes',
+        eyebrow: 'THE CREWS',
+        heading: 'Three crews, fifteen agents to start',
+        boxes: [
+          {
+            title: 'Field crew',
+            items: [
+              'Dispatch briefings a cleaner can run from a phone',
+              'Lead intake: structured fields plus a reply draft',
+              'Quote follow-ups and invoice reminders',
+              'A one-screen weekly owner’s report',
+            ],
+          },
+          {
+            title: 'Build crew',
+            items: [
+              'Full-stack building and systematic debugging',
+              'Security and access-control review',
+              'Schema design and migrations safe for live data',
+              'OAuth and integration setup, with secrets never printed',
+            ],
+          },
+          {
+            title: 'School crew',
+            items: [
+              'Tutors that explain in plain English first, then the formal version',
+              'Printable study guides with practice questions',
+              'Active-recall quizzes that check each answer',
+            ],
+          },
+        ],
+        note: 'The roster is editable in the console: add an agent, pick its crew and connectors, and it inherits the draft-first rule.',
+      },
+    ],
+  },
   {
     slug: 'm-studio-tools',
     title: 'M Studio Tools',
