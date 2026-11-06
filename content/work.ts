@@ -246,13 +246,18 @@ export const builds: readonly Build[] = [
     pending: true,
   },
   {
-    // NOTE (open item): this description is generic. Replace with a one-line
-    // summary of what the dashboard actually shows. See README.md.
-    title: 'USM dashboard',
-    tag: 'SCHOOL · SELF-BUILT ↗',
-    description: 'A dashboard designed and built independently for University of Southern Maine coursework.',
-    href: pendingLinks.usmDashboard,
-    pending: true,
+    title: 'USM academic progress',
+    tag: 'POWER BI · PBIP ↗',
+    description:
+      'Degree progress, a Fall 2026 workload view over 73 deadlines, and a what-if parameter that recalculates terms remaining for any credit load.',
+    href: links.powerbiUsm,
+  },
+  {
+    title: 'Software stack: build vs buy',
+    tag: 'POWER BI · PBIP ↗',
+    description:
+      'The 31 tools bought, outgrown and replaced by my own build, traced against the dependency files of 10 code projects.',
+    href: links.powerbiStack,
   },
   {
     title: 'Instant quote',

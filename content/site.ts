@@ -40,6 +40,11 @@ export const links = {
   studioLabel: 'mlinx.studio',
   maineclean: 'https://www.maineclean.co',
   serviceAreas: 'https://www.maineclean.co/service-areas',
+  powerbi: 'https://github.com/msmall2691-eng/powerbi-portfolio',
+  powerbiUsm:
+    'https://github.com/msmall2691-eng/powerbi-portfolio/tree/main/USM-Academic-Progress',
+  powerbiStack:
+    'https://github.com/msmall2691-eng/powerbi-portfolio/tree/main/Software-Stack',
 } as const;
 
 /**
@@ -55,7 +60,6 @@ export const PENDING_LINKS_ARE_PUBLIC = false;
 
 export const pendingLinks = {
   opsDashboard: 'https://claude.ai/artifact/D9xNvR55RXAt4iyVFyCemd',
-  usmDashboard: 'https://claude.ai/artifact/DKN6drBM1nBToYRwz4tn8N',
   consolidationWriteup: 'https://claude.ai/artifact/FX5N6dpPVhpJpCiM54WBUL',
   studioCaseStudy: 'https://claude.ai/artifact/M34MazbUgsEFhvGG8sm1Ue',
   guideCaseStudy: 'https://claude.ai/artifact/JCNityX7CFu3BZEJyUKoX4',
@@ -94,7 +98,7 @@ export const hero = {
 } as const;
 
 export const workIndex = [
-  { n: '01', title: 'BrightBase', description: 'Affordable operations platform built in-house', year: '2026', href: '#work' },
+  { n: '01', title: 'BrightBase', description: 'Multi-tenant operations platform, built in-house', year: '2026', href: '#work' },
   { n: '02', title: 'maineclean.co', description: 'Booking site with instant estimates', year: 'Live', href: '#more' },
   { n: '03', title: 'Service-area graph', description: 'Interactive map of services and communities', year: 'Live', href: '#more' },
   { n: '04', title: 'M Studio', description: 'Sites and tools for small businesses', year: '2026', href: '#more' },

@@ -2,14 +2,13 @@
  * Toolkit: eight skill groups and the credentials grid.
  *
  * Tools render as one dot-separated line per group — deliberately not
- * chips or pills. The group's accent colour is used for the rail and the
- * numbered badge.
+ * chips or pills.
  */
 import { YEARS_IN_BUSINESS_WORD } from './site';
 
 export const toolkit = {
   heading: 'Toolkit',
-  intro: 'From the office floor to production code — the skills behind the work above.',
+  intro: 'From the data model to the screen people actually use — the skills behind the work above.',
 } as const;
 
 export type SkillGroup = {
@@ -20,12 +19,65 @@ export type SkillGroup = {
   tools: readonly string[];
 };
 
-export const skillGroups: readonly SkillGroup[] = [
+/**
+ * Rail colours in display order. They are positional decoration, not
+ * identity, so reordering the groups below keeps this sequence intact.
+ */
+const RAIL_COLORS = [
+  '#b5abfc',
+  '#5fc4d6',
+  '#8fd3a8',
+  '#f2c47a',
+  '#f29e8e',
+  '#9db8f5',
+  '#d7a6f0',
+  '#cfd3e5',
+] as const;
+
+/**
+ * Ordered to lead with building and modelling, then the design work, then
+ * the analysis and operations grounding underneath it.
+ *
+ * Numbers and rail colours are derived from position below, so changing
+ * this order is the only edit a reorder needs.
+ */
+const GROUPS: readonly Omit<SkillGroup, 'n' | 'color'>[] = [
   {
-    n: '01',
+    name: 'Back end & data',
+    sub: 'Models, APIs and numbers',
+    tools: [
+      'Python', 'FastAPI', 'SQLAlchemy', 'Alembic migrations', 'SQL', 'PostgreSQL', 'SQLite',
+      'Data modeling', 'Row-level security', 'pandas', 'KPI & revenue reporting',
+      'Power BI', 'DAX', 'Star schemas',
+    ],
+  },
+  {
+    name: 'Front end',
+    sub: 'Interfaces that ship',
+    tools: [
+      'React', 'TypeScript', 'JavaScript', 'Next.js', 'Vite', 'Tailwind CSS', 'HTML & CSS',
+      'Responsive layout', 'Offline support',
+    ],
+  },
+  {
+    name: 'Workflow & UX',
+    sub: 'Screens people actually use',
+    tools: [
+      'Mobile-first field apps', 'Client portals', 'Booking & intake flows', 'Information architecture',
+      'Wireframing', 'Design systems', 'Accessibility', 'Usability testing',
+    ],
+  },
+  {
+    name: 'Integrations',
+    sub: 'Making systems talk',
+    tools: [
+      'REST APIs', 'GraphQL', 'Webhooks', 'OAuth 2.0', 'Stripe & Stripe Connect', 'Twilio SMS & voice',
+      'Google Calendar & Gmail APIs', 'iCal / Airbnb / VRBO', 'Facebook Lead Ads',
+    ],
+  },
+  {
     name: 'Business analysis',
     sub: 'Find it, map it, write it down',
-    color: '#b5abfc',
     tools: [
       'Requirements gathering', 'Stakeholder interviews', 'Process mapping', 'Current & future state',
       'User stories', 'Acceptance criteria', 'Gap analysis', 'System evaluation', 'UAT',
@@ -33,50 +85,16 @@ export const skillGroups: readonly SkillGroup[] = [
     ],
   },
   {
-    n: '02',
-    name: 'Workflow & UX',
-    sub: 'Screens people actually use',
-    color: '#5fc4d6',
+    name: 'Delivery',
+    sub: 'Safe, repeatable releases',
     tools: [
-      'Mobile-first field apps', 'Client portals', 'Booking & intake flows', 'Information architecture',
-      'Wireframing', 'Design systems', 'Accessibility', 'Usability testing',
+      'pytest', 'Vitest', 'Automated testing & CI', 'GitHub Actions', 'Git & GitHub', 'Docker',
+      'Railway', 'Vercel', 'Supabase', 'Role-based access',
     ],
   },
   {
-    n: '03',
-    name: 'Front end',
-    sub: 'Interfaces that ship',
-    color: '#8fd3a8',
-    tools: [
-      'React', 'TypeScript', 'JavaScript', 'Next.js', 'Vite', 'Tailwind CSS', 'HTML & CSS',
-      'Responsive layout', 'Offline support',
-    ],
-  },
-  {
-    n: '04',
-    name: 'Back end & data',
-    sub: 'Models, APIs and numbers',
-    color: '#f2c47a',
-    tools: [
-      'Python', 'FastAPI', 'SQLAlchemy', 'Alembic migrations', 'SQL', 'PostgreSQL', 'SQLite',
-      'Data modeling', 'pandas', 'KPI & revenue reporting', 'Power BI',
-    ],
-  },
-  {
-    n: '05',
-    name: 'Integrations',
-    sub: 'Making systems talk',
-    color: '#f29e8e',
-    tools: [
-      'REST APIs', 'GraphQL', 'Webhooks', 'OAuth 2.0', 'Stripe & Stripe Connect', 'Twilio SMS & voice',
-      'Google Calendar & Gmail APIs', 'iCal / Airbnb / VRBO', 'Facebook Lead Ads',
-    ],
-  },
-  {
-    n: '06',
     name: 'Platforms',
     sub: 'Used, tested, configured and migrated',
-    color: '#9db8f5',
     tools: [
       'Jobber', 'Housecall Pro', 'Connecteam', 'Maidily', 'Turno', 'Breezeway', 'BookingKoala',
       'HubSpot', 'HighLevel', 'Attio', 'Twenty CRM', 'Airtable', 'Zapier', 'AppSheet', 'Google Apps Script',
@@ -85,26 +103,20 @@ export const skillGroups: readonly SkillGroup[] = [
     ],
   },
   {
-    n: '07',
-    name: 'Delivery',
-    sub: 'Safe, repeatable releases',
-    color: '#d7a6f0',
-    tools: [
-      'pytest', 'Automated testing & CI', 'GitHub Actions', 'Git & GitHub', 'Docker', 'Railway',
-      'Vercel', 'Supabase', 'Row-level security', 'Role-based access',
-    ],
-  },
-  {
-    n: '08',
     name: 'Operations',
     sub: `${YEARS_IN_BUSINESS_WORD} years running the business`,
-    color: '#cfd3e5',
     tools: [
       'Hiring & training', 'SOPs & checklists', 'Scheduling & dispatch', 'Pricing & quoting',
       'Invoicing & collections', 'Payroll & 1099s', 'Vendor management', 'Customer service',
     ],
   },
 ];
+
+export const skillGroups: readonly SkillGroup[] = GROUPS.map((group, i) => ({
+  ...group,
+  n: String(i + 1).padStart(2, '0'),
+  color: RAIL_COLORS[i % RAIL_COLORS.length]!,
+}));
 
 export const credentials = [
   {

@@ -106,22 +106,24 @@ These are defined once and derived everywhere, so the copies cannot drift:
 
 ## Before launch
 
-Open items carried over from the design handoff. Item 3 is now closed. Each one is marked with a
+Open items carried over from the design handoff. Items 3, 4 and 5 are closed. Each one is marked with a
 `NOTE (open item)` comment at the exact line in `content/`.
 
 ### 1. Links that still point at private claude.ai artifacts
 
-Five links are not reachable by a signed-out visitor — a recruiter clicking one
+Three links are not reachable by a signed-out visitor — a recruiter clicking one
 would hit a sign-in wall. **The site currently renders them as plain text rather
 than as dead links.**
 
 They are listed in `pendingLinks` in `content/site.ts`:
 
 - Operations analytics dashboard
-- USM dashboard
 - Tool-consolidation write-up
 - M Studio case study
 - M Linx Guide case study
+
+(The USM dashboard was one of these. It now points at the public
+`powerbi-portfolio` repo instead.)
 
 Once every one of those is public (or replaced with a self-hosted page), flip one
 line in `content/site.ts`:
@@ -151,16 +153,23 @@ suites run in CI on every pull request.
 The copy says "4,100+" so it stays true as the suite grows. Re-count and update
 `requirement.note` in `content/work.ts` if you ever want the exact number.
 
-### 4. USM dashboard description
+### 4. USM dashboard description — ✅ done
 
-Currently generic ("A dashboard designed and built independently for University
-of Southern Maine coursework"). Replace with a one-line summary of what it
-actually shows — see `builds` in `content/work.ts`.
+Replaced from the real model in `msmall2691-eng/powerbi-portfolio`: degree
+progress, a Fall 2026 workload view over 73 deadlines, and a what-if parameter
+for terms remaining at any credit load. Links to that public repo.
 
-### 5. Power BI report PDF
+### 5. Power BI — ✅ done, and better than planned
 
-Not included in the handoff. When ready, drop it in `public/` and add a link in
-the Data section.
+The handoff expected a PDF. `msmall2691-eng/powerbi-portfolio` is public and
+holds four **.pbip** projects instead — TMDL semantic models and PBIR reports,
+so every table, measure and visual is readable and diffable in Git. That beats
+a flat export, so the Data section links to the repo rather than hosting a PDF.
+
+Two things on the page come from that repo and need re-checking if it changes:
+the "68 DAX measures across 4 models" KPI, and the DAX sample, which must stay
+copied verbatim from a measure that is actually published. An earlier draft
+showed a "Rebook Rate" measure that does not exist in the model.
 
 ---
 

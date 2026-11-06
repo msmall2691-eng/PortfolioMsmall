@@ -11,14 +11,14 @@ export const dataSection = {
   intro:
     'Turning operational data into decisions: 3.5 years of Jobber exports and bank records, cleaned and anonymized, modeled in Power BI with DAX and tracked in a Python dashboard for crew coverage, service mix, retention and software spend. The software audit, what we paid for and what each app could not do, became the requirements for BrightBase.',
   privacyNote:
-    'Client IDs are hashed and no names or addresses are stored. 2026 is left out of yearly trends because billing moved to BrightBase partway through the year.',
+    'Client IDs are hashed and no names or addresses are stored. In the published models, dollar amounts carry one constant privacy factor — growth, shares, rankings and retention are exact; totals are not the real figures. 2026 is left out of yearly trends because billing moved to BrightBase partway through the year.',
 } as const;
 
 export const kpis = [
   { value: '95.9%', label: 'Visits with a cleaner assigned (2025)' },
   { value: '62.9%', label: 'Clients who rebooked' },
   { value: '40', label: 'Towns served' },
-  { value: '13', label: 'DAX measures in the model' },
+  { value: '68', label: 'DAX measures across 4 models' },
 ] as const;
 
 export type ChartId = 'crew' | 'mix' | 'tools';
@@ -105,17 +105,30 @@ export function barWidth(chart: Chart, row: ChartRow): string {
   return `${pct}%`;
 }
 
+/**
+ * A real measure, copied from the published model so anyone can check it:
+ * github.com/msmall2691-eng/powerbi-portfolio @ 9b348ae
+ *   Maine-Cleaning-Co-Operations/…/SemanticModel/definition/tables/
+ *
+ * Reformatted across lines for reading — TMDL stores each measure on one
+ * line. The logic is unchanged.
+ *
+ * Earlier drafts of this page showed a "Rebook Rate" measure that does not
+ * exist under that name in the model. Keep whatever is shown here copied
+ * verbatim from a measure that is actually published.
+ */
 export const daxMeasure = {
-  title: 'Rebook Rate measure',
-  code: `Rebook Rate =
+  title: 'Top 10 Client Share measure',
+  code: `Top 10 Client Share =
 DIVIDE (
-  COUNTROWS (
-    FILTER (
-      VALUES ( Invoices[client_key] ),
-      CALCULATE ( COUNTROWS ( Invoices ),
-        Invoices[paid] > 0 ) >= 2
-    )
-  ),
-  [Paying Clients]
+    SUMX (
+        TOPN (
+            10,
+            VALUES ( Invoices[Client Key] ),
+            [Revenue]
+        ),
+        [Revenue]
+    ),
+    [Revenue]
 )`,
 } as const;
