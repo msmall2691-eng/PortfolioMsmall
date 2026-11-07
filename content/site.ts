@@ -79,12 +79,12 @@ export const hero = {
 } as const;
 
 export const workIndex = [
-  { n: '01', title: 'BrightBase', description: 'Affordable multi-tenant platform, built in-house', year: '2026', href: '#work' },
-  { n: '02', title: 'linx', description: 'Marketplace for rental turnover cleanings', year: '2026', href: '/work/linx/' },
-  { n: '03', title: 'Agent Command Center', description: 'AI agents that draft while a person approves', year: '2026', href: '/work/agent-command-center/' },
-  { n: '04', title: 'maineclean.co', description: 'Booking site with instant estimates', year: 'Live', href: '#more' },
-  { n: '05', title: 'Free tools', description: 'Eight no-signup tools for service businesses', year: 'Live', href: '#tools' },
-  { n: '06', title: 'M Linx Guide', description: 'Digital guest guides for rental hosts', year: '2026', href: '/work/m-linx-guide/' },
+  { n: '01', title: 'BrightBase', description: 'The software my cleaning company runs on', year: 'In use', href: '/work/brightbase/' },
+  { n: '02', title: 'linx', description: 'An app for hiring vetted cleaners', year: '2026', href: '/work/linx/' },
+  { n: '03', title: 'Agent Command Center', description: 'AI assistants that wait for my approval', year: '2026', href: '/work/agent-command-center/' },
+  { n: '04', title: 'maineclean.co', description: 'Booking website with instant prices', year: 'Live', href: '/work/maineclean/' },
+  { n: '05', title: 'M Studio Tools', description: 'Eight free tools for small businesses', year: 'Live', href: '/work/m-studio-tools/' },
+  { n: '06', title: 'M Linx Guide', description: 'Phone guidebooks for rental guests', year: 'Live', href: '/work/m-linx-guide/' },
 ] as const;
 
 export const about = {

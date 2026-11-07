@@ -1,13 +1,8 @@
-import { Container, Eyebrow, BlockLabel, SmartLink, isReachable } from './ui';
+import { Container, Eyebrow, SmartLink, isReachable } from './ui';
 import { BrightBaseMock } from './BrightBaseMock';
-import { CaseExpand } from './CaseExpand';
-import { CaseDetail } from './CaseDetail';
+import Link from 'next/link';
 import {
   caseStudy,
-  beforeAfter,
-  glanceStats,
-  reviews,
-  steps,
   selectedWork,
   phoneShots,
   builds,
@@ -23,92 +18,31 @@ export function Work() {
         <article className="flex flex-col overflow-hidden rounded-panel border border-rule-inner bg-card">
           <BrightBaseMock />
 
-          <div className="flex flex-col gap-8 p-[clamp(24px,4vw,44px)]">
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] gap-8">
-              <div className="flex flex-col gap-3.5">
-                <h2
-                  id="work-h"
-                  className="text-[clamp(28px,3.4vw,40px)] leading-[1.1] font-semibold tracking-[-0.025em] text-balance"
-                >
-                  {caseStudy.heading}
-                </h2>
-                <p className="text-[17px] leading-[1.6] text-neutral-300 text-pretty">
-                  {caseStudy.summary}
-                </p>
-                <p className="text-[13.5px] leading-[1.55] text-neutral-400">
-                  {caseStudy.credit}
-                </p>
-                <p className="font-mono-ui text-[12px] text-neutral-500">{caseStudy.stack}</p>
-              </div>
-
-              <div className="flex flex-col gap-2.5">
-                <BlockLabel>Before → after</BlockLabel>
-                {beforeAfter.map((row) => (
-                  <div
-                    key={row.before}
-                    className="grid grid-cols-[minmax(0,1fr)_20px_minmax(0,1fr)] items-center gap-2.5 rounded-xl bg-surface px-3.5 py-3 text-[14px] leading-[1.45]"
-                  >
-                    <span className="text-neutral-400">{row.before}</span>
-                    <span aria-hidden="true" className="text-center text-cyan">
-                      →
-                    </span>
-                    <span className="font-medium text-ink">{row.after}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <CaseExpand>
-              <div className="flex flex-col gap-8">
-            <div className="flex flex-col gap-3 rounded-[14px] bg-surface px-[22px] py-5">
-              <BlockLabel>{glanceStats.label}</BlockLabel>
-              <dl className="m-0 grid grid-cols-[repeat(auto-fit,minmax(min(100%,150px),1fr))] gap-5">
-                {glanceStats.items.map((stat) => (
-                  <div key={stat.label} className="flex flex-col gap-1">
-                    <dt className="order-2 text-[13px] text-neutral-400">{stat.label}</dt>
-                    <dd className="m-0 text-[26px] font-semibold tracking-[-0.02em]">
-                      {stat.value}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-
+          <div className="grid gap-8 p-[clamp(24px,4vw,44px)] md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] md:items-end">
             <div className="flex flex-col gap-3.5">
-              <BlockLabel>{reviews.label}</BlockLabel>
-              {reviews.items.map((review) => (
-                <figure
-                  key={review.who}
-                  className="m-0 flex flex-col gap-2 border-t border-rule-inner pt-4"
-                >
-                  <blockquote className="m-0 text-[15px] leading-[1.55] text-neutral-200 text-pretty">
-                    &ldquo;{review.quote}&rdquo;
-                  </blockquote>
-                  <figcaption className="text-[12.5px] text-neutral-400">
-                    {review.who} · <span className="text-cyan">{review.when}</span>
-                  </figcaption>
-                </figure>
-              ))}
+              <h2
+                id="work-h"
+                className="text-[clamp(28px,3.4vw,40px)] leading-[1.1] font-semibold tracking-[-0.025em] text-balance"
+              >
+                {caseStudy.heading}
+              </h2>
+              <p className="text-[17px] leading-[1.6] text-neutral-300 text-pretty">{caseStudy.summary}</p>
+              <Link
+                href={caseStudy.href}
+                className="mt-1 self-start rounded-[10px] bg-ink px-4 py-[10px] text-[14.5px] font-semibold text-ink-invert hover:bg-white hover:text-ink-invert"
+              >
+                Read the BrightBase case study →
+              </Link>
             </div>
 
-            <ol className="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(min(100%,220px),1fr))] gap-3 p-0">
-              {steps.map((step) => (
-                <li
-                  key={step.n}
-                  className="flex flex-col gap-1.5 rounded-[14px] border border-rule-inner p-[18px]"
-                >
-                  <span className="font-mono-ui text-[12px] text-accent-400">{step.n}</span>
-                  <span className="text-[16px] font-semibold">{step.title}</span>
-                  <span className="text-[14px] leading-[1.5] text-neutral-400">
-                    {step.description}
-                  </span>
-                </li>
+            <dl className="m-0 grid grid-cols-3 gap-4 border-t border-rule-inner pt-5 md:border-t-0 md:pt-0">
+              {caseStudy.facts.map((f) => (
+                <div key={f.label} className="flex flex-col gap-1">
+                  <dt className="order-2 text-[13px] leading-[1.4] text-neutral-400">{f.label}</dt>
+                  <dd className="m-0 text-[24px] font-semibold tracking-[-0.02em]">{f.value}</dd>
+                </div>
               ))}
-            </ol>
-
-                <CaseDetail />
-              </div>
-            </CaseExpand>
+            </dl>
           </div>
         </article>
 
@@ -132,21 +66,22 @@ function SelectedWork() {
         </span>
       </div>
 
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,460px),1fr))] gap-5">
-        {selectedWork.map((project) => {
+      <div className="grid gap-5 md:grid-cols-2">
+        {selectedWork.map((project, i) => {
           const live = isReachable(project.href);
+          const spanLast = i === selectedWork.length - 1 && selectedWork.length % 2 === 1;
           return (
             <SmartLink
               key={project.title}
               href={project.href}
-              className={`flex flex-col overflow-hidden rounded-panel border border-rule-inner bg-card text-ink transition-[transform,box-shadow] duration-300 ${
+              className={`flex flex-col overflow-hidden rounded-panel border border-rule-inner bg-card text-ink transition-[transform,box-shadow] duration-300 ${spanLast ? 'md:col-span-2 md:flex-row' : ''} ${
                 live ? 'hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(0,0,0,0.4)]' : ''
               }`}
             >
               <div
                 role="img"
                 aria-label={project.alt}
-                className="relative aspect-4/3 overflow-hidden border-b border-rule-inner"
+                className={`relative aspect-4/3 overflow-hidden border-b border-rule-inner ${spanLast ? 'md:w-1/2 md:shrink-0 md:border-r md:border-b-0' : ''}`}
                 style={{ background: project.stage }}
               >
                 {project.frame === 'browser' && project.img ? (
@@ -207,7 +142,7 @@ function SelectedWork() {
                 ) : null}
               </div>
 
-              <div className="flex flex-col gap-2 px-6 pt-[22px] pb-6">
+              <div className={`flex flex-col gap-2 px-6 pt-[22px] pb-6 ${spanLast ? 'md:justify-center md:px-10' : ''}`}>
                 <span className="font-mono-ui text-[11px] tracking-[0.1em] text-cyan">
                   {project.tag}
                 </span>
@@ -219,7 +154,7 @@ function SelectedWork() {
                 </span>
                 {live ? (
                   <span className="mt-1.5 self-start border-b-2 border-accent pb-0.5 text-[14px] font-semibold text-accent-soft">
-                    View project ↗
+                    Case study →
                   </span>
                 ) : null}
               </div>

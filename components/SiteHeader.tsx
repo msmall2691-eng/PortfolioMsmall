@@ -4,7 +4,7 @@ import { nav, iconLinks, profile } from '@/content/site';
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-20 border-b border-rule-section bg-[rgba(33,37,57,0.85)] backdrop-blur-[10px]">
-      <Container className="flex flex-wrap items-center gap-x-6 gap-y-3 py-3.5">
+      <Container className="flex flex-wrap items-center gap-x-6 gap-y-2.5 py-3 sm:gap-y-3 sm:py-3.5">
         <a
           href="#top"
           className="flex items-center gap-2.5 text-[16px] font-semibold text-ink"
@@ -31,7 +31,7 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="ml-auto flex gap-1.5 sm:ml-0">
+        <div className="hidden gap-1.5 sm:ml-0 sm:flex">
           {iconLinks.map((link) => (
             <a
               key={link.label}
@@ -50,9 +50,10 @@ export function SiteHeader() {
         <a
           href={profile.resumePath}
           download={profile.resumeFilename}
-          className="rounded-[10px] bg-ink px-4 py-[9px] text-[14px] font-semibold text-ink-invert hover:bg-white hover:text-ink-invert"
+          className="ml-auto rounded-[10px] bg-ink px-3.5 py-2 text-[14px] font-semibold text-ink-invert hover:bg-white hover:text-ink-invert sm:ml-0 sm:px-4 sm:py-[9px]"
         >
-          Download résumé ↓
+          <span className="sm:hidden">Résumé ↓</span>
+          <span className="hidden sm:inline">Download résumé ↓</span>
         </a>
       </Container>
     </header>

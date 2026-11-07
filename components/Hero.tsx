@@ -49,7 +49,7 @@ export function Hero() {
           className="flex min-w-0 flex-[1_1_420px] flex-col"
         >
           <p className="pb-3 font-mono-ui text-[11.5px] tracking-[0.12em] text-neutral-500">
-            INDEX
+            PROJECTS
           </p>
           {workIndex.map((item) => (
             <a

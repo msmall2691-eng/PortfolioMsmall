@@ -8,127 +8,18 @@
 import { links } from './site';
 
 export const caseStudy = {
-  eyebrow: 'FEATURED CASE STUDY',
-  heading: 'From service apps that didn’t fit to one operations system',
+  eyebrow: 'FEATURED PROJECT',
+  heading: 'BrightBase: the software my cleaning company runs on',
   summary:
-    'None of the service apps I tried fit how The Maine Cleaning Company worked, so I designed and built BrightBase: one affordable system for scheduling, rental turnovers, client texts, leads and payouts.',
-  credit:
-    'Requirements, data model, testing and rollout were mine; built with Claude Code and reviewed line by line.',
-  stack: 'Python · FastAPI · React · PostgreSQL · Stripe · Twilio · Google APIs',
+    'Scheduling, a crew phone app, rental turnovers, billing and payouts in one place. None of the apps I tried fit, so I designed and built it, then moved the whole company onto it.',
+  href: '/work/brightbase/',
   mockAlt:
     "BrightBase office dashboard beside the cleaner's phone app showing today's job at a property",
-} as const;
-
-export const beforeAfter = [
-  { before: 'Overlapping apps for jobs, CRM, phone and booking', after: 'One system; Jobber is the last being retired' },
-  { before: 'Subcontractor pay typed into the bank by hand', after: 'Every payout tracked to paid, with 1099 totals' },
-  { before: '74% of visits with a cleaner recorded (2023)', after: '96% (2025)' },
-  { before: 'Website requests created duplicate clients', after: 'One intake path with duplicate checks' },
-] as const;
-
-export const glanceStats = {
-  label: 'The Maine Cleaning Co. at a glance',
-  items: [
-    { value: '$1.08M', label: 'collected since 2023' },
-    { value: '4,916', label: 'visits since 2023' },
+  facts: [
+    { value: 'Daily', label: 'used by the office and crews' },
+    { value: '96%', label: 'visits with a cleaner assigned' },
+    { value: '4,100+', label: 'automated tests' },
   ],
-} as const;
-
-/** Google reviews. First name + last initial only — never full names. */
-export const reviews = {
-  label: 'What BrightBase was built to protect',
-  items: [
-    {
-      quote: 'The level of communication is phenomenal and the knowledge of the cleaners is incredible!',
-      who: 'Erin P., Google review',
-      when: 'Sep 2022',
-    },
-    {
-      quote: 'I have had to cancel and reschedule a few times and they have always been kind and accommodating.',
-      who: 'Eva B., Google review',
-      when: 'Sep 2024',
-    },
-    {
-      quote:
-        'We have used Megan and her team for all our Air BnB turnovers and have been lucky to have such a professional overseeing the cleaning services.',
-      who: 'Jessica M., Google review',
-      when: 'Sep 2021',
-    },
-  ],
-} as const;
-
-export const steps = [
-  { n: '01', title: 'Mapped the process', description: 'Request to paid, with the office and crews: 4 systems, 3 manual handoffs.' },
-  { n: '02', title: 'Found the breaks', description: 'Bank records, visit exports and payroll screens showed where data got retyped or lost.' },
-  { n: '03', title: 'Wrote the requirements', description: 'Business rules, user stories and acceptance criteria, each tied to a test.' },
-  { n: '04', title: 'Built and rolled out', description: 'Phased releases alongside the old tools until the numbers matched.' },
-] as const;
-
-/* --- Expandable case detail ------------------------------------------- */
-
-export const pains = [
-  { title: 'Overlapping tools', description: 'Two field-service apps, three CRMs and two automation tools billed in the same year.' },
-  { title: 'Payroll by hand', description: 'The time clock didn’t connect to payroll, so hours were re-keyed every period.' },
-  { title: 'No payout ledger', description: 'Subcontractor pay was typed into the bank by hand — no ledger, no running 1099 total.' },
-  { title: 'Unassigned visits', description: 'In 2023, 26% of completed visits had no cleaner recorded.' },
-  { title: 'Duplicate records', description: 'Automatic client creation from the website produced duplicate clients and properties.' },
-  { title: 'Silent failure', description: 'A misrouted phone webhook dropped inbound calls for months before anyone noticed.' },
-] as const;
-
-export const caseShots = [
-  {
-    src: '/img/bb-schedule.webp',
-    alt: 'BrightBase office schedule, client names removed',
-    caption: 'Office schedule, color-coded by service type',
-  },
-  {
-    src: '/img/bb-marketplace.webp',
-    alt: 'BrightBase crew marketplace',
-    caption: 'Crew view: open jobs and what each subcontractor is owed',
-  },
-] as const;
-
-export const requirement = {
-  heading: 'Sample requirement: the subcontractor payout ledger',
-  intro:
-    'In September 2026 we moved from employees to subcontractors. Hourly payroll was the wrong shape — a subcontractor is paid per job. The ledger records what’s owed for completed work, tracks it to paid, and keeps year-to-date totals for 1099s.',
-  rules: [
-    { id: 'Rule', text: 'Paid per job at the agreed rate — never by the hour. Only completed work creates an amount owed.' },
-    { id: 'FR-3', text: 'Payouts move only forward: due → sent → paid, or void. Paid and void are final.' },
-    { id: 'FR-6', text: 'Year-to-date totals per subcontractor, by the year the work was done, flagged at the 1099 threshold.' },
-    { id: 'NFR-1', text: 'Generating twice for the same period creates no duplicates — enforced by the database.' },
-  ],
-  /**
-   * Test counts verified against msmall2691-eng/Bright-Space @ 5789aa6
-   * (2 Nov 2026) by counting declared test functions:
-   *   backend  2,656 pytest functions across 365 files
-   *   frontend 1,522 vitest/jest cases across 200 files
-   *   total    4,178 — and test_sub_payouts.py has exactly 19, which is
-   *                   where the ledger figure below comes from.
-   * Both suites run in CI (.github/workflows/ci.yml) on every pull request.
-   * The copy says "4,100+" so it stays true as the suite grows. Parametrized
-   * cases execute more than once, so this is a floor, not a ceiling.
-   */
-  note: 'Every acceptance criterion maps to a named automated test — 19 for the payout ledger alone, out of 4,100+ across the project, all run in CI on every pull request.',
-} as const;
-
-export const rollout = {
-  heading: 'How it rolled out',
-  intro:
-    'No big bang. Each change was its own pull request, gated by automated tests, and the crew app shipped in five phases while Connecteam kept running until the two agreed for a full pay period.',
-  phases: [
-    { n: '1', title: 'Today, Schedule & checklists' },
-    { n: '2', title: 'Accept or decline jobs' },
-    { n: '3', title: 'Open-jobs board' },
-    { n: '4', title: 'Weekly availability' },
-    { n: '5', title: 'Training docs' },
-  ],
-} as const;
-
-export const whatsNext = {
-  heading: "What's next",
-  body:
-    'Retire Jobber after one full billing cycle in BrightBase, and add an alert on every outside integration — a misrouted phone webhook once failed silently for months, and that shouldn’t happen again.',
 } as const;
 
 /* --- Selected work grid ------------------------------------------------ */
@@ -150,10 +41,10 @@ export type SelectedWork = {
 
 export const selectedWork: readonly SelectedWork[] = [
   {
-    tag: 'MARKETPLACE · STRIPE CONNECT',
-    title: 'linx: a marketplace for rental turnovers',
+    tag: 'WEB APP · MARKETPLACE',
+    title: 'linx',
     description:
-      'Owners post the clean between guests; vetted cleaners bid. Stripe payouts, 900+ tests.',
+      'An app where rental owners post cleanings and vetted cleaners bid on them.',
     frame: 'image',
     img: '/img/linx-flow.webp',
     alt: 'Diagram of a turnover moving through linx',
@@ -162,10 +53,10 @@ export const selectedWork: readonly SelectedWork[] = [
     href: '/work/linx/',
   },
   {
-    tag: 'AI AGENTS · CLAUDE AGENT SDK',
+    tag: 'AI · INTERNAL TOOL',
     title: 'Agent Command Center',
     description:
-      'AI agents for the business, code and school. Every change waits for my approval.',
+      'AI assistants for my business, code and school that draft work for me to approve.',
     frame: 'browser',
     img: '/img/acc-console.webp',
     url: 'command center',
@@ -175,36 +66,23 @@ export const selectedWork: readonly SelectedWork[] = [
     href: '/work/agent-command-center/',
   },
   {
-    tag: 'LIVE · MAINECLEAN.CO',
-    title: 'Booking site with instant estimates',
+    tag: 'WEBSITE · LIVE',
+    title: 'maineclean.co',
     description:
-      'Customers get a price and book. Requests land in BrightBase.',
+      'The cleaning company’s website, where customers get an instant price and book.',
     frame: 'browser',
     img: '/img/tmcc-estimate.webp',
     url: 'maineclean.co',
     alt: 'Instant estimate form on maineclean.co',
     objectPosition: 'right top',
     stage: 'radial-gradient(120% 90% at 0% 0%, #3a5a8a 0%, #24304f 60%, #1e2540 100%)',
-    href: links.maineclean,
+    href: '/work/maineclean/',
   },
   {
-    tag: 'LIVE · SERVICE AREAS',
-    title: 'Interactive service-area graph',
+    tag: 'WEB TOOLS · LIVE',
+    title: 'M Studio Tools',
     description:
-      'Services and towns from one shared data source.',
-    frame: 'browser',
-    img: '/img/service-graph.webp',
-    url: 'maineclean.co/service-areas',
-    alt: 'Service-area relationship graph',
-    objectPosition: 'center',
-    stage: 'radial-gradient(120% 90% at 0% 0%, #2f6b6a 0%, #1f3a45 60%, #1c2538 100%)',
-    href: links.serviceAreas,
-  },
-  {
-    tag: 'M STUDIO · CLIENT WORK',
-    title: 'Sites and tools for small businesses',
-    description:
-      'My studio site, with eight free tools for small businesses.',
+      'Eight free tools for small businesses on my studio site, no signup.',
     frame: 'browser',
     img: '/img/mstudio-hero.webp',
     url: 'mlinx.studio',
@@ -214,10 +92,10 @@ export const selectedWork: readonly SelectedWork[] = [
     href: '/work/m-studio-tools/',
   },
   {
-    tag: 'M LINX GUIDE · PRODUCT',
-    title: 'Digital guest guides for rental hosts',
+    tag: 'PRODUCT · LIVE',
+    title: 'M Linx Guide',
     description:
-      'Phone-friendly guides for rental guests, with door codes kept private.',
+      'Phone guidebooks for rental guests, with door codes shown only to the right guest.',
     frame: 'phones',
     alt: 'Three guest-guide layouts on phones',
     stage: 'radial-gradient(120% 90% at 100% 0%, #8a6a4a 0%, #3b3245 55%, #22243a 100%)',

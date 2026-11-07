@@ -53,6 +53,21 @@ function SectionBody({ section }: { section: CaseSection }) {
           {section.note ? <p className="max-w-[680px] text-[14px] text-neutral-400">{section.note}</p> : null}
         </div>
       );
+    case 'beforeAfter':
+      return (
+        <div className="flex max-w-[820px] flex-col gap-2.5">
+          {section.rows.map((row) => (
+            <div
+              key={row.before}
+              className="grid grid-cols-[minmax(0,1fr)_20px_minmax(0,1fr)] items-center gap-3 rounded-[12px] border border-rule-inner bg-card px-4 py-3.5 text-[15px] leading-[1.45]"
+            >
+              <span className="text-neutral-400">{row.before}</span>
+              <span aria-hidden="true" className="text-center text-cyan">→</span>
+              <span className="font-medium text-ink">{row.after}</span>
+            </div>
+          ))}
+        </div>
+      );
     case 'decisions':
       return (
         <div className="flex flex-col gap-3">
@@ -115,21 +130,22 @@ export default async function CaseStudyPage({ params }: Props) {
   return (
     <div className="page-glow min-h-screen">
       <header className="sticky top-0 z-20 border-b border-rule-section bg-[rgba(33,37,57,0.85)] backdrop-blur-[10px]">
-        <Container className="flex flex-wrap items-center gap-x-6 gap-y-3 py-3.5">
+        <Container className="flex flex-wrap items-center gap-x-4 gap-y-3 py-3 sm:gap-x-6 sm:py-3.5">
           <Link href="/" className="flex items-center gap-2.5 text-[16px] font-semibold text-ink">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/img/meg-headshot.webp" alt="" width={32} height={32} className="size-8 rounded-full object-cover object-[center_30%]" />
             {profile.name}
           </Link>
-          <Link href="/#more" className="ml-auto text-[14px] text-neutral-300 hover:text-white">
+          <Link href="/#more" className="ml-auto hidden text-[14px] text-neutral-300 hover:text-white sm:inline">
             ← All work
           </Link>
           <a
             href={profile.resumePath}
             download={profile.resumeFilename}
-            className="rounded-[10px] bg-ink px-4 py-[9px] text-[14px] font-semibold text-ink-invert hover:bg-white hover:text-ink-invert"
+            className="ml-auto rounded-[10px] bg-ink px-3.5 py-2 sm:ml-0 sm:px-4 sm:py-[9px] text-[14px] font-semibold text-ink-invert hover:bg-white hover:text-ink-invert"
           >
-            Download résumé ↓
+            <span className="sm:hidden">Résumé ↓</span>
+            <span className="hidden sm:inline">Download résumé ↓</span>
           </a>
         </Container>
       </header>
@@ -197,13 +213,11 @@ export default async function CaseStudyPage({ params }: Props) {
               <Eyebrow tone="faint">MORE WORK</Eyebrow>
               {others.map((o) => (
                 <Link key={o.slug} href={`/work/${o.slug}/`} className="text-[18px] font-semibold text-ink hover:text-accent-soft">
-                  {o.title} case study →
+                  {o.title} →
                 </Link>
               ))}
             </div>
-            <Link href="/#work" className="text-[15px] font-semibold text-accent-soft hover:text-white">
-              Read the BrightBase case study →
-            </Link>
+
           </Container>
         </section>
         <SiteFooter />
