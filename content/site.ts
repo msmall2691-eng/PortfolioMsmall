@@ -47,12 +47,6 @@ export const links = {
     'https://github.com/msmall2691-eng/powerbi-portfolio/tree/main/Software-Stack',
 } as const;
 
-/**
- * Guard for links whose destination is not public yet. A link marked
- * `pending: true` renders as plain text while this is false. Nothing on the
- * site uses it today: every link points at a public page.
- */
-export const PENDING_LINKS_ARE_PUBLIC = false;
 
 export const nav = [
   { href: '#about', label: 'About' },

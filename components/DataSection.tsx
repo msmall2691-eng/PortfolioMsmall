@@ -12,7 +12,7 @@ import {
 } from '@/content/data';
 import { links } from '@/content/site';
 
-type SectionLink = { href: string; label: string; pending?: boolean };
+type SectionLink = { href: string; label: string };
 
 const sectionLinks: readonly SectionLink[] = [
   // Public: four .pbip projects, model and measures readable in Git.
@@ -23,7 +23,7 @@ export function DataSection() {
   const [active, setActive] = useState<ChartId>('crew');
   const chart = charts.find((c) => c.id === active) ?? charts[0]!;
 
-  const visibleLinks = sectionLinks.filter((l) => isReachable(l.href, l.pending));
+  const visibleLinks = sectionLinks.filter((l) => isReachable(l.href));
 
   return (
     <section
@@ -49,7 +49,6 @@ export function DataSection() {
                 <SmartLink
                   key={link.label}
                   href={link.href}
-                  pending={link.pending}
                   className="border-b-2 border-accent pb-0.5 text-accent-soft hover:text-white"
                 >
                   {link.label}

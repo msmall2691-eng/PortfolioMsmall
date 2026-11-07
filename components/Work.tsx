@@ -134,12 +134,11 @@ function SelectedWork() {
 
       <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,460px),1fr))] gap-5">
         {selectedWork.map((project) => {
-          const live = isReachable(project.href, project.pending);
+          const live = isReachable(project.href);
           return (
             <SmartLink
               key={project.title}
               href={project.href}
-              pending={project.pending}
               className={`flex flex-col overflow-hidden rounded-panel border border-rule-inner bg-card text-ink transition-[transform,box-shadow] duration-300 ${
                 live ? 'hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(0,0,0,0.4)]' : ''
               }`}
@@ -279,9 +278,8 @@ function MoreBuilds() {
           <SmartLink
             key={build.title}
             href={build.href}
-            pending={build.pending}
             className={`grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-4 gap-y-1 border-b border-rule-section py-4 text-ink ${
-              isReachable(build.href, build.pending) ? 'hover:text-accent-soft' : ''
+              isReachable(build.href) ? 'hover:text-accent-soft' : ''
             }`}
           >
             <span className="text-[16px] font-semibold">{build.title}</span>

@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import { PENDING_LINKS_ARE_PUBLIC } from '@/content/site';
 
 /** Page shell: 1160px max width, 24px side gutters. */
 export function Container({
@@ -53,8 +52,6 @@ export function BlockLabel({ children }: { children: ReactNode }) {
 
 type SmartLinkProps = {
   href?: string;
-  /** True when the destination is not publicly reachable yet. */
-  pending?: boolean;
   children: ReactNode;
   className?: string;
   'aria-label'?: string;
@@ -63,22 +60,20 @@ type SmartLinkProps = {
 };
 
 /**
- * Renders an anchor when the destination is reachable, and a plain span
- * otherwise — so an unpublished link never ships as a dead one.
+ * Renders an anchor when there is somewhere to go, and a plain span when
+ * there is not — so an entry with no destination never ships as a dead
+ * link. Several builds deliberately have no href.
  *
  * External destinations open in a new tab with rel="noopener".
  */
 export function SmartLink({
   href,
-  pending = false,
   children,
   className = '',
   download,
   ...rest
 }: SmartLinkProps) {
-  const blocked = pending && !PENDING_LINKS_ARE_PUBLIC;
-
-  if (!href || blocked) {
+  if (!href) {
     return (
       <span className={className} {...rest}>
         {children}
@@ -101,8 +96,7 @@ export function SmartLink({
   );
 }
 
-/** Is this destination currently reachable by a signed-out visitor? */
-export function isReachable(href: string | undefined, pending?: boolean): boolean {
-  if (!href) return false;
-  return !(pending && !PENDING_LINKS_ARE_PUBLIC);
+/** Does this entry have somewhere to link to? */
+export function isReachable(href: string | undefined): boolean {
+  return Boolean(href);
 }

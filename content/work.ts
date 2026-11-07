@@ -146,7 +146,6 @@ export type SelectedWork = {
   stage: string;
   href: string;
   /** True when the destination is not publicly reachable yet. */
-  pending?: boolean;
 };
 
 export const selectedWork: readonly SelectedWork[] = [
@@ -264,7 +263,6 @@ export type Build = {
   tag: string;
   description: string;
   href?: string;
-  pending?: boolean;
 };
 
 export const builds: readonly Build[] = [
