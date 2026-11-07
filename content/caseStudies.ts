@@ -71,9 +71,13 @@ export const caseStudies: readonly CaseStudy[] = [
         kind: 'boxes',
         eyebrow: 'STATUS',
         heading: 'Where it stands',
+        // Counted against msmall2691-eng/linx @ a9780d6 (7 Nov 2026):
+        //   905 backend pytest functions across 46 files
+        //   17 __tablename__ declarations
+        //   UserRole enum = exactly OWNER, CLEANER, ADMIN
         facts: [
           { value: '900+', label: 'automated tests' },
-          { value: '14', label: 'database tables' },
+          { value: '17', label: 'database tables' },
           { value: '3', label: 'roles: owner, cleaner, admin' },
         ],
         boxes: [
