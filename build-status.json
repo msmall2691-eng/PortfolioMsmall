@@ -1,0 +1,156 @@
+{
+ "project": {
+  "name": "megan.mlinx.studio",
+  "summary": "Meg's portfolio, so an employer or professor can see in a minute who she is, what she built, and her experience."
+ },
+ "updated": "2026-11-07T19:55:00Z",
+ "deploys": [
+  {
+   "at": "2026-11-07T19:55:00Z",
+   "env": "prod",
+   "what": "Compact home page: experience up top, 4 projects, More work, GitHub",
+   "storyIds": [
+    "f1s2",
+    "f1s3",
+    "f4s1"
+   ]
+  },
+  {
+   "at": "2026-11-07T19:25:00Z",
+   "env": "prod",
+   "what": "New hero: Ran / Built / Next",
+   "storyIds": [
+    "f1s2"
+   ]
+  },
+  {
+   "at": "2026-11-07T18:45:00Z",
+   "env": "prod",
+   "what": "Light theme, labeled featured project, Wrapped, flow diagrams",
+   "storyIds": [
+    "f1s1",
+    "f2s1",
+    "f3s1",
+    "f3s2"
+   ]
+  }
+ ],
+ "features": [
+  {
+   "id": "f1",
+   "name": "Home page",
+   "oneLiner": "The first screen a visitor sees.",
+   "stories": [
+    {
+     "id": "f1s1",
+     "title": "See a light, calm page instead of dark",
+     "state": "done",
+     "env": "prod",
+     "at": "2026-11-07T18:45:00Z"
+    },
+    {
+     "id": "f1s2",
+     "title": "Understand who Meg is in one glance",
+     "state": "done",
+     "env": "prod",
+     "at": "2026-11-07T19:55:00Z",
+     "note": "About 3 screens on desktop, 6 on a phone (was 10 and 18)."
+    },
+    {
+     "id": "f1s3",
+     "title": "Scan the page without scrolling forever",
+     "state": "done",
+     "env": "prod",
+     "note": "About 3 screens on desktop, 6 on a phone (was 10 and 18).",
+     "at": "2026-11-07T19:55:00Z"
+    }
+   ],
+   "decisions": [
+    {
+     "at": "2026-11-07T19:10:00Z",
+     "what": "No KPI strip, no dark theme, no 'I'-heavy hero."
+    }
+   ]
+  },
+  {
+   "id": "f2",
+   "name": "Featured project",
+   "oneLiner": "BrightBase shown first, with a clear label.",
+   "stories": [
+    {
+     "id": "f2s1",
+     "title": "Know what the big demo is before seeing it",
+     "state": "done",
+     "env": "prod",
+     "at": "2026-11-07T18:45:00Z"
+    }
+   ]
+  },
+  {
+   "id": "f3",
+   "name": "Proof extras",
+   "oneLiner": "Wrapped and flow diagrams.",
+   "stories": [
+    {
+     "id": "f3s1",
+     "title": "Play Meg's 2026 in code",
+     "state": "done",
+     "env": "prod",
+     "at": "2026-11-07T18:45:00Z",
+     "unsure": "About a third of the commits were made with Claude Code; the page says so."
+    },
+    {
+     "id": "f3s2",
+     "title": "See how BrightBase, linx and the agents work as a flow",
+     "state": "done",
+     "env": "prod",
+     "at": "2026-11-07T18:45:00Z"
+    }
+   ]
+  },
+  {
+   "id": "f4",
+   "name": "GitHub on the portfolio",
+   "oneLiner": "Public repos and commit count, with a note on why two are private.",
+   "stories": [
+    {
+     "id": "f4s1",
+     "title": "See Meg's public code from the home page",
+     "state": "done",
+     "env": "prod",
+     "at": "2026-11-07T19:55:00Z"
+    }
+   ],
+   "decisions": [
+    {
+     "at": "2026-11-07T19:55:00Z",
+     "what": "BrightBase and linx stay private; offer a walkthrough instead."
+    }
+   ]
+  }
+ ],
+ "parkingLot": [
+  {
+   "title": "Light share image (og.jpg)",
+   "tag": "Proposed, not built",
+   "note": "Link previews still show the old dark design. Nothing lost."
+  },
+  {
+   "title": "Fix GitHub security alerts",
+   "tag": "Proposed, not built",
+   "note": "7 alerts from outdated packages; not caused by site changes."
+  }
+ ],
+ "activity": [
+  {
+   "at": "2026-11-07T19:40:00Z",
+   "kind": "note",
+   "text": "Audit of the home page done; plan sent to Meg."
+  },
+  {
+   "at": "2026-11-07T19:55:00Z",
+   "kind": "live",
+   "text": "Compact home page went to prod."
+  }
+ ]
+}

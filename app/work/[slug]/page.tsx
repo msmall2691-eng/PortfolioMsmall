@@ -136,7 +136,7 @@ export default async function CaseStudyPage({ params }: Props) {
             <img src="/img/meg-headshot.webp" alt="" width={32} height={32} className="size-8 rounded-full object-cover object-[center_30%]" />
             {profile.name}
           </Link>
-          <Link href="/#more" className="ml-auto hidden text-[14px] text-neutral-300 hover:text-accent-700 sm:inline">
+          <Link href="/#work" className="ml-auto hidden text-[14px] text-neutral-300 hover:text-accent-700 sm:inline">
             ← All work
           </Link>
           <a

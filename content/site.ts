@@ -49,11 +49,10 @@ export const links = {
 
 
 export const nav = [
-  { href: '#work', label: 'Work' },
-  { href: '#tools', label: 'Tools' },
-  { href: '#data', label: 'Data' },
+  { href: '#work', label: 'Projects' },
+  { href: '#more', label: 'More' },
+  { href: '#github', label: 'GitHub' },
   { href: '#about', label: 'About' },
-  { href: '#skills', label: 'Skills' },
   { href: '#contact', label: 'Contact' },
 ] as const;
 
