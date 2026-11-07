@@ -64,10 +64,35 @@ export const iconLinks = [
 ] as const;
 
 export const hero = {
-  eyebrow: 'MEGAN SMALL · SOUTHERN MAINE',
-  headlinePlain: 'I build the software and websites ',
-  headlineAccent: 'small businesses run on.',
-  lede: `I ran a cleaning company for ${YEARS_IN_BUSINESS_WORD.toLowerCase()} years. When the apps we paid for didn't fit, I built BrightBase, and now it runs our scheduling, crews and billing. I'm finishing a B.S. in Business Analytics & AI at USM and looking for a role designing and building business systems.`,
+  eyebrow: 'MEGAN SMALL · BUSINESS SYSTEMS & WEB · SOUTHERN MAINE',
+  headlinePlain: 'Ran the business. ',
+  headlineAccent: 'Built the software it runs on.',
+  /** Three plain columns: where she came from, what she built, what's next. */
+  story: [
+    {
+      label: 'Ran',
+      title: 'The Maine Cleaning Co.',
+      body: `${YEARS_IN_BUSINESS_WORD} years of crews, scheduling, quotes, billing and payroll, from 2018 to now.`,
+      proof: [] as readonly { label: string; href: string }[],
+    },
+    {
+      label: 'Built',
+      title: 'BrightBase and more',
+      body: 'When the apps we paid for didn\'t fit, BrightBase replaced them. Then came websites, a marketplace and data models.',
+      proof: [
+        { label: 'BrightBase', href: '/work/brightbase/' },
+        { label: 'linx', href: '/work/linx/' },
+        { label: 'maineclean.co', href: '/work/maineclean/' },
+        { label: 'Power BI', href: '#data' },
+      ],
+    },
+    {
+      label: 'Next',
+      title: 'A business systems role',
+      body: 'Full-time work designing and building systems for a team, while finishing a B.S. in Business Analytics & AI at USM.',
+      proof: [] as readonly { label: string; href: string }[],
+    },
+  ],
   status: 'Open to roles designing and building business systems',
   links: [
     { href: '#work', label: 'See the work', current: true },

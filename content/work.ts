@@ -9,7 +9,7 @@ import { links } from './site';
 
 export const caseStudy = {
   eyebrow: 'FEATURED PROJECT · BRIGHTBASE',
-  heading: 'BrightBase: the software my cleaning company runs on',
+  heading: 'BrightBase: one app for scheduling, crews and billing',
   summary:
     'Scheduling, a crew phone app, rental turnovers, billing and payouts in one place. None of the apps I tried fit, so I designed and built it, then moved the whole company onto it.',
   href: '/work/brightbase/',
