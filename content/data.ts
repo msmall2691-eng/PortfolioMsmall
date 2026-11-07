@@ -7,7 +7,7 @@
 
 export const dataSection = {
   eyebrow: 'DATA · POWER BI · PYTHON · SQL',
-  heading: 'How the business actually runs',
+  heading: 'Data & analytics',
   intro:
     '3.5 years of job and bank records, cleaned, anonymized and modeled in Power BI. The software audit became the requirements for BrightBase.',
   privacyNote:

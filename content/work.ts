@@ -28,6 +28,8 @@ export type SelectedWork = {
   tag: string;
   title: string;
   description: string;
+  /** Which part of the Work area the card belongs to. */
+  group: 'systems' | 'websites';
   /** 'browser' frames one screenshot; 'phones' fans three phone screens; 'image' fills the panel. */
   frame: 'browser' | 'phones' | 'image';
   img?: string;
@@ -41,6 +43,7 @@ export type SelectedWork = {
 
 export const selectedWork: readonly SelectedWork[] = [
   {
+    group: 'systems',
     tag: 'WEB APP · MARKETPLACE',
     title: 'linx',
     description:
@@ -53,6 +56,7 @@ export const selectedWork: readonly SelectedWork[] = [
     href: '/work/linx/',
   },
   {
+    group: 'systems',
     tag: 'AI · INTERNAL TOOL',
     title: 'Agent Command Center',
     description:
@@ -66,6 +70,7 @@ export const selectedWork: readonly SelectedWork[] = [
     href: '/work/agent-command-center/',
   },
   {
+    group: 'websites',
     tag: 'WEBSITE · LIVE',
     title: 'maineclean.co',
     description:
@@ -79,19 +84,7 @@ export const selectedWork: readonly SelectedWork[] = [
     href: '/work/maineclean/',
   },
   {
-    tag: 'WEB TOOLS · LIVE',
-    title: 'M Studio Tools',
-    description:
-      'Eight free tools for small businesses on my studio site, no signup.',
-    frame: 'browser',
-    img: '/img/mstudio-hero.webp',
-    url: 'mlinx.studio',
-    alt: 'M Studio website',
-    objectPosition: 'left top',
-    stage: 'radial-gradient(120% 90% at 0% 0%, #5a4a9a 0%, #2e2a55 60%, #1f2040 100%)',
-    href: '/work/m-studio-tools/',
-  },
-  {
+    group: 'websites',
     tag: 'PRODUCT · LIVE',
     title: 'M Linx Guide',
     description:
@@ -136,36 +129,3 @@ export const phoneShots = [
 
 /* --- More builds ------------------------------------------------------- */
 
-export type Build = {
-  title: string;
-  tag: string;
-  description: string;
-  href?: string;
-};
-
-export const builds: readonly Build[] = [
-  {
-    title: 'USM academic progress',
-    tag: 'POWER BI · PBIP ↗',
-    description:
-      'Degree progress, a semester workload view and a what-if for credit load.',
-    href: links.powerbiUsm,
-  },
-  {
-    title: 'Software stack: build vs buy',
-    tag: 'POWER BI · PBIP ↗',
-    description:
-      'The 31 tools bought, outgrown and replaced, mapped against 10 code projects.',
-    href: links.powerbiStack,
-  },
-  {
-    title: 'Twenty CRM build',
-    tag: 'OPEN SOURCE · CRM',
-    description: 'An earlier version on open-source Twenty CRM, with custom objects for properties, quotes and jobs.',
-  },
-  {
-    title: 'Knowledge Extractor',
-    tag: 'REPLIT',
-    description: 'Turns exported AI chats into an organized Obsidian knowledge base.',
-  },
-];

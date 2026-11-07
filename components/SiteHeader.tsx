@@ -22,10 +22,10 @@ export function SiteHeader() {
 
         <nav
           aria-label="Sections"
-          className="order-last -mx-6 flex w-[calc(100%+48px)] gap-[22px] overflow-x-auto px-6 text-[14px] whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:order-none sm:mx-0 sm:ml-auto sm:w-auto sm:overflow-visible sm:px-0"
+          className="order-last -mx-6 -my-2 flex w-[calc(100%+48px)] gap-[22px] overflow-x-auto px-6 text-[14px] whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:order-none sm:mx-0 sm:ml-auto sm:w-auto sm:overflow-visible sm:px-0"
         >
           {nav.map((item) => (
-            <a key={item.href} href={item.href} className="text-neutral-300 hover:text-white">
+            <a key={item.href} href={item.href} className="inline-flex min-h-10 items-center text-neutral-300 hover:text-white sm:min-h-0">
               {item.label}
             </a>
           ))}

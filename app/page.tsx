@@ -4,7 +4,7 @@ import { Hero } from '@/components/Hero';
 import { About } from '@/components/About';
 import { Work } from '@/components/Work';
 import { DataSection } from '@/components/DataSection';
-import { ToolsSection, SmallBuilds } from '@/components/ToolsSection';
+import { ToolsSection } from '@/components/ToolsSection';
 import { Toolkit } from '@/components/Toolkit';
 import { ResumeSection } from '@/components/ResumeSection';
 import { SiteFooter } from '@/components/SiteFooter';
@@ -16,11 +16,10 @@ export default function Page() {
       <SiteHeader />
       <main id="top">
         <Hero />
-        <About />
         <Work />
         <ToolsSection />
-        <SmallBuilds />
         <DataSection />
+        <About />
         <Toolkit />
         <ResumeSection />
         <SiteFooter />

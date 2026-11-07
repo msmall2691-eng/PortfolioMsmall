@@ -3,9 +3,10 @@
 const TOOLS_URL = 'https://mlinx.studio/tools';
 
 export const toolsSection = {
-  eyebrow: 'FREE TOOLS',
-  heading: 'Eight tools for small businesses',
-  intro: 'Live on mlinx.studio. Built in Next.js. No signup.',
+  eyebrow: 'M STUDIO TOOLS',
+  heading: 'Free tools',
+  intro: 'Eight small tools for service businesses, live on mlinx.studio. No signup.',
+  caseStudy: '/work/m-studio-tools/',
   allHref: TOOLS_URL,
 } as const;
 
@@ -28,7 +29,7 @@ export const toolHref = (id: string) => `${TOOLS_URL}?tool=${id}`;
 
 export const buildsSection = {
   eyebrow: 'SMALL BUILDS',
-  heading: 'Features that work on their own',
+  heading: 'Smaller builds',
 } as const;
 
 export type SmallBuild = {
@@ -54,5 +55,15 @@ export const smallBuilds: readonly SmallBuild[] = [
     summary: 'A rental guide where door codes only show for guests holding the right link.',
     stack: 'Next.js · Supabase',
     link: { href: '/work/m-linx-guide/', label: 'Case study →' },
+  },
+  {
+    title: 'Twenty CRM build',
+    summary: 'An earlier version of BrightBase on open-source Twenty CRM, with custom objects for properties, quotes and jobs.',
+    stack: 'Twenty · open source',
+  },
+  {
+    title: 'Knowledge Extractor',
+    summary: 'Turns exported AI chats into an organized Obsidian knowledge base.',
+    stack: 'Replit',
   },
 ];

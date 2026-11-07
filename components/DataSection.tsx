@@ -16,7 +16,9 @@ type SectionLink = { href: string; label: string };
 
 const sectionLinks: readonly SectionLink[] = [
   // Public: four .pbip projects, model and measures readable in Git.
-  { href: links.powerbi, label: 'Read the Power BI models ↗' },
+  { href: links.powerbi, label: 'All four Power BI models ↗' },
+  { href: links.powerbiUsm, label: 'USM academic progress ↗' },
+  { href: links.powerbiStack, label: 'Software stack: build vs buy ↗' },
 ];
 
 export function DataSection() {

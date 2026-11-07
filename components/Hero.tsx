@@ -1,5 +1,5 @@
-import { Container } from './ui';
-import { hero, workIndex } from '@/content/site';
+import { Container } from "./ui";
+import { hero, offers, heroStats } from "@/content/site";
 
 export function Hero() {
   return (
@@ -7,7 +7,10 @@ export function Hero() {
       <Container className="flex flex-wrap items-center gap-12">
         <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-7">
           <span className="inline-flex items-center gap-2 font-mono-ui text-[11.5px] tracking-[0.1em] text-neutral-300">
-            <span aria-hidden="true" className="size-1.5 rounded-full bg-cyan" />
+            <span
+              aria-hidden="true"
+              className="size-1.5 rounded-full bg-cyan"
+            />
             {hero.eyebrow}
           </span>
 
@@ -26,11 +29,13 @@ export function Hero() {
                 <a
                   key={link.label}
                   href={link.href}
-                  {...('external' in link && link.external
-                    ? { target: '_blank', rel: 'noopener' }
+                  {...("external" in link && link.external
+                    ? { target: "_blank", rel: "noopener" }
                     : {})}
                   className={`rule-link ${
-                    'current' in link && link.current ? 'text-accent-soft' : 'text-ink'
+                    "current" in link && link.current
+                      ? "text-accent-soft"
+                      : "text-ink"
                   } hover:text-white`}
                 >
                   {link.label}
@@ -38,36 +43,59 @@ export function Hero() {
               ))}
             </div>
             <p className="flex items-center gap-2 text-[13.5px] text-neutral-400">
-              <span aria-hidden="true" className="size-[7px] rounded-full bg-status" />
+              <span
+                aria-hidden="true"
+                className="size-[7px] rounded-full bg-status"
+              />
               {hero.status}
             </p>
           </div>
         </div>
 
-        <nav
-          aria-label="Work index"
-          className="flex min-w-0 flex-[1_1_420px] flex-col"
-        >
-          <p className="pb-3 font-mono-ui text-[11.5px] tracking-[0.12em] text-neutral-500">
-            PROJECTS
+        <div className="flex min-w-0 flex-[1_1_420px] flex-col gap-3">
+          <p className="font-mono-ui text-[11.5px] tracking-[0.12em] text-neutral-500">
+            WHAT I DO
           </p>
-          {workIndex.map((item) => (
-            <a
-              key={item.n}
-              href={item.href}
-              className="grid grid-cols-[36px_minmax(0,1fr)_auto] items-baseline gap-4 border-t border-rule-inner py-[18px] text-ink hover:text-accent-300"
+          {offers.map((offer) => (
+            <div
+              key={offer.title}
+              className="flex flex-col gap-2 rounded-card border border-rule-inner bg-card px-5 py-4"
             >
-              <span className="font-mono-ui text-[12px] text-accent-400">{item.n}</span>
-              <span className="flex min-w-0 flex-col gap-[3px]">
-                <span className="text-[19px] font-semibold tracking-[-0.01em]">
-                  {item.title}
-                </span>
-                <span className="text-[13.5px] text-neutral-400">{item.description}</span>
-              </span>
-              <span className="font-mono-ui text-[12px] text-neutral-500">{item.year}</span>
-            </a>
+              <h2 className="text-[18px] font-semibold tracking-[-0.01em]">
+                {offer.title}
+              </h2>
+              <p className="text-[14.5px] leading-[1.5] text-neutral-400">
+                {offer.line}
+              </p>
+              <p className="flex flex-wrap gap-x-4 gap-y-1 text-[13.5px] font-medium">
+                {offer.proof.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="inline-flex min-h-8 items-center text-accent-soft hover:text-white"
+                  >
+                    {item.label} →
+                  </a>
+                ))}
+              </p>
+            </div>
           ))}
-        </nav>
+        </div>
+      </Container>
+
+      <Container className="pt-12">
+        <dl className="m-0 grid grid-cols-2 gap-y-5 border-y border-rule-inner py-6 md:grid-cols-4">
+          {heroStats.map((stat) => (
+            <div key={stat.label} className="flex flex-col gap-1">
+              <dt className="order-2 text-[13.5px] text-neutral-400">
+                {stat.label}
+              </dt>
+              <dd className="m-0 text-[clamp(26px,3vw,34px)] font-semibold tracking-[-0.025em]">
+                {stat.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </Container>
     </section>
   );

@@ -1,9 +1,13 @@
-import { Container, Eyebrow } from './ui';
-import { about } from '@/content/site';
+import { Container, Eyebrow } from "./ui";
+import { about, timeline } from "@/content/site";
 
 export function About() {
   return (
-    <section id="about" aria-labelledby="about-h" className="section-anchor pt-6 pb-22">
+    <section
+      id="about"
+      aria-labelledby="about-h"
+      className="section-anchor border-t border-rule-section pt-20 pb-22"
+    >
       <Container className="flex flex-wrap items-center gap-12">
         <div className="mx-auto min-w-0 flex-[0_1_340px]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -31,14 +35,41 @@ export function About() {
             {about.paragraphs[1]}
           </p>
 
-          <dl className="m-0 grid grid-cols-[repeat(auto-fit,minmax(130px,1fr))] border-t border-rule-inner">
-            {about.facts.map((fact) => (
-              <div key={fact.label} className="flex flex-col gap-1 pt-4 pr-4">
-                <dt className="text-[24px] font-semibold tracking-[-0.02em]">{fact.value}</dt>
-                <dd className="m-0 text-[13px] text-neutral-400">{fact.label}</dd>
-              </div>
-            ))}
-          </dl>
+          <div className="flex flex-col gap-3 border-t border-rule-inner pt-5">
+            <h3 className="font-mono-ui text-[11.5px] tracking-[0.12em] text-neutral-500">
+              MY PATH
+            </h3>
+            <ol className="grid gap-x-4 gap-y-4 sm:grid-cols-5">
+              {timeline.map((step, i) => (
+                <li
+                  key={step.year}
+                  className="relative flex gap-3 sm:flex-col sm:gap-2"
+                >
+                  <span className="flex items-center gap-2 sm:w-full">
+                    <span
+                      aria-hidden="true"
+                      className={`size-2.5 shrink-0 rounded-full ${i === timeline.length - 1 ? "bg-status" : "bg-accent"}`}
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="hidden h-px flex-1 bg-rule-inner sm:block"
+                    />
+                  </span>
+                  <span className="flex flex-col gap-0.5">
+                    <span className="font-mono-ui text-[12px] text-cyan">
+                      {step.year}
+                    </span>
+                    <span className="text-[14px] leading-[1.35] font-semibold">
+                      {step.title}
+                    </span>
+                    <span className="text-[12.5px] leading-[1.35] text-neutral-400">
+                      {step.where}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </Container>
     </section>

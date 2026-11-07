@@ -8,15 +8,15 @@ import { profile, links, YEARS_IN_BUSINESS_WORD } from './site';
 
 export const resumeHeader = {
   eyebrow: 'RÉSUMÉ',
-  heading: 'Experience, education and skills',
-  line: 'Open to business systems and front-end development roles.',
+  heading: 'Experience and education',
+  line: 'Open to business systems, implementation and front-end roles.',
 } as const;
 
 export const resumeCard = {
   name: profile.fullName,
-  title: profile.discipline,
+  title: 'Business Systems Analyst · Implementation · Front-End Developer',
   contact: `${profile.locationShort} · ${profile.email} · ${links.studioLabel} · github.com/${links.githubLabel}`,
-  summary: `Business systems builder moving from running a company into a full-time systems role on a team. ${YEARS_IN_BUSINESS_WORD} years running a multi-crew service company and owning every system behind it, from booking to payroll. When off-the-shelf service apps fell short, designed and built BrightBase, the operations system the company runs on.`,
+  summary: `${YEARS_IN_BUSINESS_WORD} years running a multi-crew cleaning company and every system behind it, from booking to payroll. When the apps we paid for didn’t fit how we worked, I designed and built BrightBase, the system the company runs on today. Now looking for a team where I can do this full-time: figure out how the work really flows, find where it breaks, and build the fix.`,
 } as const;
 
 export const jobs = [
@@ -25,11 +25,12 @@ export const jobs = [
     org: 'The Maine Cleaning Company',
     when: '2018 – present',
     points: [
-      'Built a residential, commercial and short-term rental cleaning business to $1M+ collected since 2023 across 4,900+ visits in 40+ Maine towns.',
-      'Raised visits with a cleaner assigned from 74% to 96% (2023–2025) and recurring work from 90% to 97% of visits.',
-      'Tested many field-service, scheduling and CRM apps; when none fit, defined the requirements and data model for BrightBase and moved the office and crews onto it.',
-      'Integrated Stripe, Google Calendar and Gmail, Twilio, Airbnb/VRBO calendars and Facebook lead ads into one workflow.',
-      'Hired, trained and managed 50+ employees and subcontractors.',
+      'Grew the company to $1M+ collected since 2023 (peak year $414K) across 4,900+ visits in 40+ Maine towns. 63% of clients rebooked; bad debt stayed under 0.1%.',
+      'Got visits with a cleaner assigned from 74% to 96% and recurring work from 90% to 97% (2023–2025), with booked value per hour up 20%.',
+      'Tested the big field-service and CRM apps, including Jobber, Housecall Pro, Connecteam and HubSpot. None fit, so I gathered requirements with the office and crews and built BrightBase.',
+      'Rolled BrightBase out in phases until it ran scheduling, dispatch, invoicing, payments and subcontractor payouts.',
+      'Connected Stripe, Twilio, Google Calendar, Gmail, Airbnb and VRBO calendars and Facebook lead ads, with one intake path for every website form.',
+      'Hired, trained and managed 50+ employees and subcontractors, and wrote the standards that kept teams consistent.',
     ],
   },
   {
@@ -37,8 +38,9 @@ export const jobs = [
     org: 'M Studio (mlinx.studio)',
     when: '2026 – present',
     points: [
-      'Scope, build and support websites and business tools for small businesses, from intake through deployment and handoff.',
-      'Client work includes Nash Construction and The Remote Admin; launched M Linx Guide, a digital guest guide for rental hosts.',
+      'Build and hand off websites and tools for small businesses, including Nash Construction and The Remote Admin. Clients own every account.',
+      'Built eight free browser tools at mlinx.studio/tools, including an instant quote and a website checker.',
+      'Launched M Linx Guide, a digital guest guide for rental hosts. First paying client July 2026.',
     ],
   },
   {
@@ -56,26 +58,12 @@ export const jobs = [
 ] as const;
 
 export const resumeProjects = [
-  {
-    title: 'BrightBase',
-    sub: 'Operations platform',
-    detail: 'Affordable system built in-house: turnover scheduling from booking calendars, client texts, one lead inbox, Google Workspace. Python, FastAPI, React, PostgreSQL.',
-  },
-  {
-    title: 'Power BI portfolio',
-    sub: 'Four reports on real data',
-    detail: 'Business, code and school data in star-schema models with time-intelligence and retention measures, versioned in Git.',
-  },
-  {
-    title: 'linx',
-    sub: 'Two-sided marketplace',
-    detail: 'Owners post cleanings, vetted cleaners bid; Stripe Connect payouts.',
-  },
-  {
-    title: 'maineclean.co',
-    sub: 'Live customer site',
-    detail: 'Instant estimates and booking requests that land in BrightBase as clean records.',
-  },
+  { title: 'BrightBase', sub: 'Python, FastAPI, React, PostgreSQL', detail: 'The operations system the company runs on. 4,100+ automated tests.' },
+  { title: 'linx', sub: 'Python, FastAPI, React, PostgreSQL', detail: 'A marketplace app where rental owners post cleanings and vetted cleaners bid.' },
+  { title: 'Agent Command Center', sub: 'React, FastAPI, Claude Agent SDK', detail: 'AI agents that draft the work and wait for my approval.' },
+  { title: 'maineclean.co', sub: 'React, TypeScript', detail: 'Live booking site with instant prices that feed into BrightBase.' },
+  { title: 'Power BI portfolio', sub: 'Power BI, DAX', detail: 'Four reports on real business, code and school data.' },
+  { title: 'Twenty CRM build', sub: 'Twenty (open source)', detail: 'An earlier version with custom objects for properties, quotes and jobs.' },
 ] as const;
 
 export const education = [

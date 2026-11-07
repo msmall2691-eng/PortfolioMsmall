@@ -49,10 +49,10 @@ export const links = {
 
 
 export const nav = [
-  { href: '#about', label: 'About' },
   { href: '#work', label: 'Work' },
   { href: '#tools', label: 'Tools' },
   { href: '#data', label: 'Data' },
+  { href: '#about', label: 'About' },
   { href: '#skills', label: 'Skills' },
   { href: '#contact', label: 'Contact' },
 ] as const;
@@ -72,19 +72,56 @@ export const hero = {
   lede: `Websites, workflows and the data underneath, shaped by ${YEARS_IN_BUSINESS.toLocaleString()} years running a cleaning company.`,
   status: 'Open to roles designing and building business systems',
   links: [
-    { href: '#work', label: 'Selected work', current: true },
+    { href: '#work', label: 'See the work', current: true },
     { href: '#contact', label: 'Résumé' },
     { href: `mailto:${profile.email}`, label: 'Email' },
   ],
 } as const;
 
-export const workIndex = [
-  { n: '01', title: 'BrightBase', description: 'The software my cleaning company runs on', year: 'In use', href: '/work/brightbase/' },
-  { n: '02', title: 'linx', description: 'An app for hiring vetted cleaners', year: '2026', href: '/work/linx/' },
-  { n: '03', title: 'Agent Command Center', description: 'AI assistants that wait for my approval', year: '2026', href: '/work/agent-command-center/' },
-  { n: '04', title: 'maineclean.co', description: 'Booking website with instant prices', year: 'Live', href: '/work/maineclean/' },
-  { n: '05', title: 'M Studio Tools', description: 'Eight free tools for small businesses', year: 'Live', href: '/work/m-studio-tools/' },
-  { n: '06', title: 'M Linx Guide', description: 'Phone guidebooks for rental guests', year: 'Live', href: '/work/m-linx-guide/' },
+/** What I offer, each with the projects that prove it. Shown in the hero. */
+export const offers = [
+  {
+    title: 'Business systems',
+    line: 'I map how the work really flows, then build the system around it.',
+    proof: [
+      { label: 'BrightBase', href: '/work/brightbase/' },
+      { label: 'Agent Command Center', href: '/work/agent-command-center/' },
+    ],
+  },
+  {
+    title: 'Websites & web apps',
+    line: 'Booking sites, marketplaces and tools people actually use.',
+    proof: [
+      { label: 'maineclean.co', href: '/work/maineclean/' },
+      { label: 'linx', href: '/work/linx/' },
+      { label: 'M Linx Guide', href: '/work/m-linx-guide/' },
+    ],
+  },
+  {
+    title: 'Data & reporting',
+    line: 'Messy records turned into numbers a business can act on.',
+    proof: [
+      { label: 'Power BI models', href: '#data' },
+      { label: 'Operations data', href: '#data' },
+    ],
+  },
+] as const;
+
+/** Real figures, all backed elsewhere on the site. */
+export const heroStats = [
+  { value: `${YEARS_IN_BUSINESS} yrs`, label: 'running a business' },
+  { value: '$1M+', label: 'collected since 2023' },
+  { value: '1,000+', label: 'customers served' },
+  { value: '6', label: 'projects shipped' },
+] as const;
+
+/** The path, oldest first. Shown in About. */
+export const timeline = [
+  { year: '2013', title: 'Administrative assistant', where: 'SMCC Office of the President' },
+  { year: '2014', title: 'Lead dental assistant', where: 'Southern Maine practices' },
+  { year: '2018', title: 'Founded a cleaning company', where: 'The Maine Cleaning Co.' },
+  { year: '2026', title: 'Built BrightBase, started M Studio', where: 'Systems and web work' },
+  { year: 'Now', title: 'B.S. Business Analytics & AI', where: 'University of Southern Maine' },
 ] as const;
 
 export const about = {
@@ -93,12 +130,6 @@ export const about = {
   paragraphs: [
     'My software work started with problems in my own cleaning business: booking, quoting, scheduling and keeping customer information in one place. Connecting those pieces became the work I love most.',
     "Now I want to do it full-time, as part of a team, while I finish a B.S. in Business Analytics and AI at the University of Southern Maine. Off the clock, I'm with my kids and our dog near the water.",
-  ],
-  facts: [
-    { value: `${YEARS_IN_BUSINESS} yrs`, label: 'Running a service business' },
-    { value: '1,000+', label: 'Customers served' },
-    { value: '7,000+', label: 'Service visits, all time' },
-    { value: '2028', label: 'B.S. expected, USM' },
   ],
 } as const;
 

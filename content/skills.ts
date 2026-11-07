@@ -7,7 +7,7 @@
 import { YEARS_IN_BUSINESS_WORD } from './site';
 
 export const toolkit = {
-  heading: 'Toolkit',
+  heading: 'Skills',
   intro: 'From the data model to the screen.',
 } as const;
 
@@ -99,7 +99,7 @@ const GROUPS: readonly Omit<SkillGroup, 'n' | 'color'>[] = [
       'Jobber', 'Housecall Pro', 'Connecteam', 'Maidily', 'Turno', 'Breezeway', 'BookingKoala',
       'HubSpot', 'HighLevel', 'Attio', 'Twenty CRM', 'Airtable', 'Zapier', 'AppSheet', 'Google Apps Script',
       'Bubble', 'Noloco', 'Softr', 'Adalo', 'Glide', 'Base44', 'Replit', 'monday.com', 'QuickBooks', 'Square',
-      'Square Payroll', 'OpenPhone', 'Lodgify', 'Wix', 'Notion', 'Google Workspace',
+      'Square Payroll', 'OpenPhone', 'Lodgify', 'Wix', 'Notion', 'Google Workspace', 'Microsoft 365',
     ],
   },
   {
