@@ -8,7 +8,7 @@
 import { links } from './site';
 
 export const caseStudy = {
-  eyebrow: 'FEATURED PROJECT',
+  eyebrow: 'FEATURED PROJECT · BRIGHTBASE',
   heading: 'BrightBase: the software my cleaning company runs on',
   summary:
     'Scheduling, a crew phone app, rental turnovers, billing and payouts in one place. None of the apps I tried fit, so I designed and built it, then moved the whole company onto it.',
@@ -52,7 +52,7 @@ export const selectedWork: readonly SelectedWork[] = [
     img: '/img/linx-flow.webp',
     alt: 'Diagram of a turnover moving through linx',
     objectPosition: 'center',
-    stage: '#141726',
+    stage: '#ece9fb',
     href: '/work/linx/',
   },
   {
@@ -66,7 +66,7 @@ export const selectedWork: readonly SelectedWork[] = [
     url: 'command center',
     alt: 'Agent Command Center console',
     objectPosition: 'left top',
-    stage: 'radial-gradient(120% 90% at 0% 0%, #3d5a4a 0%, #1f3330 60%, #172320 100%)',
+    stage: 'linear-gradient(160deg, #e3f3ea 0%, #cfe9db 100%)',
     href: '/work/agent-command-center/',
   },
   {
@@ -80,7 +80,7 @@ export const selectedWork: readonly SelectedWork[] = [
     url: 'maineclean.co',
     alt: 'Instant estimate form on maineclean.co',
     objectPosition: 'right top',
-    stage: 'radial-gradient(120% 90% at 0% 0%, #3a5a8a 0%, #24304f 60%, #1e2540 100%)',
+    stage: 'linear-gradient(160deg, #e1ecfa 0%, #cddff6 100%)',
     href: '/work/maineclean/',
   },
   {
@@ -91,7 +91,7 @@ export const selectedWork: readonly SelectedWork[] = [
       'Phone guidebooks for rental guests, with door codes shown only to the right guest.',
     frame: 'phones',
     alt: 'Three guest-guide layouts on phones',
-    stage: 'radial-gradient(120% 90% at 100% 0%, #8a6a4a 0%, #3b3245 55%, #22243a 100%)',
+    stage: 'linear-gradient(160deg, #fbeee1 0%, #f3dcc6 100%)',
     href: '/work/m-linx-guide/',
   },
 ];

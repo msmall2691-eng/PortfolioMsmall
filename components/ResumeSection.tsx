@@ -20,7 +20,7 @@ export function ResumeSection() {
     <section
       id="resume"
       aria-labelledby="ct-h"
-      className="section-anchor border-t border-rule-section bg-[linear-gradient(180deg,#2c3150_0%,#272b44_100%)]"
+      className="section-anchor border-t border-rule-section bg-[#efece5]"
     >
       <Container id="contact" className="section-anchor flex flex-col gap-10 pt-22 pb-18">
         <div className="flex flex-wrap items-end justify-between gap-5">
@@ -39,7 +39,7 @@ export function ResumeSection() {
             <a
               href={profile.resumePath}
               download={profile.resumeFilename}
-              className="rounded-[10px] bg-ink px-[18px] py-[11px] text-[14.5px] font-semibold text-ink-invert hover:bg-white"
+              className="rounded-[10px] bg-ink px-[18px] py-[11px] text-[14.5px] font-semibold text-ink-invert hover:bg-accent"
             >
               Download PDF ↓
             </a>
@@ -47,7 +47,7 @@ export function ResumeSection() {
               href={profile.resumePath}
               target="_blank"
               rel="noopener"
-              className="rounded-[10px] border border-rule-outline px-[18px] py-[11px] text-[14.5px] font-semibold text-ink hover:border-accent hover:text-white"
+              className="rounded-[10px] border border-rule-outline px-[18px] py-[11px] text-[14.5px] font-semibold text-ink hover:border-accent hover:text-accent-700"
             >
               Open PDF ↗
             </a>
@@ -61,7 +61,7 @@ export function ResumeSection() {
         >
           <div
             id={cardId}
-            className="flex flex-col gap-8 bg-paper p-[clamp(24px,5vw,56px)] text-paper-ink shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
+            className="flex flex-col gap-8 bg-paper p-[clamp(24px,5vw,56px)] text-paper-ink shadow-[0_20px_50px_rgba(28,30,50,0.10)]"
           >
             <div className="flex flex-col gap-2 border-b border-paper-rule pb-6">
               <p className="text-[clamp(26px,3vw,34px)] font-bold tracking-[-0.02em]">

@@ -6,45 +6,45 @@
 --------------------------------------------------------------------------- */
 @theme {
   /* Ground + text */
-  --color-page: #212539;
-  --color-ink: #e9e9ed;
-  --color-ink-invert: #161826;
+  --color-page: #f7f6f2;
+  --color-ink: #1c1e26;
+  --color-ink-invert: #ffffff;
 
   /* Neutral text ramp (Nocturne) */
-  --color-neutral-100: #f3f5fe;
-  --color-neutral-200: #e4e7f5;
-  --color-neutral-300: #cfd3e5;
-  --color-neutral-400: #b2b6ca;
-  --color-neutral-500: #9397ab;
-  --color-neutral-600: #75798c;
+  --color-neutral-100: #1c1e26;
+  --color-neutral-200: #2d303b;
+  --color-neutral-300: #3f4351;
+  --color-neutral-400: #5b5f6d;
+  --color-neutral-500: #737786;
+  --color-neutral-600: #8b8f9c;
   --color-neutral-700: #595d6c;
   --color-neutral-800: #3f424d;
   --color-neutral-900: #292b31;
 
   /* Accent ramp */
-  --color-accent: #9184d9;
-  --color-accent-100: #f5f4ff;
-  --color-accent-300: #d2cefd;
-  --color-accent-400: #b5abfc;
-  --color-accent-700: #5d5294;
-  --color-accent-800: #423a6a;
-  --color-accent-soft: #c9c1ff;
+  --color-accent: #5546c9;
+  --color-accent-100: #f1effd;
+  --color-accent-300: #4636b8;
+  --color-accent-400: #5546c9;
+  --color-accent-700: #33278f;
+  --color-accent-800: #cfc9f3;
+  --color-accent-soft: #4636b8;
 
   /* Signals */
-  --color-cyan: #5fc4d6;
-  --color-status: #6fcf97;
+  --color-cyan: #0d7486;
+  --color-status: #1f9d57;
 
   /* Surfaces */
-  --color-surface: #2a2f46;
-  --color-surface-2: #2c3150;
-  --color-surface-3: #1f2238;
+  --color-surface: #ffffff;
+  --color-surface-2: #f1effa;
+  --color-surface-3: #ecebe5;
   --color-code: #1b1e30;
-  --color-card: rgba(48, 53, 78, 0.55);
+  --color-card: #ffffff;
 
   /* Rules */
-  --color-rule-section: #363b52;
-  --color-rule-inner: #454b66;
-  --color-rule-outline: #595d6c;
+  --color-rule-section: #e5e2da;
+  --color-rule-inner: #dfdbd2;
+  --color-rule-outline: #c4c0b6;
 
   /* Paper (résumé + turnover cards) */
   --color-paper: #fbfaf7;
@@ -119,7 +119,7 @@
   }
 
   a:hover {
-    color: #ffffff;
+    color: var(--color-accent-700);
   }
 
   /* In-body prose links keep an underline for legibility. */
@@ -163,8 +163,8 @@
   /* The two soft radial glows behind the page. */
   .page-glow {
     background:
-      radial-gradient(900px 520px at 8% -10%, #3a3460 0%, transparent 70%),
-      radial-gradient(700px 480px at 100% 20%, #23405a 0%, transparent 70%),
+      radial-gradient(900px 520px at 8% -10%, #ebe7fb 0%, transparent 70%),
+      radial-gradient(700px 480px at 100% 20%, #e3f1f3 0%, transparent 70%),
       var(--color-page);
   }
 
@@ -174,7 +174,7 @@
 
   /* Gradient text clip used on the hero headline. */
   .text-gradient {
-    background: linear-gradient(90deg, #b5abfc 0%, #9184d9 40%, #5fc4d6 100%);
+    background: linear-gradient(90deg, #5546c9 0%, #7a4fd1 45%, #0d7486 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;

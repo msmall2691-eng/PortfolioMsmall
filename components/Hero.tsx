@@ -1,9 +1,9 @@
 import { Container } from "./ui";
-import { hero, offers, heroStats } from "@/content/site";
+import { hero, offers } from "@/content/site";
 
 export function Hero() {
   return (
-    <section className="pt-[clamp(40px,5vw,72px)] pb-12">
+    <section className="pt-[clamp(40px,5vw,72px)] pb-16">
       <Container className="flex flex-wrap items-center gap-12">
         <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-7">
           <span className="inline-flex items-center gap-2 font-mono-ui text-[11.5px] tracking-[0.1em] text-neutral-300">
@@ -36,7 +36,7 @@ export function Hero() {
                     "current" in link && link.current
                       ? "text-accent-soft"
                       : "text-ink"
-                  } hover:text-white`}
+                  } hover:text-accent-700`}
                 >
                   {link.label}
                 </a>
@@ -72,7 +72,7 @@ export function Hero() {
                   <a
                     key={item.label}
                     href={item.href}
-                    className="inline-flex min-h-8 items-center text-accent-soft hover:text-white"
+                    className="inline-flex min-h-8 items-center text-accent-soft hover:text-accent-700"
                   >
                     {item.label} →
                   </a>
@@ -83,20 +83,6 @@ export function Hero() {
         </div>
       </Container>
 
-      <Container className="pt-12">
-        <dl className="m-0 grid grid-cols-2 gap-y-5 border-y border-rule-inner py-6 md:grid-cols-4">
-          {heroStats.map((stat) => (
-            <div key={stat.label} className="flex flex-col gap-1">
-              <dt className="order-2 text-[13.5px] text-neutral-400">
-                {stat.label}
-              </dt>
-              <dd className="m-0 text-[clamp(26px,3vw,34px)] font-semibold tracking-[-0.025em]">
-                {stat.value}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </Container>
     </section>
   );
 }

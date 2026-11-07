@@ -18,31 +18,33 @@ export function Work() {
       className="section-anchor pt-6 pb-20"
     >
       <Container className="flex flex-col gap-7">
-        <Eyebrow>{caseStudy.eyebrow}</Eyebrow>
+        <div className="flex max-w-[62ch] flex-col gap-3">
+          <Eyebrow>{caseStudy.eyebrow}</Eyebrow>
+          <h2
+            id="work-h"
+            className="text-[clamp(28px,3.4vw,40px)] leading-[1.1] font-semibold tracking-[-0.025em] text-balance"
+          >
+            {caseStudy.heading}
+          </h2>
+          <p className="text-[17px] leading-[1.6] text-neutral-300 text-pretty">
+            {caseStudy.summary}
+          </p>
+        </div>
 
         <article className="flex flex-col overflow-hidden rounded-panel border border-rule-inner bg-card">
           <BrightBaseMock />
 
-          <div className="grid gap-8 p-[clamp(24px,4vw,44px)] md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] md:items-end">
+          <div className="flex flex-wrap items-center justify-between gap-6 p-[clamp(20px,3vw,32px)]">
             <div className="flex flex-col gap-3.5">
-              <h2
-                id="work-h"
-                className="text-[clamp(28px,3.4vw,40px)] leading-[1.1] font-semibold tracking-[-0.025em] text-balance"
-              >
-                {caseStudy.heading}
-              </h2>
-              <p className="text-[17px] leading-[1.6] text-neutral-300 text-pretty">
-                {caseStudy.summary}
-              </p>
               <Link
                 href={caseStudy.href}
-                className="mt-1 self-start rounded-[10px] bg-ink px-4 py-[10px] text-[14.5px] font-semibold text-ink-invert hover:bg-white hover:text-ink-invert"
+                className="mt-1 self-start rounded-[10px] bg-ink px-4 py-[10px] text-[14.5px] font-semibold text-ink-invert hover:bg-accent hover:text-ink-invert"
               >
                 Read the BrightBase case study →
               </Link>
             </div>
 
-            <dl className="m-0 grid grid-cols-3 gap-4 border-t border-rule-inner pt-5 md:border-t-0 md:pt-0">
+            <dl className="m-0 grid grid-cols-3 gap-6">
               {caseStudy.facts.map((f) => (
                 <div key={f.label} className="flex flex-col gap-1">
                   <dt className="order-2 text-[13px] leading-[1.4] text-neutral-400">
@@ -67,7 +69,7 @@ export function Work() {
             <a
               key={chip.href}
               href={chip.href}
-              className="inline-flex min-h-11 items-center rounded-full border border-rule-inner bg-card px-4 text-[14.5px] font-medium text-ink hover:border-accent hover:text-white"
+              className="inline-flex min-h-11 items-center rounded-full border border-rule-inner bg-card px-4 text-[14.5px] font-medium text-ink hover:border-accent hover:text-accent-700"
             >
               {chip.label}
             </a>
@@ -128,7 +130,7 @@ function ProjectGroup({
               href={project.href}
               className={`flex flex-col overflow-hidden rounded-panel border border-rule-inner bg-card text-ink transition-[transform,box-shadow] duration-300 ${spanLast ? "md:col-span-2 md:flex-row" : ""} ${
                 live
-                  ? "hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(0,0,0,0.4)]"
+                  ? "hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(28,30,50,0.10)]"
                   : ""
               }`}
             >
@@ -139,12 +141,12 @@ function ProjectGroup({
                 style={{ background: project.stage }}
               >
                 {project.frame === "browser" && project.img ? (
-                  <div className="absolute top-[11%] right-[-4%] bottom-[-6%] left-[9%] flex flex-col overflow-hidden rounded-tl-xl border border-white/14 bg-[#0f1220] shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
-                    <div className="flex items-center gap-1.5 bg-white/6 px-2.5 py-2">
-                      <span className="size-[7px] rounded-full bg-white/30" />
-                      <span className="size-[7px] rounded-full bg-white/30" />
-                      <span className="size-[7px] rounded-full bg-white/30" />
-                      <span className="ml-2 font-mono-ui text-[10px] text-white/55">
+                  <div className="absolute top-[11%] right-[-4%] bottom-[-6%] left-[9%] flex flex-col overflow-hidden rounded-tl-xl border border-[#d9d6ce] bg-white shadow-[0_20px_44px_rgba(28,30,50,0.14)]">
+                    <div className="flex items-center gap-1.5 border-b border-[#e7e4dc] bg-[#f4f2ec] px-2.5 py-2">
+                      <span className="size-[7px] rounded-full bg-[#cfcbc1]" />
+                      <span className="size-[7px] rounded-full bg-[#cfcbc1]" />
+                      <span className="size-[7px] rounded-full bg-[#cfcbc1]" />
+                      <span className="ml-2 font-mono-ui text-[10px] text-[#7a7d88]">
                         {project.url}
                       </span>
                     </div>
@@ -239,7 +241,7 @@ function ClientSites() {
             href={site.href}
             target="_blank"
             rel="noopener"
-            className="group flex flex-col overflow-hidden rounded-card border border-rule-inner bg-card text-ink transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(0,0,0,0.4)] sm:flex-row"
+            className="group flex flex-col overflow-hidden rounded-card border border-rule-inner bg-card text-ink transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(28,30,50,0.10)] sm:flex-row"
           >
             <div className="relative aspect-16/10 shrink-0 overflow-hidden border-b border-rule-inner sm:aspect-auto sm:w-[46%] sm:border-r sm:border-b-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -258,7 +260,7 @@ function ClientSites() {
               <span className="text-[14px] leading-[1.5] text-neutral-400">
                 {site.description}
               </span>
-              <span className="mt-auto pt-2 text-[13.5px] font-semibold text-accent-soft group-hover:text-white">
+              <span className="mt-auto pt-2 text-[13.5px] font-semibold text-accent-soft group-hover:text-accent-700">
                 {site.url} ↗
               </span>
             </div>

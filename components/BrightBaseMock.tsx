@@ -22,7 +22,7 @@ export function BrightBaseMock() {
     <div
       role="img"
       aria-label={caseStudy.mockAlt}
-      className="relative overflow-hidden border-b border-rule-inner bg-[radial-gradient(900px_700px_at_105%_40%,#34467a_0%,#2e3d66_45%,transparent_46%),linear-gradient(160deg,#2a2f4c,#232842)] p-[clamp(20px,4vw,44px)]"
+      className="relative overflow-hidden border-b border-rule-inner bg-[radial-gradient(900px_700px_at_105%_40%,#dfe6fb_0%,#d8e0f7_45%,transparent_46%),linear-gradient(160deg,#eef0fb,#e6e9f6)] p-[clamp(20px,4vw,44px)]"
     >
       <div className="flex flex-wrap items-stretch justify-center gap-6">
         <OfficeDashboard />
@@ -35,7 +35,7 @@ export function BrightBaseMock() {
 function OfficeDashboard() {
   return (
     <div className="flex min-w-0 max-w-[720px] flex-[1_1_460px] flex-col gap-3">
-      <div className="flex flex-1 flex-col overflow-hidden rounded-[14px] bg-mock-bg text-paper-ink shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
+      <div className="flex flex-1 flex-col overflow-hidden rounded-[14px] bg-mock-bg text-paper-ink shadow-[0_20px_50px_rgba(28,30,50,0.18)]">
         {/* Window chrome */}
         <div className="flex gap-1.5 bg-mock-chrome px-3 py-2.5">
           <span className="size-[9px] rounded-full bg-[#ff5f57]" />
@@ -127,7 +127,7 @@ function OfficeDashboard() {
         </div>
       </div>
 
-      <span className="self-start rounded-full border border-[#2c3550] bg-white/6 px-3.5 py-[7px] text-[11.5px] font-semibold tracking-[0.08em] text-[#cfd3e5]">
+      <span className="self-start rounded-full border border-[#c9cfe6] bg-white px-3.5 py-[7px] text-[11.5px] font-semibold tracking-[0.08em] text-[#3f4558]">
         OFFICE WORKSPACE
       </span>
     </div>

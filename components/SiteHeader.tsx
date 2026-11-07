@@ -3,7 +3,7 @@ import { nav, iconLinks, profile } from '@/content/site';
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-20 border-b border-rule-section bg-[rgba(33,37,57,0.85)] backdrop-blur-[10px]">
+    <header className="sticky top-0 z-20 border-b border-rule-section bg-[rgba(247,246,242,0.9)] backdrop-blur-[10px]">
       <Container className="flex flex-wrap items-center gap-x-6 gap-y-2.5 py-3 sm:gap-y-3 sm:py-3.5">
         <a
           href="#top"
@@ -25,7 +25,7 @@ export function SiteHeader() {
           className="order-last -mx-6 -my-2 flex w-[calc(100%+48px)] gap-[22px] overflow-x-auto px-6 text-[14px] whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:order-none sm:mx-0 sm:ml-auto sm:w-auto sm:overflow-visible sm:px-0"
         >
           {nav.map((item) => (
-            <a key={item.href} href={item.href} className="inline-flex min-h-10 items-center text-neutral-300 hover:text-white sm:min-h-0">
+            <a key={item.href} href={item.href} className="inline-flex min-h-10 items-center text-neutral-300 hover:text-accent-700 sm:min-h-0">
               {item.label}
             </a>
           ))}
@@ -50,7 +50,7 @@ export function SiteHeader() {
         <a
           href={profile.resumePath}
           download={profile.resumeFilename}
-          className="ml-auto rounded-[10px] bg-ink px-3.5 py-2 text-[14px] font-semibold text-ink-invert hover:bg-white hover:text-ink-invert sm:ml-0 sm:px-4 sm:py-[9px]"
+          className="ml-auto rounded-[10px] bg-ink px-3.5 py-2 text-[14px] font-semibold text-ink-invert hover:bg-accent hover:text-ink-invert sm:ml-0 sm:px-4 sm:py-[9px]"
         >
           <span className="sm:hidden">Résumé ↓</span>
           <span className="hidden sm:inline">Download résumé ↓</span>

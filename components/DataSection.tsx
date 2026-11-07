@@ -51,7 +51,7 @@ export function DataSection() {
                 <SmartLink
                   key={link.label}
                   href={link.href}
-                  className="border-b-2 border-accent pb-0.5 text-accent-soft hover:text-white"
+                  className="border-b-2 border-accent pb-0.5 text-accent-soft hover:text-accent-700"
                 >
                   {link.label}
                 </SmartLink>
@@ -122,7 +122,7 @@ export function DataSection() {
 
           <div className="flex min-w-0 flex-[1_1_360px] flex-col gap-4">
             <p className="text-[14.5px] font-semibold">{daxMeasure.title}</p>
-            <pre className="m-0 overflow-x-auto rounded-lg border border-rule-section bg-code p-5 font-mono-ui text-[12.5px] leading-[1.7] whitespace-pre text-neutral-200">
+            <pre className="m-0 overflow-x-auto rounded-lg border border-rule-section bg-code p-5 font-mono-ui text-[12.5px] leading-[1.7] whitespace-pre text-[#e4e7f5]">
               {daxMeasure.code}
             </pre>
             <p className="text-[13.5px] leading-[1.55] text-neutral-400">

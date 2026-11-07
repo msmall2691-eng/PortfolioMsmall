@@ -72,7 +72,7 @@ export function ToolsSection() {
         <div className="flex flex-wrap gap-x-6 gap-y-2">
           <Link
             href={toolsSection.caseStudy}
-            className="inline-flex min-h-11 items-center text-[14.5px] font-semibold text-accent-soft hover:text-white"
+            className="inline-flex min-h-11 items-center text-[14.5px] font-semibold text-accent-soft hover:text-accent-700"
           >
             Case study →
           </Link>
@@ -80,7 +80,7 @@ export function ToolsSection() {
             href={allHref}
             target="_blank"
             rel="noopener"
-            className="inline-flex min-h-11 items-center text-[14.5px] font-semibold text-accent-soft hover:text-white"
+            className="inline-flex min-h-11 items-center text-[14.5px] font-semibold text-accent-soft hover:text-accent-700"
           >
             Open the tools on mlinx.studio ↗
           </a>
@@ -112,7 +112,7 @@ export function SmallBuilds() {
               {b.link ? (
                 <Link
                   href={b.link.href}
-                  className="inline-flex min-h-8 items-center text-[13.5px] font-semibold text-accent-soft hover:text-white"
+                  className="inline-flex min-h-8 items-center text-[13.5px] font-semibold text-accent-soft hover:text-accent-700"
                 >
                   {b.link.label}
                 </Link>

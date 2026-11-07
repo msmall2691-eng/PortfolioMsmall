@@ -16,7 +16,7 @@ export function About() {
             alt="Megan Small"
             width={680}
             height={850}
-            className="block aspect-4/5 w-full rounded-[18px] object-cover object-[center_30%] shadow-[0_24px_60px_rgba(0,0,0,0.4)]"
+            className="block aspect-4/5 w-full rounded-[18px] object-cover object-[center_30%] shadow-[0_24px_60px_rgba(28,30,50,0.10)]"
           />
         </div>
 

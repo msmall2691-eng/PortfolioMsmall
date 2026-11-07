@@ -64,12 +64,10 @@ export const iconLinks = [
 ] as const;
 
 export const hero = {
-  // Derived from profile.discipline so the hero and the résumé card always
-  // state the same thing. Change it in one place: profile.discipline.
-  eyebrow: profile.discipline.toUpperCase(),
-  headlinePlain: 'Building the systems ',
+  eyebrow: 'MEGAN SMALL · SOUTHERN MAINE',
+  headlinePlain: 'I build the software and websites ',
   headlineAccent: 'small businesses run on.',
-  lede: `Websites, workflows and the data underneath, shaped by ${YEARS_IN_BUSINESS.toLocaleString()} years running a cleaning company.`,
+  lede: `I ran a cleaning company for ${YEARS_IN_BUSINESS_WORD.toLowerCase()} years. When the apps we paid for didn't fit, I built BrightBase, and now it runs our scheduling, crews and billing. I'm finishing a B.S. in Business Analytics & AI at USM and looking for a role designing and building business systems.`,
   status: 'Open to roles designing and building business systems',
   links: [
     { href: '#work', label: 'See the work', current: true },
@@ -105,14 +103,6 @@ export const offers = [
       { label: 'Operations data', href: '#data' },
     ],
   },
-] as const;
-
-/** Real figures, all backed elsewhere on the site. */
-export const heroStats = [
-  { value: `${YEARS_IN_BUSINESS} yrs`, label: 'running a business' },
-  { value: '$1M+', label: 'collected since 2023' },
-  { value: '1,000+', label: 'customers served' },
-  { value: '6', label: 'projects shipped' },
 ] as const;
 
 /** The path, oldest first. Shown in About. */

@@ -17,6 +17,8 @@ export type CaseStudy = {
   liveUrl?: { href: string; label: string };
   /** Optional figure shown under the hero. */
   image?: { src: string; alt: string; caption: string; width: number; height: number };
+  /** Optional flow diagram (rendered from Mermaid) shown under the figure. */
+  diagram?: { src: string; alt: string; heading: string; width: number; height: number };
 };
 
 export type CaseSection =
@@ -29,6 +31,13 @@ export type CaseSection =
 export const caseStudies: readonly CaseStudy[] = [
   {
     slug: 'brightbase',
+    diagram: {
+      src: '/img/diagrams/brightbase.webp',
+      alt: "Flow diagram: a request is quoted; if the client accepts it is scheduled, sent to the crew's phone, cleaned, invoiced and paid, then the subcontractor is paid. Recurring jobs loop back to scheduling; declined quotes get a follow-up.",
+      heading: 'One job, from request to paid',
+      width: 1568,
+      height: 198,
+    },
     title: 'BrightBase',
     lede: 'The software my cleaning company runs on. Scheduling, a crew phone app, rental turnovers, billing and payouts, in one place.',
     metaDescription:
@@ -108,6 +117,13 @@ export const caseStudies: readonly CaseStudy[] = [
   },
   {
     slug: 'linx',
+    diagram: {
+      src: '/img/diagrams/linx.webp',
+      alt: 'Flow diagram: an owner posts a turnover, vetted cleaners bid, the owner awards one under a row lock and the address unlocks, the cleaner finishes, one Stripe charge pays the cleaner and the fee, and both sides review. A cancellation puts the job back on the bench.',
+      heading: 'One turnover, from posted to reviewed',
+      width: 1568,
+      height: 206,
+    },
     title: 'linx',
     lede: 'A marketplace for rental turnovers: owners post the clean between guests, vetted cleaners bid, the owner hires one.',
     metaDescription:
@@ -169,6 +185,13 @@ export const caseStudies: readonly CaseStudy[] = [
   },
   {
     slug: 'agent-command-center',
+    diagram: {
+      src: '/img/diagrams/acc.webp',
+      alt: "Flow diagram: pick an agent, it drafts the work with its crew rules; reading runs on its own, but any write or command waits for Meg's approval before it runs or is skipped, and the draft comes back to Meg.",
+      heading: 'How an agent turn works',
+      width: 1568,
+      height: 270,
+    },
     title: 'Agent Command Center',
     lede: 'One console for AI agents that help with the business, code and school. They draft; I approve anything that changes something.',
     metaDescription:

@@ -129,20 +129,20 @@ export default async function CaseStudyPage({ params }: Props) {
 
   return (
     <div className="page-glow min-h-screen">
-      <header className="sticky top-0 z-20 border-b border-rule-section bg-[rgba(33,37,57,0.85)] backdrop-blur-[10px]">
+      <header className="sticky top-0 z-20 border-b border-rule-section bg-[rgba(247,246,242,0.9)] backdrop-blur-[10px]">
         <Container className="flex flex-wrap items-center gap-x-4 gap-y-3 py-3 sm:gap-x-6 sm:py-3.5">
           <Link href="/" className="flex items-center gap-2.5 text-[16px] font-semibold text-ink">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/img/meg-headshot.webp" alt="" width={32} height={32} className="size-8 rounded-full object-cover object-[center_30%]" />
             {profile.name}
           </Link>
-          <Link href="/#more" className="ml-auto hidden text-[14px] text-neutral-300 hover:text-white sm:inline">
+          <Link href="/#more" className="ml-auto hidden text-[14px] text-neutral-300 hover:text-accent-700 sm:inline">
             ← All work
           </Link>
           <a
             href={profile.resumePath}
             download={profile.resumeFilename}
-            className="ml-auto rounded-[10px] bg-ink px-3.5 py-2 sm:ml-0 sm:px-4 sm:py-[9px] text-[14px] font-semibold text-ink-invert hover:bg-white hover:text-ink-invert"
+            className="ml-auto rounded-[10px] bg-ink px-3.5 py-2 sm:ml-0 sm:px-4 sm:py-[9px] text-[14px] font-semibold text-ink-invert hover:bg-accent hover:text-ink-invert"
           >
             <span className="sm:hidden">Résumé ↓</span>
             <span className="hidden sm:inline">Download résumé ↓</span>
@@ -169,7 +169,7 @@ export default async function CaseStudyPage({ params }: Props) {
                 href={study.liveUrl.href}
                 target="_blank"
                 rel="noopener"
-                className="border-b-2 border-accent pb-0.5 text-[15px] font-semibold text-accent-soft hover:text-white"
+                className="border-b-2 border-accent pb-0.5 text-[15px] font-semibold text-accent-soft hover:text-accent-700"
               >
                 {study.liveUrl.label}
               </a>
@@ -180,7 +180,7 @@ export default async function CaseStudyPage({ params }: Props) {
         {study.image ? (
           <Container className="pb-12">
             <figure className="flex flex-col gap-3">
-              <div className="overflow-hidden rounded-panel border border-rule-inner bg-[#0f1220] shadow-[0_24px_60px_rgba(0,0,0,0.35)]">
+              <div className="overflow-hidden rounded-panel border border-rule-inner bg-white shadow-[0_24px_60px_rgba(28,30,50,0.10)]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={study.image.src}
@@ -193,6 +193,34 @@ export default async function CaseStudyPage({ params }: Props) {
               <figcaption className="text-[13.5px] text-neutral-400">{study.image.caption}</figcaption>
             </figure>
           </Container>
+        ) : null}
+
+        {study.diagram ? (
+          <section className="border-t border-rule-section">
+            <Container className="flex flex-col gap-5 py-14">
+              <Eyebrow>HOW IT WORKS</Eyebrow>
+              <h2 className="-mt-1 text-[clamp(24px,3.2vw,34px)] leading-[1.15] font-semibold tracking-[-0.02em] text-balance">
+                {study.diagram.heading}
+              </h2>
+              <div
+                tabIndex={0}
+                role="region"
+                aria-label="Flow diagram, scroll sideways on small screens"
+                className="overflow-x-auto rounded-panel border border-rule-inner bg-white p-4"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={study.diagram.src}
+                  alt={study.diagram.alt}
+                  width={study.diagram.width}
+                  height={study.diagram.height}
+                  loading="lazy"
+                  className="block h-auto w-full min-w-[820px]"
+                />
+              </div>
+              <p className="text-[13.5px] text-neutral-400 sm:hidden">Scroll sideways to see the whole flow.</p>
+            </Container>
+          </section>
         ) : null}
 
         {study.sections.map((section) => (
