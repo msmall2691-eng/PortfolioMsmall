@@ -22,7 +22,7 @@ function Go({ href, children }: { href: string; children: React.ReactNode }) {
 export function Intro() {
   return (
     <section className="pt-[clamp(36px,5vw,64px)] pb-12">
-      <Container className="grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-start">
+      <Container className="grid gap-7 md:gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-start">
         <div className="flex flex-col gap-4">
           <h1 className="text-[clamp(32px,3.6vw,42px)] leading-[1.1] font-semibold tracking-[-0.025em]">
             {intro.name}
@@ -81,7 +81,7 @@ export function Intro() {
 export function Projects() {
   return (
     <section id="work" aria-labelledby="work-h" className="section-anchor border-t border-rule-section">
-      <Container className="flex flex-col gap-6 py-12">
+      <Container className="flex flex-col gap-5 py-9 md:gap-6 md:py-12">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <h2 id="work-h" className={h2}>Projects</h2>
           <p className="text-[14px] text-neutral-400">Each one links to a short case study.</p>
@@ -121,7 +121,7 @@ export function Projects() {
 export function MoreWork() {
   return (
     <section id="more" aria-labelledby="more-h" className="section-anchor border-t border-rule-section">
-      <Container className="grid gap-10 py-12 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+      <Container className="grid gap-7 py-9 md:gap-10 md:py-12 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
         <div className="flex flex-col gap-3">
           <h2 id="more-h" className={h2}>More work</h2>
           <ul className="m-0 flex list-none flex-col p-0">
@@ -176,7 +176,7 @@ export function MoreWork() {
 export function AboutContact() {
   return (
     <section id="about" aria-labelledby="about-h" className="section-anchor border-t border-rule-section">
-      <Container className="grid gap-10 py-12 md:grid-cols-[180px_minmax(0,1fr)_minmax(0,1fr)]">
+      <Container className="grid gap-7 py-9 md:grid-cols-[180px_minmax(0,1fr)_minmax(0,1fr)] md:gap-10 md:py-12">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/img/meg-headshot.webp"
@@ -184,7 +184,7 @@ export function AboutContact() {
           width={680}
           height={850}
           loading="lazy"
-          className="block aspect-4/5 w-[140px] rounded-[14px] object-cover object-[center_30%] md:w-full"
+          className="block aspect-4/5 w-[120px] rounded-[14px] object-cover object-[center_30%] md:w-full"
         />
         <div className="flex flex-col gap-3">
           <h2 id="about-h" className={h2}>About</h2>
@@ -205,7 +205,7 @@ export function AboutContact() {
         </div>
       </Container>
 
-      <Container id="contact" className="section-anchor pb-14">
+      <Container id="contact" className="section-anchor pb-10 md:pb-14">
         <div className="flex flex-wrap items-center justify-between gap-4 rounded-card border border-rule-inner bg-card px-5 py-4">
           <p className="text-[15.5px] font-semibold">Hiring for a systems role? Let&apos;s talk.</p>
           <p className="flex flex-wrap gap-x-5 gap-y-1 text-[14px]">
