@@ -32,27 +32,28 @@ export type Project = {
 export const projects: readonly Project[] = [
   {
     title: 'BrightBase',
-    tag: 'Operations app · in daily use',
-    line: 'Scheduling, a crew phone app, billing and payouts in one place.',
-    img: '/img/bb-schedule.webp',
-    alt: 'BrightBase office schedule, client names removed',
+    tag: 'Operations app',
+    line: 'Leads, quotes, scheduling, a crew phone app, billing and payouts in one place.',
+    img: '/img/bb-requests.webp',
+    alt: 'BrightBase lead inbox with requests from the website, Facebook and phone. Demo data.',
     position: 'top left',
     href: '/work/brightbase/',
   },
   {
     title: 'linx',
     tag: 'Marketplace web app',
-    line: 'Rental owners post cleanings and vetted cleaners bid on them.',
-    img: '/img/linx-flow.webp',
-    alt: 'linx flow: posted, on the bench, bids, awarded, done, paid',
+    line: 'Rental owners post cleanings, vetted cleaners bid, and Stripe pays them.',
+    img: '/img/linx-landing.webp',
+    alt: 'linx landing page with a sample turnover and three bids',
+    position: 'top',
     href: '/work/linx/',
   },
   {
     title: 'maineclean.co',
-    tag: 'Website · live',
-    line: 'The company site, where customers get an instant price and book.',
-    img: '/img/tmcc-estimate.webp',
-    alt: 'maineclean.co instant estimate form',
+    tag: 'Website · live demo',
+    line: 'The cleaning company site with an instant price and online booking, kept online as a demo.',
+    img: '/img/tmcc-demo.webp',
+    alt: 'The Maine Cleaning Co. website homepage',
     position: 'top left',
     href: '/work/maineclean/',
     extra: { label: 'Code', href: 'https://github.com/msmall2691-eng/maine-cleaning-co' },
@@ -66,23 +67,39 @@ export const projects: readonly Project[] = [
     position: 'top left',
     href: '/work/agent-command-center/',
   },
+  {
+    title: 'mlinx.studio',
+    tag: 'Studio website · live',
+    line: 'My studio site: live client previews, eight free tools and live Maine weather.',
+    img: '/img/mstudio-live.webp',
+    alt: 'mlinx.studio homepage showing a live preview of a client site',
+    position: 'top',
+    href: '/work/m-studio-tools/',
+    extra: { label: 'Visit', href: 'https://mlinx.studio' },
+  },
+  {
+    title: 'M Linx Guide',
+    tag: 'Product · live',
+    line: 'Phone guidebooks for rental guests, with door codes kept out of the public page.',
+    img: '/img/guide-phones.webp',
+    alt: 'Two phone screens from a live guest guide',
+    position: 'center',
+    href: '/work/m-linx-guide/',
+  },
 ];
 
 export type MoreRow = {
   title: string;
   line: string;
   links: readonly { label: string; href: string }[];
+  /** Small real captures of the live sites, each linking to the site. */
+  thumbs?: readonly { src: string; alt: string; href: string }[];
 };
 
 export const moreWork: readonly MoreRow[] = [
   {
-    title: 'M Linx Guide',
-    line: 'Phone guidebooks for rental guests, with door codes shown only to the right guest.',
-    links: [{ label: 'Case study', href: '/work/m-linx-guide/' }],
-  },
-  {
     title: 'Free tools',
-    line: 'Eight small tools for service businesses: quotes, invoices, site checks and more.',
+    line: 'Eight small tools on mlinx.studio for service businesses: quotes, site checks and more.',
     links: [
       { label: 'Case study', href: '/work/m-studio-tools/' },
       { label: 'Open the tools ↗', href: links.studio },
@@ -99,6 +116,10 @@ export const moreWork: readonly MoreRow[] = [
     links: [
       { label: 'Nash Construction ↗', href: 'https://nashconstructionnh.com' },
       { label: 'The Remote Admin ↗', href: 'https://the-remote-admin.com' },
+    ],
+    thumbs: [
+      { src: '/img/client-nash.webp', alt: 'Nash Construction homepage', href: 'https://nashconstructionnh.com' },
+      { src: '/img/client-remote-admin.webp', alt: 'The Remote Admin homepage', href: 'https://the-remote-admin.com' },
     ],
   },
   {

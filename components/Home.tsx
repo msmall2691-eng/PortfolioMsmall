@@ -86,7 +86,7 @@ export function Projects() {
           <h2 id="work-h" className={h2}>Projects</h2>
           <p className="text-[14px] text-neutral-400">Each one links to a short case study.</p>
         </div>
-        <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2">
+        <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p) => (
             <li key={p.title} className="group relative flex flex-col overflow-hidden rounded-card border border-rule-inner bg-card transition-transform duration-150 hover:-translate-y-0.5">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -129,6 +129,16 @@ export function MoreWork() {
               <li key={row.title} className="flex flex-col gap-1 border-t border-rule-inner py-3.5 first:border-t-0">
                 <span className="text-[15.5px] font-semibold">{row.title}</span>
                 <span className="text-[14px] leading-[1.5] text-neutral-400">{row.line}</span>
+                {row.thumbs ? (
+                  <span className="grid max-w-[420px] grid-cols-2 gap-2.5 pt-1.5">
+                    {row.thumbs.map((t) => (
+                      <a key={t.src} href={t.href} target="_blank" rel="noopener" className="block overflow-hidden rounded-[8px] border border-rule-inner">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={t.src} alt={t.alt} loading="lazy" width={1280} height={720} className="block aspect-[16/9] w-full object-cover object-top" />
+                      </a>
+                    ))}
+                  </span>
+                ) : null}
                 {row.links.length ? (
                   <span className="flex flex-wrap gap-x-4 gap-y-1 text-[14px]">
                     {row.links.map((l) => (

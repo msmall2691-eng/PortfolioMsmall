@@ -134,11 +134,11 @@ export const caseStudies: readonly CaseStudy[] = [
       { label: 'Status', value: 'Launch ready · 900+ tests' },
     ],
     image: {
-      src: '/img/linx-flow.webp',
-      alt: 'Diagram of one turnover moving from posted to bids, awarded, done and paid',
-      caption: 'One turnover, start to finish.',
-      width: 1200,
-      height: 900,
+      src: '/img/linx-landing.webp',
+      alt: 'The linx landing page: a rental turnover with three bids from vetted cleaners',
+      caption: 'The linx landing page, captured from the app. The bids shown are the page\'s own sample.',
+      width: 1280,
+      height: 720,
     },
     sections: [
       {
@@ -311,11 +311,11 @@ export const caseStudies: readonly CaseStudy[] = [
     ],
     liveUrl: { href: 'https://mlinx.studio/tools', label: 'Try the tools ↗' },
     image: {
-      src: '/img/mstudio-hero.webp',
-      alt: 'The mlinx.studio homepage',
+      src: '/img/mstudio-live.webp',
+      alt: 'The mlinx.studio homepage with a live preview of a client site and the free tools list',
       caption: 'mlinx.studio, where the tools live.',
-      width: 1400,
-      height: 575,
+      width: 1280,
+      height: 720,
     },
     sections: [
       {
