@@ -98,14 +98,6 @@ export type MoreRow = {
 
 export const moreWork: readonly MoreRow[] = [
   {
-    title: 'Free tools',
-    line: 'Eight small tools on mlinx.studio for service businesses: quotes, site checks and more.',
-    links: [
-      { label: 'Case study', href: '/work/m-studio-tools/' },
-      { label: 'Open the tools ↗', href: links.studio },
-    ],
-  },
-  {
     title: 'Power BI models',
     line: 'Four models built from real job and bank records, cleaned and anonymized.',
     links: [{ label: 'GitHub ↗', href: links.powerbi }],
