@@ -78,7 +78,19 @@ export function Intro() {
   );
 }
 
+/**
+ * The first four projects carry a screenshot; the rest are text rows.
+ *
+ * Six image cards stacked on a phone put 2,350px between the hero and
+ * anything else — the screenshots are the proof, but only for the work
+ * worth leading with. The rest keep their case-study pages and read as
+ * a list, which is also what gives the section a top four at all.
+ */
+const FEATURED_COUNT = 4;
+
 export function Projects() {
+  const featured = projects.slice(0, FEATURED_COUNT);
+  const rest = projects.slice(FEATURED_COUNT);
   return (
     <section id="work" aria-labelledby="work-h" className="section-anchor border-t border-rule-section">
       <Container className="flex flex-col gap-5 py-9 md:gap-6 md:py-12">
@@ -86,8 +98,8 @@ export function Projects() {
           <h2 id="work-h" className={h2}>Projects</h2>
           <p className="text-[14px] text-neutral-400">Each one links to a short case study.</p>
         </div>
-        <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((p) => (
+        <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2">
+          {featured.map((p) => (
             <li key={p.title} className="group relative flex flex-col overflow-hidden rounded-card border border-rule-inner bg-card transition-transform duration-150 hover:-translate-y-0.5">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -113,6 +125,28 @@ export function Projects() {
             </li>
           ))}
         </ul>
+
+        {rest.length ? (
+          <ul className="m-0 flex list-none flex-col p-0">
+            {rest.map((p) => (
+              <li key={p.title} className="group relative flex flex-col gap-1 border-t border-rule-inner py-3.5">
+                <span className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
+                  <h3 className="text-[15.5px] font-semibold">
+                    <Link href={p.href} className="text-ink after:absolute after:inset-0 hover:text-accent-700">
+                      {p.title}
+                    </Link>
+                  </h3>
+                  <span className="font-mono-ui text-[11px] tracking-[0.08em] text-neutral-500 uppercase">{p.tag}</span>
+                </span>
+                <span className="text-[14px] leading-[1.5] text-neutral-400">{p.line}</span>
+                <span className="relative z-10 flex gap-4 pt-0.5 text-[14px]">
+                  <span className="text-accent-soft">Case study →</span>
+                  {p.extra ? <Go href={p.extra.href}>{p.extra.label} ↗</Go> : null}
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </Container>
     </section>
   );
