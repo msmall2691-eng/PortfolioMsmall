@@ -62,11 +62,11 @@ export function Intro() {
             {intro.experience.map((e) => (
               <li
                 key={e.what}
-                className="grid grid-cols-[96px_minmax(0,1fr)] gap-3 border-t border-rule-inner py-3 first:border-t-0 first:pt-0"
+                className="grid grid-cols-[80px_minmax(0,1fr)] gap-x-2.5 border-t border-rule-inner py-2.5 first:border-t-0 first:pt-0 sm:grid-cols-[96px_minmax(0,1fr)] sm:gap-x-3 sm:py-3"
               >
                 <span className="pt-0.5 font-mono-ui text-[12px] text-neutral-400">{e.when}</span>
                 <span className="flex flex-col">
-                  <span className="text-[15px] font-semibold leading-[1.35]">{e.what}</span>
+                  <span className="text-[14px] font-semibold leading-[1.35] sm:text-[15px]">{e.what}</span>
                   <span className="text-[13.5px] text-neutral-400">{e.where}</span>
                 </span>
               </li>
