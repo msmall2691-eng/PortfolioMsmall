@@ -220,7 +220,7 @@ export function MoreWork() {
 export function AboutContact() {
   return (
     <section id="about" aria-labelledby="about-h" className="section-anchor border-t border-rule-section">
-      <Container className="grid gap-7 py-9 md:grid-cols-[180px_minmax(0,1fr)_minmax(0,1fr)] md:gap-10 md:py-12">
+      <Container className="grid gap-6 py-9 md:grid-cols-[180px_minmax(0,1fr)_minmax(0,1fr)] md:gap-10 md:py-12">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/img/meg-headshot.webp"
@@ -238,11 +238,19 @@ export function AboutContact() {
         </div>
         <div id="skills" className="section-anchor flex flex-col gap-3">
           <h2 className={h2}>Skills</h2>
-          <dl className="m-0 flex flex-col gap-2.5">
+          {/*
+            The label runs into its list rather than sitting on a line of its
+            own. Five groups each cost a whole line for one word, which was
+            385px of a 1,072px section on a phone; inline, the weight change
+            does the same job in no vertical space at all. No punctuation
+            after the label on purpose — a middot there reads as the first
+            item in the list.
+          */}
+          <dl className="m-0 flex flex-col gap-2">
             {aboutShort.skills.map((s) => (
-              <div key={s.name} className="flex flex-col">
-                <dt className="text-[13px] font-semibold">{s.name}</dt>
-                <dd className="m-0 text-[13.5px] leading-[1.5] text-neutral-400">{s.items}</dd>
+              <div key={s.name} className="text-[13.5px] leading-[1.5]">
+                <dt className="inline font-semibold text-ink">{s.name}</dt>
+                <dd className="m-0 inline text-neutral-400"> {s.items}</dd>
               </div>
             ))}
           </dl>
@@ -250,7 +258,14 @@ export function AboutContact() {
       </Container>
 
       <Container id="contact" className="section-anchor pb-10 md:pb-14">
-        <div className="flex flex-wrap items-center justify-between gap-4 rounded-card border border-rule-inner bg-card px-5 py-4">
+        {/*
+          gap-4 is load-bearing: at 768 the three links sit on one row beside
+          the heading with very little room to spare, and widening this to
+          gap-x-5 wrapped them onto a second row — a card 29px TALLER than the
+          one this padding change was shrinking. Only the padding moves, and
+          only on a phone.
+        */}
+        <div className="flex flex-wrap items-center justify-between gap-4 rounded-card border border-rule-inner bg-card px-4 py-3.5 md:px-5 md:py-4">
           <p className="text-[15.5px] font-semibold">Hiring for a systems role? Let&apos;s talk.</p>
           <p className="flex flex-wrap gap-x-5 gap-y-1 text-[14px]">
             <a href={profile.resumePath} download={profile.resumeFilename} className={linkCls}>Résumé (PDF) ↓</a>
