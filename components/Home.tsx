@@ -101,23 +101,33 @@ export function Projects() {
         <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2">
           {featured.map((p) => (
             <li key={p.title} className="group relative flex flex-col overflow-hidden rounded-card border border-rule-inner bg-card transition-transform duration-150 hover:-translate-y-0.5">
+              {/*
+                The height is bounded, not an aspect ratio. With aspect-[16/9]
+                the image grew with its column, so a two-up card on a desktop
+                carried a 307px screenshot — the tallest block on the page, and
+                all it bought was a second row of the same lead cards. A fixed
+                height crops wider as the column widens instead, which is what
+                you want from a screenshot. Raise it only at lg: the two-column
+                grid starts at sm but the column is still ~350px at 768, where
+                210px would be a crop TALLER than 16:9.
+              */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={p.img}
                 alt={p.alt}
                 loading="lazy"
-                className="block aspect-[16/9] w-full border-b border-rule-inner object-cover"
+                className="block h-[170px] w-full border-b border-rule-inner object-cover lg:h-[210px]"
                 style={{ objectPosition: p.position ?? "center" }}
               />
-              <div className="flex flex-1 flex-col gap-1.5 p-4">
+              <div className="flex flex-1 flex-col gap-1 p-3.5">
                 <span className="font-mono-ui text-[11px] tracking-[0.08em] text-neutral-500 uppercase">{p.tag}</span>
-                <h3 className="text-[17px] font-semibold">
+                <h3 className="text-[16.5px] font-semibold">
                   <Link href={p.href} className="text-ink after:absolute after:inset-0 hover:text-accent-700">
                     {p.title}
                   </Link>
                 </h3>
                 <p className="text-[14.5px] leading-[1.5] text-neutral-300">{p.line}</p>
-                <p className="relative z-10 mt-auto flex gap-4 pt-1 text-[14px]">
+                <p className="relative z-10 mt-auto flex gap-4 pt-0.5 text-[14px]">
                   <span className="text-accent-soft">Case study →</span>
                   {p.extra ? <Go href={p.extra.href}>{p.extra.label} ↗</Go> : null}
                 </p>
