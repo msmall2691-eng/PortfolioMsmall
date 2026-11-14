@@ -57,7 +57,16 @@ export const charts: readonly Chart[] = [
     id: 'mix',
     label: 'Visit mix',
     note: 'Completed visits by service line.',
-    source: 'Visits by service · 4,916 visits, Feb 2023 – Oct 2026',
+    /*
+     * This caption used to read "4,916 visits". The five rows below sum to
+     * 4,905, and nothing in the published .pbip (model definitions only, no
+     * data) settles which is right — 4,916 may well be correct with 11 visits
+     * carrying no service line, but a total that disagrees with the bars
+     * under it is the first thing a data reader checks. Dropped rather than
+     * guessed. Put a total back once the model says which one, and say what
+     * the difference is.
+     */
+    source: 'Visits by service · Feb 2023 – Oct 2026',
     scale: 'max',
     rows: [
       { key: 'Commercial', value: 2428, display: '2,428' },

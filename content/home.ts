@@ -98,11 +98,6 @@ export type MoreRow = {
 
 export const moreWork: readonly MoreRow[] = [
   {
-    title: 'Power BI models',
-    line: 'Four models built from real job and bank records, cleaned and anonymized.',
-    links: [{ label: 'GitHub ↗', href: links.powerbi }],
-  },
-  {
     title: 'Client websites',
     line: 'Built and hosted for two small businesses in New Hampshire.',
     links: [

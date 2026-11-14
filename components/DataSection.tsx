@@ -21,11 +21,21 @@ const sectionLinks: readonly SectionLink[] = [
   { href: links.powerbiStack, label: 'Software stack: build vs buy ↗' },
 ];
 
+const h2 = 'text-[22px] font-semibold tracking-[-0.015em]';
+
 export function DataSection() {
   const [active, setActive] = useState<ChartId>('crew');
   const chart = charts.find((c) => c.id === active) ?? charts[0]!;
 
   const visibleLinks = sectionLinks.filter((l) => isReachable(l.href));
+
+  /**
+   * The software-audit chart prints no figures — the dollar amounts are a
+   * floor read off bank records, and the point is how many tools there were,
+   * not what each cost. Reserving the value column anyway spent 52px of a
+   * 342px phone on nothing, taken straight out of the bar.
+   */
+  const hasValues = chart.rows.some((r) => r.display !== '');
 
   return (
     <section
@@ -33,20 +43,17 @@ export function DataSection() {
       aria-labelledby="data-h"
       className="section-anchor border-t border-rule-section"
     >
-      <Container className="flex flex-col gap-9 py-20">
-        <div className="flex max-w-[680px] flex-col gap-3.5">
+      <Container className="flex flex-col gap-6 py-9 md:gap-9 md:py-12">
+        <div className="flex max-w-[680px] flex-col gap-3">
           <Eyebrow>{dataSection.eyebrow}</Eyebrow>
-          <h2
-            id="data-h"
-            className="text-[clamp(28px,3.6vw,40px)] leading-[1.1] font-semibold tracking-[-0.025em] text-balance"
-          >
+          <h2 id="data-h" className={h2}>
             {dataSection.heading}
           </h2>
-          <p className="text-[16px] leading-[1.6] text-neutral-300 text-pretty">
+          <p className="text-[15px] leading-[1.6] text-neutral-300 text-pretty">
             {dataSection.intro}
           </p>
           {visibleLinks.length > 0 ? (
-            <div className="flex flex-wrap gap-[22px] pt-1 text-[14.5px] font-semibold">
+            <div className="flex flex-wrap gap-x-5 gap-y-1.5 pt-0.5 text-[14px] font-semibold">
               {visibleLinks.map((link) => (
                 <SmartLink
                   key={link.label}
@@ -60,21 +67,30 @@ export function DataSection() {
           ) : null}
         </div>
 
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] border-y border-rule-inner">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] border-y border-rule-inner">
           {kpis.map((kpi) => (
-            <div key={kpi.label} className="flex flex-col gap-1.5 py-[22px] pr-5">
-              <span className="text-[34px] font-semibold tracking-[-0.03em]">{kpi.value}</span>
-              <span className="text-[13.5px] text-neutral-400">{kpi.label}</span>
+            <div key={kpi.label} className="flex flex-col gap-1 py-3 pr-4 md:py-3.5">
+              <span className="text-[24px] font-semibold tracking-[-0.03em] md:text-[30px]">
+                {kpi.value}
+              </span>
+              <span className="text-[13px] leading-[1.35] text-neutral-400">{kpi.label}</span>
             </div>
           ))}
         </div>
 
-        <div className="flex flex-wrap gap-14">
-          <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-[22px]">
+        <div className="flex flex-wrap gap-7 md:gap-10">
+          <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-4">
+            {/*
+              Plain buttons with aria-pressed, not role="tab". A tablist
+              promises arrow-key navigation between tabs and a matching
+              tabpanel; this has three filter buttons and one region, and
+              claiming the richer pattern without implementing it is worse
+              for a screen reader than not claiming it.
+            */}
             <div
-              role="tablist"
-              aria-label="Operations chart"
-              className="flex gap-6 border-b border-rule-section"
+              role="group"
+              aria-label="Choose a chart"
+              className="flex gap-5 border-b border-rule-section"
             >
               {charts.map((c) => {
                 const on = c.id === active;
@@ -82,10 +98,9 @@ export function DataSection() {
                   <button
                     key={c.id}
                     type="button"
-                    role="tab"
-                    aria-selected={on}
+                    aria-pressed={on}
                     onClick={() => setActive(c.id)}
-                    className={`-mb-px cursor-pointer border-0 border-b-2 bg-transparent pb-3 font-[inherit] text-[14.5px] font-semibold ${
+                    className={`-mb-px cursor-pointer border-0 border-b-2 bg-transparent pb-2.5 font-[inherit] text-[14px] font-semibold ${
                       on ? 'border-accent text-ink' : 'border-transparent text-neutral-400'
                     }`}
                   >
@@ -95,37 +110,59 @@ export function DataSection() {
               })}
             </div>
 
-            <p className="min-h-11 text-[14.5px] leading-[1.55] text-neutral-300">
+            {/* min-h holds the height steady as the note changes with the chart */}
+            <p
+              aria-live="polite"
+              className="min-h-10 text-[14px] leading-[1.5] text-neutral-300"
+            >
               {chart.note}
             </p>
 
-            <div className="flex flex-col gap-3.5">
+            <div className="flex flex-col gap-2.5">
               {chart.rows.map((row) => (
                 <div
                   key={row.key}
-                  className="grid grid-cols-[150px_minmax(0,1fr)_64px] items-center gap-3.5"
+                  className={`grid items-center gap-x-2.5 sm:gap-x-3.5 ${
+                    hasValues
+                      ? 'grid-cols-[104px_minmax(0,1fr)_48px] sm:grid-cols-[150px_minmax(0,1fr)_64px]'
+                      : 'grid-cols-[104px_minmax(0,1fr)] sm:grid-cols-[150px_minmax(0,1fr)]'
+                  }`}
                 >
-                  <span className="text-[14px] text-neutral-300">{row.key}</span>
-                  <span className="h-[22px] overflow-hidden rounded-[3px] bg-surface">
+                  <span className="text-[13.5px] leading-[1.3] text-neutral-300 sm:text-[14px]">
+                    {row.key}
+                  </span>
+                  <span className="h-[18px] overflow-hidden rounded-[3px] bg-surface sm:h-[22px]">
                     <span
                       className="block h-full rounded-[3px] bg-accent transition-[width] duration-300"
                       style={{ width: barWidth(chart, row) }}
                     />
                   </span>
-                  <span className="text-right font-mono-ui text-[13px]">{row.display}</span>
+                  {hasValues ? (
+                    <span className="text-right font-mono-ui text-[12.5px] sm:text-[13px]">
+                      {row.display}
+                    </span>
+                  ) : null}
                 </div>
               ))}
             </div>
 
-            <p className="font-mono-ui text-[11.5px] text-neutral-500">{chart.source}</p>
+            <p className="font-mono-ui text-[11.5px] leading-[1.4] text-neutral-500">
+              {chart.source}
+            </p>
           </div>
 
-          <div className="flex min-w-0 flex-[1_1_360px] flex-col gap-4">
-            <p className="text-[14.5px] font-semibold">{daxMeasure.title}</p>
-            <pre className="m-0 overflow-x-auto rounded-lg border border-rule-section bg-code p-5 font-mono-ui text-[12.5px] leading-[1.7] whitespace-pre text-[#e4e7f5]">
+          <div className="flex min-w-0 flex-[1_1_360px] flex-col gap-3">
+            <p className="text-[14px] font-semibold">{daxMeasure.title}</p>
+            {/*
+              Capped and scrollable on a phone only. Twelve lines of DAX is
+              297px of a screen that is 342px wide, and it already scrolls
+              sideways there; letting it scroll both ways keeps the measure
+              on the page instead of making it the page.
+            */}
+            <pre className="m-0 max-h-[160px] overflow-auto rounded-lg border border-rule-section bg-code p-4 font-mono-ui text-[12px] leading-[1.6] whitespace-pre text-[#e4e7f5] md:max-h-none md:p-5 md:text-[12.5px]">
               {daxMeasure.code}
             </pre>
-            <p className="text-[13.5px] leading-[1.55] text-neutral-400">
+            <p className="text-[13px] leading-[1.5] text-neutral-400">
               {dataSection.privacyNote}
             </p>
           </div>

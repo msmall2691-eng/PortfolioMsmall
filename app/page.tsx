@@ -1,6 +1,7 @@
 import { SiteHeader } from '@/components/SiteHeader';
 import { HeaderOffset } from '@/components/HeaderOffset';
 import { Intro, Projects, MoreWork, AboutContact } from '@/components/Home';
+import { DataSection } from '@/components/DataSection';
 import { SiteFooter } from '@/components/SiteFooter';
 
 export default function Page() {
@@ -11,6 +12,7 @@ export default function Page() {
       <main id="top">
         <Intro />
         <Projects />
+        <DataSection />
         <MoreWork />
         <AboutContact />
         <SiteFooter />
