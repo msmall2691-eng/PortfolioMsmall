@@ -24,16 +24,18 @@ const sectionLinks: readonly SectionLink[] = [
 const h2 = 'text-[22px] font-semibold tracking-[-0.015em]';
 
 export function DataSection() {
-  const [active, setActive] = useState<ChartId>('crew');
+  const [active, setActive] = useState<ChartId>('segment');
   const chart = charts.find((c) => c.id === active) ?? charts[0]!;
 
   const visibleLinks = sectionLinks.filter((l) => isReachable(l.href));
 
   /**
-   * The software-audit chart prints no figures — the dollar amounts are a
-   * floor read off bank records, and the point is how many tools there were,
-   * not what each cost. Reserving the value column anyway spent 52px of a
-   * 342px phone on nothing, taken straight out of the bar.
+   * Every chart currently prints a figure per row, so this is always true
+   * today. It stays because `display` is a plain string and a chart author
+   * can still leave it empty — the software-audit chart did, until its
+   * unpublished dollar figures were replaced by tool counts. Without the
+   * guard that author silently gets a 48px empty column on a 342px phone,
+   * taken straight out of the bar.
    */
   const hasValues = chart.rows.some((r) => r.display !== '');
 

@@ -1,27 +1,54 @@
 /**
  * Data section: KPIs, the three tabbed charts and the DAX sample.
  *
- * Bar widths are computed from the raw figures so the numbers and the
- * bars can never disagree — each chart scales to its own largest row.
+ * EVERY FIGURE HERE IS A COUNT FROM THE PUBLISHED MODELS, and that is the
+ * whole point of the file.
+ *
+ * It did not start that way. The first version of this page showed visit
+ * counts — a "visit mix" of 4,916 across five service lines, a "crew
+ * coverage" trend citing a `Cleaner Assigned %` measure over 4,596 visits,
+ * and "40 towns served". None of it is in the portfolio the page links to.
+ * The four published models hold no visits table, no service line, no town,
+ * and no measure by that name; the operations model counts INVOICES. So a
+ * reader who followed "All four Power BI models ↗" to check a number found
+ * a different subject entirely. The figures were presumably true of the
+ * Jobber visit exports they came from, but those are not published, and a
+ * citation nobody can follow is not a citation.
+ *
+ * This is the second time that trap has been sprung in this file. See the
+ * note above `daxMeasure` about a "Rebook Rate" measure that never existed.
+ *
+ * What is here now is derived from the .pbip at
+ *   github.com/msmall2691-eng/powerbi-portfolio @ 9b348ae
+ * whose table partitions embed their own data inline (Base64 + Deflate CSV),
+ * so anyone can decompress them and get these numbers back:
+ *
+ *   Operations / Invoices : 3,113 rows, 2023-03-11 .. 2026-10-22
+ *   Operations / Clients  : 188 rows
+ *   Software Stack / Tools: 31 rows
+ *
+ * Each chart below sums to its table's row count exactly — 3,113, 3,113 and
+ * 31. If a future edit breaks that, the chart has stopped describing the
+ * model. Check it before shipping.
  */
 
 export const dataSection = {
-  eyebrow: 'DATA · POWER BI · PYTHON · SQL',
+  eyebrow: 'DATA MODELING · POWER BI · DAX',
   heading: 'Data & analytics',
   intro:
-    '3.5 years of job and bank records, cleaned, anonymized and modeled in Power BI. The software audit became the requirements for BrightBase.',
+    'Three and a half years of invoices and client records from my cleaning company, cleaned, anonymized and modeled in Power BI. The software audit beside them became the requirements for BrightBase.',
   privacyNote:
-    'No client names or addresses. Published dollar totals are scaled for privacy; percentages and trends are exact.',
+    'No client names or addresses — every client is a key in the model. Each figure on this page is a row count from the published .pbip, so it can be checked against the repository.',
 } as const;
 
 export const kpis = [
-  { value: '95.9%', label: 'Visits with a cleaner assigned (2025)' },
-  { value: '62.9%', label: 'Clients who rebooked' },
-  { value: '40', label: 'Towns served' },
+  { value: '3,113', label: 'Invoices modeled · 2023–2026' },
+  { value: '62.8%', label: 'Clients who came back' },
+  { value: '31', label: 'Software tools audited' },
   { value: '68', label: 'DAX measures across 4 models' },
 ] as const;
 
-export type ChartId = 'crew' | 'mix' | 'tools';
+export type ChartId = 'segment' | 'ticket' | 'tools';
 
 type ChartRow = { key: string; value: number; display: string };
 
@@ -35,6 +62,11 @@ export type Chart = {
    * 'percent' — the values ARE percentages, so the track is a full 100%
    *   and 95.9% must read as 95.9% of the track, not as a full bar.
    * 'max' — counts, scaled against the chart's own largest row.
+   *
+   * No chart uses 'percent' today. The branch stays because the bug it
+   * prevents is one this page already shipped once: a percentage scaled
+   * against the largest row renders 95.9% as a full bar and silently
+   * overstates it.
    */
   scale: 'percent' | 'max';
   rows: readonly ChartRow[];
@@ -42,59 +74,45 @@ export type Chart = {
 
 export const charts: readonly Chart[] = [
   {
-    id: 'crew',
-    label: 'Crew coverage',
-    note: 'Share of visits with a cleaner assigned, by year.',
-    source: 'Cleaner Assigned % · 4,596 visits, 2023–2025',
-    scale: 'percent',
+    id: 'segment',
+    label: 'Client mix',
+    note: 'Invoices by client segment. Nine commercial clients account for 682 of them.',
+    source: 'Invoices × Clients[Segment] · 3,113 invoices, Mar 2023 – Oct 2026',
+    scale: 'max',
     rows: [
-      { key: '2023', value: 74.4, display: '74.4%' },
-      { key: '2024', value: 88.9, display: '88.9%' },
-      { key: '2025', value: 95.9, display: '95.9%' },
+      { key: 'Residential', value: 1524, display: '1,524' },
+      { key: 'Short-term rental', value: 907, display: '907' },
+      { key: 'Commercial', value: 682, display: '682' },
     ],
   },
   {
-    id: 'mix',
-    label: 'Visit mix',
-    note: 'Completed visits by service line.',
-    /*
-     * This caption used to read "4,916 visits". The five rows below sum to
-     * 4,905, and nothing in the published .pbip (model definitions only, no
-     * data) settles which is right — 4,916 may well be correct with 11 visits
-     * carrying no service line, but a total that disagrees with the bars
-     * under it is the first thing a data reader checks. Dropped rather than
-     * guessed. Put a total back once the model says which one, and say what
-     * the difference is.
-     */
-    source: 'Visits by service · Feb 2023 – Oct 2026',
+    id: 'ticket',
+    label: 'Ticket size',
+    note: 'Invoices by ticket band — the small-job tail is what made billing worth automating.',
+    source: 'Invoices[Ticket Size] · 3,113 invoices, Mar 2023 – Oct 2026',
     scale: 'max',
     rows: [
-      { key: 'Commercial', value: 2428, display: '2,428' },
-      { key: 'Residential', value: 1349, display: '1,349' },
-      { key: 'STR turnover', value: 956, display: '956' },
-      { key: 'Other', value: 108, display: '108' },
-      { key: 'Deep / move-out', value: 64, display: '64' },
+      { key: 'Under $150', value: 1974, display: '1,974' },
+      { key: '$150–249', value: 499, display: '499' },
+      { key: '$250–399', value: 380, display: '380' },
+      { key: '$400–999', value: 247, display: '247' },
+      { key: '$1,000+', value: 13, display: '13' },
     ],
   },
   {
     id: 'tools',
     label: 'Software audit',
-    note: 'Service apps paid for before BrightBase, by spend (a floor).',
-    source: 'Bank records, Mar 2025 – Jan 2026 · partial',
+    note: 'Every tool the business runs on or has dropped. Three were retired by something I built.',
+    source: 'Tools[Status] · 31 tools, Software Stack model',
     scale: 'max',
     rows: [
-      { key: 'Jobber', value: 1855, display: '' },
-      { key: 'Bubble', value: 637, display: '' },
-      { key: 'Housecall Pro', value: 431, display: '' },
-      { key: 'OpenPhone', value: 270, display: '' },
-      { key: 'Zappter', value: 150, display: '' },
-      { key: 'Connecteam', value: 129, display: '' },
-      { key: 'Airtable', value: 116, display: '' },
-      { key: 'BookingKoala', value: 114, display: '' },
-      { key: 'Noloco', value: 105, display: '' },
-      { key: 'HighLevel', value: 97, display: '' },
-      { key: 'HubSpot', value: 80, display: '' },
-      { key: 'Zapier', value: 60, display: '' },
+      { key: 'In use', value: 19, display: '19' },
+      { key: 'Setting up', value: 1, display: '1' },
+      { key: 'Being replaced', value: 1, display: '1' },
+      { key: 'Planned', value: 3, display: '3' },
+      { key: 'Retired', value: 3, display: '3' },
+      { key: 'Previously used', value: 3, display: '3' },
+      { key: 'Not adopted', value: 1, display: '1' },
     ],
   },
 ];
