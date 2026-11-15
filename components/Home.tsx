@@ -221,10 +221,10 @@ export function MoreWork() {
  * About and the contact card are two sections, not one.
  *
  * They used to be a single block at the foot of the page, which put "who is
- * this person" at 4,050px on a phone — past the work, past the data, past the
- * long tail. About now sits after the proof and before More work, on the
- * reading that Projects and Data & analytics are what earns the introduction
- * and More work is the long tail that can wait.
+ * this person" at 4,580px on a phone — past the work, past the data, past the
+ * long tail. About now sits directly after Projects, so a reader meets the
+ * person once the four cards have made the case and before the stats band
+ * asks them to read numbers. Data & analytics and More work follow.
  *
  * The contact card did NOT travel with it. It is the page's one call to
  * action, and a call to action in the middle leaves the page ending on a list

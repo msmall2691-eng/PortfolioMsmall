@@ -50,8 +50,8 @@ export const links = {
 
 export const nav = [
   { href: '#work', label: 'Projects' },
-  { href: '#data', label: 'Data' },
   { href: '#about', label: 'About' },
+  { href: '#data', label: 'Data' },
   { href: '#more', label: 'More' },
   { href: '#github', label: 'GitHub' },
   { href: '#contact', label: 'Contact' },

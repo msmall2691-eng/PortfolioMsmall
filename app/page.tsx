@@ -12,8 +12,8 @@ export default function Page() {
       <main id="top">
         <Intro />
         <Projects />
-        <DataSection />
         <About />
+        <DataSection />
         <MoreWork />
         <Contact />
         <SiteFooter />
