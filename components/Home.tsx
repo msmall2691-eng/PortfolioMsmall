@@ -217,7 +217,20 @@ export function MoreWork() {
   );
 }
 
-export function AboutContact() {
+/**
+ * About and the contact card are two sections, not one.
+ *
+ * They used to be a single block at the foot of the page, which put "who is
+ * this person" at 4,050px on a phone — past the work, past the data, past the
+ * long tail. About now sits after the proof and before More work, on the
+ * reading that Projects and Data & analytics are what earns the introduction
+ * and More work is the long tail that can wait.
+ *
+ * The contact card did NOT travel with it. It is the page's one call to
+ * action, and a call to action in the middle leaves the page ending on a list
+ * of repositories with nothing to do next.
+ */
+export function About() {
   return (
     <section id="about" aria-labelledby="about-h" className="section-anchor border-t border-rule-section">
       <Container className="grid gap-6 py-9 md:grid-cols-[180px_minmax(0,1fr)_minmax(0,1fr)] md:gap-10 md:py-12">
@@ -256,8 +269,14 @@ export function AboutContact() {
           </dl>
         </div>
       </Container>
+    </section>
+  );
+}
 
-      <Container id="contact" className="section-anchor pb-10 md:pb-14">
+export function Contact() {
+  return (
+    <section id="contact" aria-labelledby="contact-h" className="section-anchor border-t border-rule-section">
+      <Container className="pt-9 pb-10 md:pt-12 md:pb-14">
         {/*
           gap-4 is load-bearing: at 768 the three links sit on one row beside
           the heading with very little room to spare, and widening this to
@@ -266,7 +285,7 @@ export function AboutContact() {
           only on a phone.
         */}
         <div className="flex flex-wrap items-center justify-between gap-4 rounded-card border border-rule-inner bg-card px-4 py-3.5 md:px-5 md:py-4">
-          <p className="text-[15.5px] font-semibold">Hiring for a systems role? Let&apos;s talk.</p>
+          <p id="contact-h" className="text-[15.5px] font-semibold">Hiring for a systems role? Let&apos;s talk.</p>
           <p className="flex flex-wrap gap-x-5 gap-y-1 text-[14px]">
             <a href={profile.resumePath} download={profile.resumeFilename} className={linkCls}>Résumé (PDF) ↓</a>
             <a href={`mailto:${profile.email}`} className={linkCls}>{profile.email}</a>
