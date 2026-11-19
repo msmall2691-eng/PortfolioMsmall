@@ -24,6 +24,7 @@ export type CaseStudy = {
 export type CaseSection =
   | { kind: 'prose'; eyebrow: string; heading: string; paragraphs: readonly string[] }
   | { kind: 'flow'; eyebrow: string; heading: string; steps: readonly { title: string; detail: string }[]; note?: string }
+  | { kind: 'diagram'; eyebrow: string; heading: string; src: string; alt: string; width: number; height: number; note?: string }
   | { kind: 'decisions'; eyebrow: string; heading: string; items: readonly Decision[] }
   | { kind: 'beforeAfter'; eyebrow: string; heading: string; rows: readonly { before: string; after: string }[] }
   | { kind: 'boxes'; eyebrow: string; heading: string; intro?: string; facts?: readonly { value: string; label: string }[]; boxes: readonly { title: string; items: readonly string[] }[]; note?: string };
@@ -76,6 +77,16 @@ export const caseStudies: readonly CaseStudy[] = [
           { title: 'Specify', detail: 'Wrote rules and acceptance criteria, each tied to a test' },
           { title: 'Roll out', detail: 'Shipped in phases beside the old tools until they matched' },
         ],
+      },
+      {
+        kind: 'diagram',
+        eyebrow: 'ROLLOUT',
+        heading: 'How each phase went live',
+        src: '/img/diagrams/brightbase-rollout.webp',
+        alt: 'Flow diagram: requirements from the office and crews become a data model and acceptance criteria. Each phase is built, then must pass automated tests and crew testing or go back for fixes. Passing phases have their data migrated and validated, run beside the old tool for a full pay period, and have invoices and Stripe payments tested before cutover. Then the next phase starts.',
+        width: 1568,
+        height: 344,
+        note: 'Payroll stayed in Connecteam until BrightBase matched it for a full pay period, and no customer was billed until invoices and Stripe payments had been tested end to end.',
       },
       {
         kind: 'decisions',

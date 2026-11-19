@@ -53,6 +53,28 @@ function SectionBody({ section }: { section: CaseSection }) {
           {section.note ? <p className="max-w-[680px] text-[14px] text-neutral-400">{section.note}</p> : null}
         </div>
       );
+    case 'diagram':
+      return (
+        <div className="flex flex-col gap-4">
+          <div
+            tabIndex={0}
+            role="region"
+            aria-label="Flow diagram, scroll sideways on small screens"
+            className="overflow-x-auto rounded-panel border border-rule-inner bg-white p-4"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={section.src}
+              alt={section.alt}
+              width={section.width}
+              height={section.height}
+              loading="lazy"
+              className="block h-auto w-full min-w-[820px]"
+            />
+          </div>
+          {section.note ? <p className="max-w-[680px] text-[14px] text-neutral-400">{section.note}</p> : null}
+        </div>
+      );
     case 'beforeAfter':
       return (
         <div className="flex max-w-[820px] flex-col gap-2.5">
