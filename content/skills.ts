@@ -1,5 +1,5 @@
 /**
- * Toolkit: eight skill groups and the credentials grid.
+ * Toolkit: nine skill groups and the credentials grid.
  *
  * Tools render as one dot-separated line per group — deliberately not
  * chips or pills.
@@ -80,8 +80,9 @@ const GROUPS: readonly Omit<SkillGroup, 'n' | 'color'>[] = [
     sub: 'Find it, map it, write it down',
     tools: [
       'Requirements gathering', 'Stakeholder interviews', 'Process mapping', 'Current & future state',
-      'User stories', 'Acceptance criteria', 'Gap analysis', 'System evaluation', 'UAT',
-      'Cutover planning', 'Data migration',
+      'Fit-gap analysis', 'Functional specifications', 'User stories', 'Acceptance criteria',
+      'System evaluation', 'UAT', 'Go-live & cutover', 'Data migration & validation',
+      'Change management', 'Agile', 'Training',
     ],
   },
   {
@@ -89,7 +90,15 @@ const GROUPS: readonly Omit<SkillGroup, 'n' | 'color'>[] = [
     sub: 'Safe, repeatable releases',
     tools: [
       'pytest', 'Vitest', 'Automated testing & CI', 'GitHub Actions', 'Git & GitHub', 'Docker',
-      'Railway', 'Vercel', 'Supabase', 'Role-based access',
+      'Railway', 'Vercel', 'Supabase', 'Google Cloud', 'Role-based access',
+    ],
+  },
+  {
+    name: 'AI',
+    sub: 'Agents that draft, people who approve',
+    tools: [
+      'Claude API', 'Claude Agent SDK', 'Claude Code', 'Gemini API', 'Prompt design',
+      'AI-assisted development',
     ],
   },
   {
@@ -97,9 +106,9 @@ const GROUPS: readonly Omit<SkillGroup, 'n' | 'color'>[] = [
     sub: 'Used, tested, configured and migrated',
     tools: [
       'Jobber', 'Housecall Pro', 'Connecteam', 'Maidily', 'Turno', 'Breezeway', 'BookingKoala',
-      'HubSpot', 'HighLevel', 'Attio', 'Twenty CRM', 'Airtable', 'Zapier', 'AppSheet', 'Google Apps Script',
-      'Bubble', 'Noloco', 'Softr', 'Adalo', 'Glide', 'Base44', 'Replit', 'monday.com', 'QuickBooks', 'Square',
-      'Square Payroll', 'OpenPhone', 'Lodgify', 'Wix', 'Notion', 'Google Workspace', 'Microsoft 365',
+      'HubSpot', 'HighLevel', 'Attio', 'Twenty CRM', 'Airtable', 'Zapier', 'Make', 'AppSheet', 'Google Apps Script',
+      'Bubble', 'Noloco', 'Softr', 'Adalo', 'Glide', 'Base44', 'Replit', 'monday.com', 'Jira', 'QuickBooks', 'Square',
+      'Square Payroll', 'OpenPhone', 'Lodgify', 'Wix', 'Notion', 'Excel', 'Google Workspace', 'Microsoft 365',
     ],
   },
   {

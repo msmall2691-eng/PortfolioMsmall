@@ -103,7 +103,7 @@ export const clientSites = [
     name: 'Nash Construction',
     tag: 'CLIENT · NASHUA, NH',
     description:
-      'Rebuilt off Wix and moved to Vercel.',
+      'Rebuilt off Wix and moved to Vercel, with 301 redirects and Search Console verification.',
     img: '/img/client-nash.webp',
     url: 'nashconstructionnh.com',
     href: 'https://nashconstructionnh.com',

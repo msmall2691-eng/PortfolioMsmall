@@ -11,7 +11,7 @@ export const intro = {
   role: 'Business systems & web developer · Southern Maine',
   line: `${YEARS_IN_BUSINESS_WORD} years running a cleaning company, and the software it now runs on. Looking for a full-time role designing and building business systems.`,
   experience: [
-    { when: '2018 – now', what: 'Owner & operator', where: 'The Maine Cleaning Co.' },
+    { when: '2018 – now', what: 'Operations & systems manager (owner)', where: 'The Maine Cleaning Co.' },
     { when: '2026', what: 'Built BrightBase · founded M Studio', where: 'Systems and web work' },
     { when: 'In progress', what: 'B.S. Business Analytics & AI', where: 'University of Southern Maine' },
     { when: 'Earlier', what: 'Administrative assistant · lead dental assistant', where: 'SMCC · Southern Maine practices' },
@@ -110,8 +110,13 @@ export const moreWork: readonly MoreRow[] = [
     ],
   },
   {
+    title: 'Arrowhead Explorers',
+    line: 'Brand, website, a 16-page parent guide and a social calendar for a family childcare launch.',
+    links: [],
+  },
+  {
     title: 'Smaller builds',
-    line: 'Airbnb & VRBO turnover sync, a family check-in kiosk, a Twenty CRM build.',
+    line: 'Airbnb & VRBO turnover sync, a tide and water app for a lobsterman, a family check-in kiosk, a Twenty CRM build.',
     links: [],
   },
 ];
@@ -135,8 +140,9 @@ export const aboutShort = {
   skills: [
     { name: 'Build', items: 'Python · FastAPI · SQL · PostgreSQL · React · TypeScript · Next.js · Tailwind' },
     { name: 'Connect', items: 'REST APIs · webhooks · Stripe Connect · Twilio · Google Calendar · iCal' },
-    { name: 'Analyze', items: 'Requirements · process mapping · user stories · UAT · Power BI · DAX' },
+    { name: 'Analyze', items: 'Requirements · process mapping · fit-gap analysis · user stories · UAT · change management · Power BI · DAX' },
     { name: 'Ship', items: 'Git & GitHub · automated tests · CI · Docker · Railway · Vercel' },
-    { name: 'Platforms', items: 'Jobber · HubSpot · Airtable · Zapier · QuickBooks · Google Workspace · Microsoft 365' },
+    { name: 'AI', items: 'Claude API & Agent SDK · Claude Code · Gemini API · prompt design' },
+    { name: 'Platforms', items: 'Jobber · HubSpot · Airtable · Zapier · Make · Jira · QuickBooks · Excel · Google Workspace · Microsoft 365' },
   ],
 } as const;

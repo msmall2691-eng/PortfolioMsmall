@@ -84,14 +84,33 @@ public/             résumé PDF and images
 project description, a résumé bullet or a link, edit the content file. Components
 only decide how things look.
 
-| File | Holds |
-| --- | --- |
-| `content/site.ts` | Profile, links, nav, hero, about, footer |
-| `content/work.ts` | Case study, selected work, turnover spotlight, more builds |
-| `content/mock.ts` | Sample data for the BrightBase product mocks |
-| `content/data.ts` | KPIs, the three charts, the DAX sample |
-| `content/skills.ts` | Toolkit groups and credentials |
-| `content/resume.ts` | Web résumé and contact row |
+| File | Holds | On the page? |
+| --- | --- | --- |
+| `content/home.ts` | Intro, projects, more work, GitHub, about + skills | **Yes** |
+| `content/data.ts` | KPIs, the three charts, the DAX sample | **Yes** |
+| `content/site.ts` | Profile, links, nav, hero, about, footer | **Yes** (profile/links) |
+| `content/caseStudies.ts` | The `/work/[slug]/` case studies | **Yes** |
+| `content/work.ts` | Case study, selected work, more builds | No — see below |
+| `content/skills.ts` | Toolkit groups and credentials | No — see below |
+| `content/resume.ts` | Web résumé and contact row | No — see below |
+| `content/mock.ts` | Sample data for the BrightBase product mocks | No — see below |
+| `content/tools.ts` | M Studio tools list | No — see below |
+
+### Sections built but not mounted
+
+The Nov 7, 2026 compact rewrite left `app/page.tsx` rendering only `Intro`,
+`Projects`, `About`, `DataSection`, `MoreWork` and `Contact` — all from
+`components/Home.tsx`. These components are complete and typechecked but are
+imported by no route, so their content files above are **not visible to a
+visitor**:
+
+`Work.tsx` · `Toolkit.tsx` · `ResumeSection.tsx` · `Hero.tsx` · `About.tsx` ·
+`CodeYear.tsx` · `BrightBaseMock.tsx` · `ToolsSection.tsx`
+
+That is why the live page has no web résumé card and no Toolkit section — the
+only résumé a visitor gets is the PDF linked from Contact. Keep these files
+truthful anyway: mounting a stale section is worse than mounting none. To put
+one back, import it in `app/page.tsx` and add it to `nav` in `content/site.ts`.
 
 ### Things stated in more than one place
 
@@ -117,11 +136,12 @@ The M Studio Tools and M Linx Guide case studies are pages at
 private claude.ai links, so no link on the site depends on Claude's sharing
 settings. The operations dashboard entry points at the Data section.
 
-### 2. Years running the business — 8 or 10?
+### 2. Years running the business — ✅ done
 
-The portfolio copy says 8; mlinx.studio says 10. Set the true number once in
-`content/site.ts` (`YEARS_IN_BUSINESS` and `YEARS_IN_BUSINESS_WORD`) and every
-mention updates together.
+Settled at **8**. All five role-targeted résumés (Nov 2026) open with "Eight
+years running a cleaning company", and 2018–2026 agrees. `YEARS_IN_BUSINESS`
+in `content/site.ts` already said 8, so nothing changed here. If mlinx.studio
+still says 10, that is the side to correct.
 
 ### 3. BrightBase automated-test count — ✅ done
 
