@@ -170,9 +170,9 @@
 
   /* --- The drifting sea-life layer (components/Drift.tsx) -------------
      Three slow paths, so creatures never move in unison. Each rests at the
-     origin at 0% and 100%: the global prefers-reduced-motion rule above
-     collapses animation-duration to 0.01ms, which parks every creature at
-     that resting position rather than mid-drift.
+     origin at 0% and 100% so the resting pose is the laid-out position —
+     but that alone does NOT stop them under reduced motion; see the
+     explicit override below, which is what actually does.
 
      Only `transform` and `opacity` are animated, so these stay off the
      main thread. The flip in Drift.tsx uses the independent `scale`
@@ -193,6 +193,22 @@
   }
   .drift-c {
     animation-name: drift-c;
+  }
+
+  /* An infinite animation is NOT parked by the global reduced-motion rule
+     that collapses animation-duration to 0.01ms. At that duration the cycle
+     completes thousands of times per rendered frame, so each frame samples
+     an arbitrary point on the path: measured here as three different
+     transforms across 25 frames, one of them translate(6.9px, -24px) — the
+     middle of the drift, not the rest position. The result is jitter, which
+     is the opposite of what the setting asks for.
+
+     Matching the 0% and 100% keyframes does not help, for the same reason.
+     The animation has to actually be switched off. */
+  @media (prefers-reduced-motion: reduce) {
+    .drift {
+      animation: none !important;
+    }
   }
 
   @keyframes drift-a {

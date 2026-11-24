@@ -1,10 +1,12 @@
 import type { Drifter } from '@/content/drift';
 
 /**
- * The drifting sea-life layer. No JavaScript: the motion is CSS keyframes,
- * which the stylesheet's global `prefers-reduced-motion` rule already stills.
- * The keyframes rest at the origin at 0% and 100%, so a visitor who asks for
- * reduced motion sees the creatures parked exactly where they are laid out.
+ * The drifting sea-life layer. No JavaScript: the motion is CSS keyframes.
+ *
+ * Reduced motion is handled by an explicit `animation: none` override in
+ * globals.css, NOT by the global rule that shortens animation-duration to
+ * 0.01ms — that leaves an infinite animation running and sampling random
+ * points on its path, which measured as visible jitter.
  *
  * Must be the first child of a `relative` page wrapper. It takes the full
  * page box, clips itself so nothing can widen the document, and sits at z-0
