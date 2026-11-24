@@ -242,65 +242,88 @@ its CSS display width, WebP, quality ~82.
 
 ## Video
 
-`public/video/reef-night.mp4` is the ambient band that **opens the page**,
-above the intro (`content/ambient.ts`, `components/Ambient.tsx`). It is
-decorative — the page reads the same without it, which is why the `<video>`
-is `aria-hidden` and the section has no heading.
+Two decorative bands, **both cut from one 4K master**:
 
-AI-generated in Adobe Firefly, with a visible credit. Keep the credit: it is
-the same honesty rule the product mocks follow for invented data.
+| | file | size | where |
+|---|---|---|---|
+| surface | `public/video/dive-ropes.mp4` | 1920×840, 1.2 MB, 3.2s | top of the page, `components/DiveHeader.tsx` |
+| reef | `public/video/reef-night.mp4` | 1920×810, 1.0 MB, 4.0s | after the work, before the résumé, `components/Ambient.tsx` |
 
-**1920×810 H.264, CRF 27 — 1.37 MB**, 3.5 seconds.
+Both are `aria-hidden` with no heading — the page reads the same without
+them. Both are AI-generated in Adobe Firefly and carry a visible credit.
+Keep the credits: same honesty rule the product mocks follow for invented
+data.
 
-### Both the clip and the window were chosen by measurement
+**Replace both from one source, or not at all.** The master is itself a
+dive — surface and mooring ropes 0–7s, a cut to black at 8s, reef 9–23s,
+open water 24–28s — which is why the two bands look like one film instead
+of two stock clips. Cutting a new band from a different source breaks that.
 
-This footage varies enormously shot to shot, so do not pick by eye:
+### Picking a window: measure, then disobey the measurement
 
-- Source sharpness (Laplacian variance) runs **22–92** *within a single
-  clip*. The first daylight cut shipped used its softest stretch, scoring
-  ~30, and looked blurry for exactly that reason.
-- The night clip holds **70–92** across source 2.0–5.5s. That window is what
-  is encoded.
+Laplacian variance counts **texture density**, not quality. It has been
+wrong here three times:
 
-Re-measure before changing the clip or the window.
+1. The first cut shipped a stretch scoring ~30 inside a clip ranging 22–92.
+   It read as blurry, and it was.
+2. A clip was rejected on its 61.9 whole-clip average. Scanned per second it
+   ran 42 → 147 — the average hid the only usable part. **Always scan
+   per-second; never judge a clip by its mean.**
+3. The top-scoring candidate of all — 1857, roughly 4× anything else —
+   scored that way because it had `CORAL HEALTH GOOD` telemetry graphics
+   burned into the frame. Hard-edged UI text is pure high-frequency detail.
 
-One trap: Laplacian variance over-rewards the bioluminescent particles, so it
-rates the night clip high even on frames where the subject is motion-blurred.
-Use it to shortlist, then look at the frames.
+The reef band actually shipped scored **lowest** of its three candidates
+(415 against 499 and 665). The other two were tight close-ups whose texture
+filled every pixel, which behind page content reads as noise. For a
+background, calm dark areas are the point.
 
-Compression is not the limiter here. CRF 24, 26 and 28 all measured the same
-sharpness (88.5–88.6) — the ceiling is the source. Raise CRF before dropping
-resolution. VP9/WebM came out *bigger* on this footage, so MP4 only.
+### Check for scene cuts before shipping a window
 
-The source is 1920×1080 and the band only shows a horizontal slice, so it is
-cropped to 810 tall at encode time rather than by CSS; encoding full height
-spends bits on rows nobody sees. Full 1920 width is kept.
+A window that crosses a cut reads as a glitch on loop. Sample frames and
+compare each to the previous one; a cut is an outlier against the median:
 
-### No fades or tint over the footage
+```
+header, first attempt   worst frame-diff 44.6 vs median 7.2   -> CUT at 3.25s
+header, after trimming  worst 10.6 vs median 7.2              -> ordinary motion
+reef band               worst 16.8 vs median 6.0              -> clean
+```
 
-An earlier pass faded both edges to `--color-page` and laid a `#f7f6f2/12`
-tint on top, tuned for the bright daylight clip. Over dark footage that
-greyed the image out and read as blur. A dark band against a light page wants
-**crisp edges**. If a light clip is ever used here, that trade reverses.
+`ffmpeg`'s `select='gt(scene,0.25)'` found nothing on either clip — this
+footage is too uniformly blue for it. Measure frame difference directly.
+
+### Trimming
+
+`-c copy` is a stream copy: it re-encodes nothing. Trimming from 0 with
+`-t` is therefore lossless, and was verified by hashing decoded frames
+before and after. Only go back to the 4K master when the window itself
+needs to change.
+
+### No tint over the footage
+
+An earlier pass laid a `#f7f6f2/12` tint on the band, tuned for a bright
+daylight clip. Over dark footage that greyed the image out and read as
+blur — which is exactly what it got mistaken for. If a light clip is ever
+used, that trade reverses.
 
 ### Playback
 
-Above the fold, so it loads on arrival rather than on scroll — the page's
-heaviest asset. The 83 KB poster paints first and the video streams in
-behind it. Rules, in priority order:
+Both bands share `lib/useFootagePlayback.ts`. It lives in one place
+because the pause-persistence rule below was already got wrong once.
 
-1. `prefers-reduced-motion` wins — no autoplay, and the file is never
-   downloaded at all.
-2. **An explicit pause wins over autoplay.** `userPausedRef` records it and
-   the `IntersectionObserver` checks it before calling `play()`. Without that
-   the band restarts itself on scrolling away and back, which defeats the
+1. `prefers-reduced-motion` wins — no autoplay, and with `preload="none"`
+   **neither file is downloaded at all**. Those visitors load 190 KB of
+   decoration instead of 2.4 MB. The poster still paints.
+2. **An explicit pause beats autoplay.** `userPausedRef` records it and the
+   `IntersectionObserver` checks it before calling `play()`. Without that
+   the band restarts itself on scrolling away and back, defeating the
    control. Do not remove it.
-3. Otherwise it plays only while on screen and pauses on the way out.
+3. Otherwise it plays only while on screen, and pauses on the way out.
 
 **The pause control is required, not decoration.** WCAG 2.2.2 says motion
 that plays automatically for more than five seconds must be pausable, and
-this loops. Keep it visible and keyboard reachable. The credit sits below the
-band, never over it — grey-on-footage is unreadable.
+these loop. Keep both visible and keyboard reachable. Credits sit below
+each band, never over it — grey-on-footage is unreadable.
 
 ## The sea-life layer
 
@@ -312,36 +335,11 @@ Decorative and inert: the layer is `aria-hidden`, `pointer-events-none`, sits
 at `z-0` under `<main>` (`z-10`) and the header (`z-20`), and clips itself so
 nothing can widen the document.
 
-### Cutting another creature
+### Cutting and tuning
 
-The night clip lights its creatures against near-black, so brightness alone
-separates them — no segmentation model needed. Per creature: crop tight
-around it in a frame, build alpha from luminance with a soft knee, zero
-anything below a floor (this is what kills the grey rectangle), feather by
-about a pixel, then trim to the alpha bounding box.
-
-Two things that went wrong first time and are worth not repeating:
-
-- **Crop tight.** A loose box drags in background water and whatever is
-  behind the subject, and the key cannot tell them apart. The first turtle
-  came out with a visible rectangle of haze and a piece of the octopus.
-- **The floor matters more than the threshold.** Without it, low-level haze
-  survives at low alpha and reads as a dirty box on a light page.
-
-Assets live in `public/img/sea/`, WebP with alpha, 99 KB for all four.
-
-### Tuning
-
-- **Opacity.** The page is light and these creatures are mid-tone, so
-  anything under about 0.2 vanishes rather than reading as subtle — a first
-  pass at 0.09–0.2 was invisible on screen. Sharp creatures sit at 0.36–0.46;
-  the blurred schools, which cover far more area, stay at 0.2–0.26.
-- **Nothing above ~8% down.** The video band at the top is opaque and would
-  simply cover it.
-- **Keep to the edges.** The centre column is copy, and much of the page is
-  opaque white cards that hide anything behind them.
-- **Depth** is faked the way distance works underwater: further away means
-  smaller, fainter and softer (`blur`).
+See **Cutting sea life out of the artwork** below — it carries the current
+numbers and the pass/fail gate. (An older version of this section described
+tuning for a *light* page and is gone; the site is dark.)
 
 ### Motion
 
@@ -399,28 +397,93 @@ sticky headers' glass, the résumé section ground, and `themeColor` in
 
 ## The dive header
 
-`components/DiveHeader.tsx` — dock pilings and ropes dropping into the water,
-under the sticky header. A **still image**, not video: the clip that looked
-like this scene turned out to be the reef artwork. 80 KB, against ~1.4 MB for
-video of the same thing. Motion is a slow CSS sway, stopped outright under
-`prefers-reduced-motion`.
+`components/DiveHeader.tsx` — dock pilings and mooring ropes dropping away
+into the water, under the sticky header.
+
+**Real video, not a still.** An earlier note here claimed the rope clip
+"turned out to be the reef artwork". That was wrong: the footage exists,
+it is 3840×2160 at 60fps, and the camera descends during the shot — so the
+header dives on its own rather than faking it with a CSS sway. The old
+`.dive-sway` keyframes and `dive-ropes.webp` are gone.
+
+At phone width the band is 390×300 (ratio 1.30) against a 2.29 video, so
+`object-cover` crops ~43% horizontally. Checked: the centre crop keeps both
+ropes, the waterline and the pilings. Re-check if the clip is ever
+reframed, because a subject off-centre would be cut.
 
 ## Cutting sea life out of the artwork
 
-The artwork's water is **lit teal, not black**, so a plain luminance key
-leaves a visible rectangle — the first pass did exactly that. Each cutout is
-a luminance key **multiplied by a radial falloff**, so edges dissolve instead
-of ending. On this dark ground the leftover dark-teal residue disappears.
+Luminance key **multiplied by a radial falloff**, so edges dissolve instead
+of ending. That is necessary but **not sufficient**, and the eye cannot
+tell you which: `jelly.webp` shipped as a visible rectangle and went
+unnoticed until it happened to land against the bright lower edge of the
+header.
 
-Two were cut and then dropped: the **manta ray** and a close crop of the
-**octopus**. Both sit in the bright light shaft, where nothing separates them
-from the water. Don't re-add them from that source.
+### The gate — run this on every new cutout
 
-Seven creatures, 144 KB total, in `public/img/sea/`.
+Composite onto `--color-page` **at the opacity it is actually rendered
+at**, then measure the outermost ring of pixels.
 
-Opacity runs much higher than the old light-page version (which needed
-0.36–0.46 just to be visible): bright creatures on a near-black ground sit at
-0.5–0.72, distant ones at 0.38–0.45 with blur.
+Use the **median** lift, not the maximum. A rectangle lifts the whole ring;
+the maximum is tripped by any creature whose body simply reaches the crop
+edge, which is fine and normal. Measuring the max first time reported all
+seven assets as broken, which was wrong — the median showed only two were.
+
+> Pass: median lift < 1.0 **and** under half the ring more than 2 above
+> page luma.
+
+```
+jelly.webp (old)   median 2.79, 54% of ring   -> rectangle, replaced
+jelly2.webp (old)  median 1.03, 32%           -> marginal, replaced
+anglerfish, clownfish, clownfish2, eel, turtle
+                   median ~0.00               -> fine, kept
+replacements       median 0.00,  0%           -> pass
+```
+
+### A border test is not enough
+
+It only sees the outer ring, so haze **inside** the crop passes it — a
+light shaft that never reaches the edge is invisible to it. Second measure:
+take pixels whose alpha came out under 0.15 (background that should have
+keyed away) and ask how far above page luma they still sit. **Reject on p95
+above 6.**
+
+Re-cut from the full-resolution source artwork, all twelve creatures passed
+the border test — manta included — and the manta was still wrong:
+
+```
+manta        border 0.01   haze p95 10.31   <- reject
+turtle       border 0.00   haze p95  5.38
+jellyR       border 0.00   haze p95  3.64
+octopus      border 0.00   haze p95  5.15
+```
+
+The existing warning about the manta and the light shaft was correct, and
+the border test alone would have overruled it. Run both.
+
+### The source decides it, not the feather
+
+Of nine candidate crops, only the three from the dark 26s frame passed.
+Everything cut from the **lit** reef frames failed and could not be
+rescued:
+
+```
+turtle 23.5    anemone 30.9    manta 7.0    (threshold: 2.0)
+```
+
+This is the constraint behind the look generally: an asset has to be
+*authored* against near-black. The manta and a close crop of the octopus
+sit in the bright light shaft and fail for that reason — dropped twice,
+once by eye and once by measurement. Do not re-add them from that source.
+
+### Placement
+
+Eight creatures in `public/img/sea/`, ~134 KB. Bright creatures on the
+near-black ground sit at 0.5–0.72 opacity, distant ones at 0.38–0.45 with
+blur; further away means smaller, fainter, softer. Keep clear of the centre
+column, which is copy. Nothing above ~11% down — the header covers it, and
+a creature in its fade is exactly how the `jelly.webp` rectangle got
+spotted.
 
 ## Design tokens
 

@@ -190,32 +190,6 @@
       var(--color-page);
   }
 
-  /* The surface sway on the dive header. Slow enough to read as water
-     rather than animation. Rests at its start pose at 0% and 100%, and is
-     switched off outright under reduced motion — the global
-     animation-duration rule does NOT park an infinite animation, it samples
-     random points on the path. (Learned the hard way; see the drift note.) */
-  .dive-sway {
-    animation: dive-sway 26s ease-in-out infinite;
-    will-change: transform;
-  }
-
-  @keyframes dive-sway {
-    0%,
-    100% {
-      transform: scale(1.06) translate3d(0, 0, 0);
-    }
-    50% {
-      transform: scale(1.09) translate3d(0, -1.4%, 0);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .dive-sway {
-      animation: none !important;
-    }
-  }
-
   /* --- The drifting sea-life layer (components/Drift.tsx) -------------
      Three slow paths, so creatures never move in unison. Each rests at the
      origin at 0% and 100% so the resting pose is the laid-out position —
