@@ -20,7 +20,7 @@ export function ResumeSection() {
     <section
       id="resume"
       aria-labelledby="ct-h"
-      className="section-anchor border-t border-rule-section bg-[#efece5]"
+      className="section-anchor border-t border-rule-section bg-surface-3"
     >
       <Container id="contact" className="section-anchor flex flex-col gap-10 pt-22 pb-18">
         <div className="flex flex-wrap items-end justify-between gap-5">

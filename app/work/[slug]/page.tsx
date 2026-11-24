@@ -154,7 +154,7 @@ export default async function CaseStudyPage({ params }: Props) {
   return (
     <div className="page-glow relative min-h-screen">
       <Drift items={caseDrift} />
-      <header className="sticky top-0 z-20 border-b border-rule-section bg-[rgba(247,246,242,0.9)] backdrop-blur-[10px]">
+      <header className="sticky top-0 z-20 border-b border-rule-section bg-[rgba(7,13,20,0.82)] backdrop-blur-[10px]">
         <Container className="flex flex-wrap items-center gap-x-4 gap-y-3 py-3 sm:gap-x-6 sm:py-3.5">
           <Link href="/" className="flex items-center gap-2.5 text-[16px] font-semibold text-ink">
             {/* eslint-disable-next-line @next/next/no-img-element */}

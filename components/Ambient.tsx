@@ -136,6 +136,15 @@ export function Ambient() {
         <span className="text-[12px] tracking-[0.02em] text-neutral-500">
           {ambient.credit}
         </span>
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(180deg, #070d14 0%, rgba(7,13,20,0) 14%, rgba(7,13,20,0) 86%, #070d14 100%)',
+          }}
+        />
+
         <button
           type="button"
           onClick={toggle}

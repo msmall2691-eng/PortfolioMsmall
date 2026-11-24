@@ -3,7 +3,7 @@ import { nav, iconLinks, profile } from '@/content/site';
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-20 border-b border-rule-section bg-[rgba(247,246,242,0.9)] backdrop-blur-[10px]">
+    <header className="sticky top-0 z-20 border-b border-rule-section bg-[rgba(7,13,20,0.82)] backdrop-blur-[10px]">
       <Container className="flex flex-wrap items-center gap-x-6 gap-y-2.5 py-3 sm:gap-y-3 sm:py-3.5">
         <a
           href="#top"

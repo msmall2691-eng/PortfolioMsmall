@@ -365,6 +365,52 @@ The `flip` option uses the independent `scale` property, **not**
 `transform: scaleX(-1)`. The keyframes animate `transform`, and a running
 animation beats an inline transform — the flip would silently do nothing.
 
+## The deep-water theme
+
+The site is dark (`--color-page: #070d14`). It reads as a dive: mooring ropes
+at the surface, then descent into dark water where the sea life drifts, with
+the reef footage as a deep moment just before the résumé.
+
+**Two colour families are deliberately still light. Keep them that way:**
+
+- `--color-paper-*` — the résumé card. A white sheet on a dark ground reads
+  as a document on a desk.
+- `--color-mock-*` — the product mocks and the phone/browser frames. Those
+  are screenshots of light software; darkening them would misrepresent the
+  product.
+
+The accent ramp was brightened: the old `#5546c9` is unreadable on this
+ground. `--color-neutral-300` is body copy.
+
+Hardcoded light values outside the token block had to move with it — the two
+sticky headers' glass, the résumé section ground, and `themeColor` in
+`app/layout.tsx`. Grep for `#f7f6f2` before assuming a theme change is done.
+
+## The dive header
+
+`components/DiveHeader.tsx` — dock pilings and ropes dropping into the water,
+under the sticky header. A **still image**, not video: the clip that looked
+like this scene turned out to be the reef artwork. 80 KB, against ~1.4 MB for
+video of the same thing. Motion is a slow CSS sway, stopped outright under
+`prefers-reduced-motion`.
+
+## Cutting sea life out of the artwork
+
+The artwork's water is **lit teal, not black**, so a plain luminance key
+leaves a visible rectangle — the first pass did exactly that. Each cutout is
+a luminance key **multiplied by a radial falloff**, so edges dissolve instead
+of ending. On this dark ground the leftover dark-teal residue disappears.
+
+Two were cut and then dropped: the **manta ray** and a close crop of the
+**octopus**. Both sit in the bright light shaft, where nothing separates them
+from the water. Don't re-add them from that source.
+
+Seven creatures, 144 KB total, in `public/img/sea/`.
+
+Opacity runs much higher than the old light-page version (which needed
+0.36–0.46 just to be visible): bright creatures on a near-black ground sit at
+0.5–0.72, distant ones at 0.38–0.45 with blur.
+
 ## Design tokens
 
 All colour, radius and layout tokens come from the Nocturne theme in the handoff
