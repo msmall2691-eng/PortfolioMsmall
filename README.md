@@ -348,10 +348,18 @@ Assets live in `public/img/sea/`, WebP with alpha, 99 KB for all four.
 Three keyframe paths at 29–52s with staggered delays, so the loops never
 visibly line up. Only `transform` and `opacity` animate.
 
-Each path rests at the origin at 0% **and** 100%. That matters: the global
-`prefers-reduced-motion` rule collapses `animation-duration` to `0.01ms`,
-which parks every creature at its resting position instead of freezing it
-mid-drift.
+Each path rests at the origin at 0% **and** 100%, so the resting pose is the
+laid-out position — but that alone does **not** stop them. The global
+`prefers-reduced-motion` rule only collapses `animation-duration` to
+`0.01ms`, and an *infinite* animation at that duration completes thousands of
+cycles per rendered frame, so every frame samples an arbitrary point on the
+path. Measured: three different transforms across 25 frames, one of them
+`translate(6.9px, -24px)` — mid-drift. That is jitter, the opposite of the
+intent.
+
+`.drift` therefore carries an explicit `animation: none !important` under
+`prefers-reduced-motion: reduce`. Keep it; the keyframe symmetry is not a
+substitute.
 
 The `flip` option uses the independent `scale` property, **not**
 `transform: scaleX(-1)`. The keyframes animate `transform`, and a running
