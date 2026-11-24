@@ -69,7 +69,7 @@ export function ResumeSection() {
               </p>
               <p className="text-[15px] font-medium text-paper-label">{resumeCard.title}</p>
               <p className="text-[13.5px] text-paper-muted">{resumeCard.contact}</p>
-              <p className="max-w-[78ch] pt-2 text-[15px] leading-[1.65] text-neutral-800">
+              <p className="max-w-[78ch] pt-2 text-[15px] leading-[1.65] text-paper-body">
                 {resumeCard.summary}
               </p>
             </div>
@@ -85,7 +85,7 @@ export function ResumeSection() {
                     <span className="text-[13.5px] text-paper-muted">{job.org}</span>
                     <span className="font-mono-ui text-[12.5px] text-paper-soft">{job.when}</span>
                   </div>
-                  <ul className="m-0 flex min-w-0 flex-[3_1_420px] list-disc flex-col gap-1.5 pl-[18px] text-[14.5px] leading-[1.55] text-neutral-800">
+                  <ul className="m-0 flex min-w-0 flex-[3_1_420px] list-disc flex-col gap-1.5 pl-[18px] text-[14.5px] leading-[1.55] text-paper-body">
                     {job.points.map((point) => (
                       <li key={point}>{point}</li>
                     ))}
@@ -105,7 +105,7 @@ export function ResumeSection() {
                       {project.title}{' '}
                       <span className="font-normal text-paper-soft">· {project.sub}</span>
                     </span>
-                    <span className="text-[14px] leading-[1.5] text-neutral-800">
+                    <span className="text-[14px] leading-[1.5] text-paper-body">
                       {project.detail}
                     </span>
                   </div>

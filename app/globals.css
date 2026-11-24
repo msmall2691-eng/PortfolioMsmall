@@ -61,11 +61,17 @@
   --color-rule-inner: #22303d;
   --color-rule-outline: #3a4d5f;
 
-  /* Paper (résumé card) — deliberately still light. See note above. */
+  /* Paper (résumé card) — deliberately still light. See note above.
+     Everything inside that card MUST use these tokens. The neutral ramp is
+     pointed at a dark ground now, so borrowing from it puts light grey on
+     white paper: text-neutral-800 did exactly that and measured 1.37:1. */
   --color-paper: #fbfaf7;
   --color-paper-ink: #1d1f26;
+  --color-paper-body: #3f424d;
   --color-paper-muted: #595d6c;
-  --color-paper-soft: #75798c;
+  /* Was #75798c, which measured 4.13:1 on paper — under AA for small text
+     and already so before the dark theme. Darkened to 5.72:1. */
+  --color-paper-soft: #5f6373;
   --color-paper-rule: #e4e2dc;
   --color-paper-label: #5d5294;
 

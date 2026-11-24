@@ -382,6 +382,17 @@ the reef footage as a deep moment just before the résumé.
 The accent ramp was brightened: the old `#5546c9` is unreadable on this
 ground. `--color-neutral-300` is body copy.
 
+**Everything inside the résumé card must use `--color-paper-*` tokens.** The
+neutral ramp now points at a dark ground, so borrowing from it puts light
+grey on white paper. `text-neutral-800` did exactly that and measured
+**1.37:1** — effectively invisible — which is why `--color-paper-body`
+exists. `--color-paper-soft` was also darkened from `#75798c` (4.13:1, under
+AA, and already so before the dark theme) to `#5f6373` (5.72:1).
+
+A contrast pass over the built page measures every distinct text/background
+pair against WCAG AA. It currently reports **0 failures across 55 pairs**;
+the closest pass is 5.12:1. Re-run it after any colour change.
+
 Hardcoded light values outside the token block had to move with it — the two
 sticky headers' glass, the résumé section ground, and `themeColor` in
 `app/layout.tsx`. Grep for `#f7f6f2` before assuming a theme change is done.
