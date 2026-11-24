@@ -6,6 +6,20 @@
  * z-0 under the content, and clips itself — nothing here can affect reading,
  * clicking or page width.
  *
+ * A SECOND SOURCE, used sparingly. glowjelly*.webp come from a different
+ * piece of Megan's artwork — an octopus lit GREEN rather than blue. Only
+ * the jellyfish were taken from it: they are translucent and teal, so they
+ * sit inside the existing palette. The red fan coral, green neon worm and
+ * brain coral in that same image all pass both gates but introduce colours
+ * the rest of the page does not have; left out on purpose, not by oversight.
+ *
+ * The octopus itself CANNOT be cut from it. Its body is mid-tone against a
+ * lit background, so a luminance key reads it as mostly background: even at
+ * the gentlest curve tried (p3 floor, gamma 0.45) only 6.5% of its pixels
+ * clear half alpha, against 1.7% at the normal setting. It would be
+ * invisible at drift opacity. That image works whole, as a background, or
+ * not at all.
+ *
  * CUTTING THEM OUT, AND PROVING IT WORKED. Luminance key multiplied by a
  * radial falloff. That is necessary but NOT sufficient, and eyeballing it
  * does not tell you which — jelly.webp shipped with a visible rectangle and
@@ -75,9 +89,11 @@ export const homeDrift: readonly Drifter[] = [
   { src: '/img/sea/minnow.webp',     top: '40%', left: '88%', width: 'min(95px, 13vw)',  opacity: 0.45, blur: 0.7, path: 'c', duration: 43, delay: 2 },
   { src: '/img/sea/anglerfish.webp', top: '49%', left: '-1%', width: 'min(230px, 29vw)', opacity: 0.6,  path: 'a', duration: 50, delay: 4 },
   { src: '/img/sea/clownfish2.webp', top: '58%', left: '85%', width: 'min(115px, 15vw)', opacity: 0.68, path: 'b', duration: 31, delay: 6, flip: true },
+  { src: '/img/sea/glowjelly.webp',  top: '63%', left: '2%',  width: 'min(120px, 16vw)', opacity: 0.62, path: 'c', duration: 41, delay: 2 },
   { src: '/img/sea/jelly.webp',      top: '66%', left: '6%',  width: 'min(85px, 12vw)',  opacity: 0.42, blur: 0.9, path: 'c', duration: 47, delay: 1, flip: true },
   { src: '/img/sea/turtle.webp',     top: '75%', left: '82%', width: 'min(175px, 24vw)', opacity: 0.5,  blur: 0.5, path: 'a', duration: 44, delay: 0, flip: true },
   { src: '/img/sea/eel.webp',        top: '84%', left: '2%',  width: 'min(185px, 25vw)', opacity: 0.38, blur: 1.0, path: 'b', duration: 52, delay: 7 },
+  { src: '/img/sea/glowjelly2.webp', top: '79%', left: '91%', width: 'min(85px, 12vw)',  opacity: 0.52, blur: 0.6, path: 'a', duration: 45, delay: 5, flip: true },
   { src: '/img/sea/driftfish.webp',  top: '92%', left: '89%', width: 'min(100px, 14vw)', opacity: 0.62, path: 'c', duration: 33, delay: 3, flip: true },
 ];
 
@@ -88,4 +104,5 @@ export const caseDrift: readonly Drifter[] = [
   { src: '/img/sea/jelly.webp',      top: '47%', left: '87%', width: 'min(100px, 14vw)', opacity: 0.55, path: 'b', duration: 36, delay: 2, flip: true },
   { src: '/img/sea/anglerfish.webp', top: '66%', left: '2%',  width: 'min(200px, 26vw)', opacity: 0.55, path: 'c', duration: 48, delay: 6 },
   { src: '/img/sea/clownfish2.webp', top: '84%', left: '84%', width: 'min(110px, 15vw)', opacity: 0.65, path: 'a', duration: 32, delay: 0, flip: true },
+  { src: '/img/sea/glowjelly2.webp', top: '58%', left: '3%',  width: 'min(90px, 13vw)',  opacity: 0.5,  blur: 0.5, path: 'b', duration: 44, delay: 3 },
 ];
