@@ -1,33 +1,50 @@
+'use client';
+
 import { Container } from './ui';
 import { dive } from '@/content/ambient';
+import { useFootagePlayback } from '@/lib/useFootagePlayback';
 
 /**
  * The surface: dock pilings and mooring ropes dropping away into the water,
  * directly under the sticky header. It opens the dive that the rest of the
  * page descends through — ropes at the top, deep reef below.
  *
- * A still image, not video. The clip that looked like this turned out to be
- * the reef artwork, so the ropes exist only as a frame; the motion here is
- * CSS instead, which is also ~80 KB against ~1.4 MB.
+ * This was a still image until the real footage turned up. An earlier note
+ * here claimed the rope video "turned out to be the reef artwork"; that was
+ * wrong. The rope footage exists and is 4K, and the camera descends during
+ * the shot, so the header now dives on its own instead of faking it with a
+ * CSS sway.
  *
- * The movement is a very slow vertical drift plus a breath of scale, so the
- * ropes sway rather than sit. `prefers-reduced-motion` stops it — see the
- * `.dive-sway` override in globals.css.
+ * It is cut from the same 4K master as the reef band, which is why the two
+ * match: one source, one lighting setup, one palette.
+ *
+ * Playback rules live in useFootagePlayback — reduced motion never fetches
+ * the file and shows the poster instead, and the pause control is required
+ * by WCAG 2.2.2 because this loops. Do not remove it.
  *
  * The bottom edge fades to --color-page so the surface dissolves into the
  * dark rather than ending on a line.
  */
 export function DiveHeader() {
+  const { playing, videoRef, bandRef, toggle } = useFootagePlayback();
+
   return (
     <section aria-label="Surface" className="relative w-full overflow-hidden">
-      <div className="relative h-[clamp(300px,46vw,560px)] w-full overflow-hidden bg-[#061019]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+      <div
+        ref={bandRef}
+        className="relative h-[clamp(300px,46vw,560px)] w-full overflow-hidden bg-[#061019]"
+      >
+        <video
+          ref={videoRef}
+          className="absolute inset-0 block size-full object-cover object-center"
           src={dive.src}
-          alt=""
+          poster={dive.poster}
+          muted
+          loop
+          playsInline
+          preload="none"
           aria-hidden="true"
-          fetchPriority="high"
-          className="dive-sway absolute inset-0 block size-full scale-[1.06] object-cover object-center"
+          tabIndex={-1}
         />
         {/* Deepens the lower half and lands it on the page colour. */}
         <div
@@ -40,10 +57,18 @@ export function DiveHeader() {
         />
       </div>
 
-      <Container className="flex items-center justify-end pt-2.5 pb-1">
+      <Container className="flex items-center justify-end gap-3 pt-2.5 pb-1">
         <span className="text-[12px] tracking-[0.02em] text-neutral-500">
           {dive.credit}
         </span>
+        <button
+          type="button"
+          onClick={toggle}
+          aria-pressed={playing}
+          className="cursor-pointer rounded-[8px] border border-rule-outline bg-surface px-2.5 py-1.5 font-[inherit] text-[12px] font-semibold text-ink hover:border-accent"
+        >
+          {playing ? dive.pauseLabel : dive.playLabel}
+        </button>
       </Container>
     </section>
   );
