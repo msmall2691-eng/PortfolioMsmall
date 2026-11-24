@@ -1,3 +1,5 @@
+import { Drift } from '@/components/Drift';
+import { homeDrift } from '@/content/drift';
 import { SiteHeader } from '@/components/SiteHeader';
 import { HeaderOffset } from '@/components/HeaderOffset';
 import { Intro, Projects, MoreWork, About } from '@/components/Home';
@@ -9,10 +11,11 @@ import { SiteFooter } from '@/components/SiteFooter';
 
 export default function Page() {
   return (
-    <div className="page-glow min-h-screen">
+    <div className="page-glow relative min-h-screen">
+      <Drift items={homeDrift} />
       <HeaderOffset />
       <SiteHeader />
-      <main id="top">
+      <main id="top" className="relative z-10">
         <Ambient />
         <Intro />
         <Projects />

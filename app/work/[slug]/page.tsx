@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Container, Eyebrow } from '@/components/ui';
+import { Drift } from '@/components/Drift';
+import { caseDrift } from '@/content/drift';
 import { SiteFooter } from '@/components/SiteFooter';
 import { caseStudies, getCaseStudy, type CaseSection } from '@/content/caseStudies';
 import { profile } from '@/content/site';
@@ -150,7 +152,8 @@ export default async function CaseStudyPage({ params }: Props) {
   const others = caseStudies.filter((c) => c.slug !== study.slug);
 
   return (
-    <div className="page-glow min-h-screen">
+    <div className="page-glow relative min-h-screen">
+      <Drift items={caseDrift} />
       <header className="sticky top-0 z-20 border-b border-rule-section bg-[rgba(247,246,242,0.9)] backdrop-blur-[10px]">
         <Container className="flex flex-wrap items-center gap-x-4 gap-y-3 py-3 sm:gap-x-6 sm:py-3.5">
           <Link href="/" className="flex items-center gap-2.5 text-[16px] font-semibold text-ink">
@@ -172,7 +175,7 @@ export default async function CaseStudyPage({ params }: Props) {
         </Container>
       </header>
 
-      <main>
+      <main className="relative z-10">
         <Container className="flex flex-col gap-6 pt-16 pb-10">
           <Eyebrow>CASE STUDY · 2026</Eyebrow>
           <h1 className="text-[clamp(40px,7vw,68px)] leading-[1.02] font-semibold tracking-[-0.035em]">{study.title}</h1>
