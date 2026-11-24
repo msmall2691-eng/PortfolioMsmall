@@ -137,6 +137,11 @@ export const aboutShort = {
     'My software work started with problems in my own cleaning business: booking, quoting, scheduling and keeping customer information in one place. Connecting those pieces became the work I love most.',
     'Now I want to do it full-time on a team. Off the clock, I am with my kids and our dog near the water.',
   ],
+  /**
+   * NOTE: no longer rendered. The Toolkit section (content/skills.ts) owns
+   * #skills on the page now; this compact list stood in while Toolkit was
+   * unmounted. Kept so the section can be restored without rewriting it.
+   */
   skills: [
     { name: 'Build', items: 'Python · FastAPI · SQL · PostgreSQL · React · TypeScript · Next.js · Tailwind' },
     { name: 'Connect', items: 'REST APIs · webhooks · Stripe Connect · Twilio · Google Calendar · iCal' },

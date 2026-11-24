@@ -51,6 +51,7 @@ export const links = {
 export const nav = [
   { href: '#work', label: 'Projects' },
   { href: '#about', label: 'About' },
+  { href: '#skills', label: 'Skills' },
   { href: '#data', label: 'Data' },
   { href: '#more', label: 'More' },
   { href: '#github', label: 'GitHub' },
