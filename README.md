@@ -86,31 +86,49 @@ only decide how things look.
 
 | File | Holds | On the page? |
 | --- | --- | --- |
-| `content/home.ts` | Intro, projects, more work, GitHub, about + skills | **Yes** |
+| `content/home.ts` | Intro, projects, more work, GitHub, about | **Yes** |
 | `content/data.ts` | KPIs, the three charts, the DAX sample | **Yes** |
-| `content/site.ts` | Profile, links, nav, hero, about, footer | **Yes** (profile/links) |
+| `content/site.ts` | Profile, links, nav, hero, about, footer | **Yes** (profile/links/nav) |
 | `content/caseStudies.ts` | The `/work/[slug]/` case studies | **Yes** |
+| `content/skills.ts` | Toolkit groups and credentials | **Yes** — `#skills` |
+| `content/resume.ts` | Web résumé and contact row | **Yes** — `#resume` |
 | `content/work.ts` | Case study, selected work, more builds | No — see below |
-| `content/skills.ts` | Toolkit groups and credentials | No — see below |
-| `content/resume.ts` | Web résumé and contact row | No — see below |
 | `content/mock.ts` | Sample data for the BrightBase product mocks | No — see below |
 | `content/tools.ts` | M Studio tools list | No — see below |
 
-### Sections built but not mounted
+### Page order
 
-The Nov 7, 2026 compact rewrite left `app/page.tsx` rendering only `Intro`,
-`Projects`, `About`, `DataSection`, `MoreWork` and `Contact` — all from
-`components/Home.tsx`. These components are complete and typechecked but are
-imported by no route, so their content files above are **not visible to a
-visitor**:
+`app/page.tsx` renders, in order: `Intro`, `Projects`, `About`, **`Toolkit`**,
+`DataSection`, `MoreWork`, **`ResumeSection`**.
 
-`Work.tsx` · `Toolkit.tsx` · `ResumeSection.tsx` · `Hero.tsx` · `About.tsx` ·
-`CodeYear.tsx` · `BrightBaseMock.tsx` · `ToolsSection.tsx`
+`Toolkit` and `ResumeSection` were remounted in Nov 2026 after the Nov 7
+compact rewrite had left them orphaned. Each one owns an anchor that a compact
+stand-in in `components/Home.tsx` had been holding, so remounting meant handing
+the anchor back:
 
-That is why the live page has no web résumé card and no Toolkit section — the
-only résumé a visitor gets is the PDF linked from Contact. Keep these files
-truthful anyway: mounting a stale section is worse than mounting none. To put
-one back, import it in `app/page.tsx` and add it to `nav` in `content/site.ts`.
+- **`Toolkit` owns `#skills`.** The About section's inline skills column was
+  removed; About is now a two-column grid (headshot + prose). The data it used,
+  `aboutShort.skills`, is kept in `content/home.ts` but is no longer rendered.
+- **`ResumeSection` owns `#contact`** (on its inner `Container`; the `<section>`
+  is `#resume`). It supersedes `Home.tsx`'s `Contact` strip, which is no longer
+  rendered — `ResumeSection` carries the same PDF download plus the full résumé
+  card and a four-link contact row. The `Contact` export is left in place so the
+  strip can be restored.
+
+Mounting both without that handover would put two `id="skills"` and two
+`id="contact"` on one page, and show the skills and contact blocks twice.
+
+### Sections still not mounted
+
+Complete and typechecked, but imported by no route:
+
+`Work.tsx` · `Hero.tsx` · `About.tsx` · `CodeYear.tsx` · `BrightBaseMock.tsx` ·
+`ToolsSection.tsx`
+
+Keep their content files truthful anyway: mounting a stale section is worse
+than mounting none. To put one back, import it in `app/page.tsx`, add it to
+`nav` in `content/site.ts`, and check first whether its anchors collide with a
+section already on the page.
 
 ### Things stated in more than one place
 

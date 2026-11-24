@@ -233,7 +233,7 @@ export function MoreWork() {
 export function About() {
   return (
     <section id="about" aria-labelledby="about-h" className="section-anchor border-t border-rule-section">
-      <Container className="grid gap-6 py-9 md:grid-cols-[180px_minmax(0,1fr)_minmax(0,1fr)] md:gap-10 md:py-12">
+      <Container className="grid gap-6 py-9 md:grid-cols-[180px_minmax(0,72ch)] md:gap-10 md:py-12">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/img/meg-headshot.webp"
@@ -248,25 +248,6 @@ export function About() {
           {aboutShort.paragraphs.map((p) => (
             <p key={p} className="text-[15px] leading-[1.6] text-neutral-300 text-pretty">{p}</p>
           ))}
-        </div>
-        <div id="skills" className="section-anchor flex flex-col gap-3">
-          <h2 className={h2}>Skills</h2>
-          {/*
-            The label runs into its list rather than sitting on a line of its
-            own. Five groups each cost a whole line for one word, which was
-            385px of a 1,072px section on a phone; inline, the weight change
-            does the same job in no vertical space at all. No punctuation
-            after the label on purpose — a middot there reads as the first
-            item in the list.
-          */}
-          <dl className="m-0 flex flex-col gap-2">
-            {aboutShort.skills.map((s) => (
-              <div key={s.name} className="text-[13.5px] leading-[1.5]">
-                <dt className="inline font-semibold text-ink">{s.name}</dt>
-                <dd className="m-0 inline text-neutral-400"> {s.items}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
       </Container>
     </section>
