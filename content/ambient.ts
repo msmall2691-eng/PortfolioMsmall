@@ -14,8 +14,10 @@
  *
  * Both are decorative. The page reads exactly the same with the video
  * removed, which is why each <video> is aria-hidden and neither carries a
- * heading. Both are AI-generated, so both carry a visible credit — the same
- * rule the product mocks follow for invented data. Keep the credits.
+ * heading. Both are AI-generated and the disclosure for both now lives as
+ * one line in the site footer (content/site.ts, `footer.footage`) rather
+ * than on a strip under each band. Keep it — same honesty rule the product
+ * mocks follow for invented data.
  *
  * PICKING A WINDOW. Measure, but do not obey the measurement. Laplacian
  * variance counts texture density, not quality, and it has been wrong here
@@ -43,7 +45,6 @@
 export const headerClip = {
   src: '/video/reef-night.mp4',
   poster: '/img/reef-night-poster.webp',
-  credit: 'Generated with Adobe Firefly',
   pauseLabel: 'Pause header footage',
   playLabel: 'Play header footage',
 } as const;
@@ -64,7 +65,6 @@ export const bandClip = {
   src: '/video/dive-ropes.mp4',
   poster: '/img/dive-ropes-poster.webp',
   objectPosition: 'center 22%',
-  credit: 'Generated with Adobe Firefly',
   pauseLabel: 'Pause background footage',
   playLabel: 'Play background footage',
 } as const;

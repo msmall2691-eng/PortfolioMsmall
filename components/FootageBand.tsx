@@ -1,8 +1,8 @@
 'use client';
 
-import { Container } from './ui';
 import { bandClip } from '@/content/ambient';
 import { useFootagePlayback } from '@/lib/useFootagePlayback';
+import { FootageToggle } from './FootageToggle';
 
 /**
  * Full-bleed footage lower down the page, used as the transition into the
@@ -55,33 +55,24 @@ export function FootageBand() {
           reverses.
         */}
 
+        <FootageToggle
+          playing={playing}
+          onToggle={toggle}
+          pauseLabel={bandClip.pauseLabel}
+          playLabel={bandClip.playLabel}
+        />
       </div>
 
-      {/* Sits below the band, not over it: grey-on-video is unreadable. */}
-      <Container className="flex items-center justify-end gap-3 pt-2.5 pb-1">
-        <span className="text-[12px] tracking-[0.02em] text-neutral-500">
-          {bandClip.credit}
-        </span>
-        {/* Absolute, so it spans the whole section and feathers both edges
-            into the page colour. Out of flow — the flex row is unaffected. */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(180deg, #070d14 0%, rgba(7,13,20,0) 14%, rgba(7,13,20,0) 86%, #070d14 100%)',
-          }}
-        />
+      {/* Feathers both edges of the section into the page colour. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(180deg, #070d14 0%, rgba(7,13,20,0) 14%, rgba(7,13,20,0) 86%, #070d14 100%)',
+        }}
+      />
 
-        <button
-          type="button"
-          onClick={toggle}
-          aria-pressed={playing}
-          className="cursor-pointer rounded-[8px] border border-rule-outline bg-surface px-2.5 py-1.5 font-[inherit] text-[12px] font-semibold text-ink hover:border-accent"
-        >
-          {playing ? bandClip.pauseLabel : bandClip.playLabel}
-        </button>
-      </Container>
     </section>
   );
 }

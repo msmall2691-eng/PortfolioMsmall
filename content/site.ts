@@ -152,4 +152,12 @@ export const about = {
 export const footer = {
   left: `${profile.name} · ${profile.location}`,
   right: 'Figures from Jobber invoices and visit exports. Screens shown with customer details removed.',
+  /**
+   * The AI-generation disclosure for the two footage bands. It used to sit
+   * on a grey strip directly under each video, which read as clutter under
+   * the header, so it moved here — one line covering both rather than two.
+   * Keep it: it is the same honesty rule the invented product-mock figures
+   * follow.
+   */
+  footage: 'Background footage generated with Adobe Firefly.',
 } as const;
