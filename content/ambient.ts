@@ -1,5 +1,5 @@
 /**
- * The ambient footage band that opens the page, above the intro.
+ * The ambient footage band, sitting after the work and before the résumé.
  *
  * Decorative. The page reads exactly the same with the video removed, which
  * is why the <video> is aria-hidden and there is no heading here.
@@ -7,11 +7,18 @@
  * The clip is AI-generated, so it carries a visible credit — the same rule
  * the product mocks follow for invented data. Keep the credit.
  *
- * 1920×810 H.264 CRF 27, 1.37 MB, from source 2.0–5.5s. Both the clip and
- * that window were picked by measuring sharpness, not by eye: this footage
- * runs 22–92 on the same metric within a single clip, and the first cut
- * shipped used a stretch scoring ~30. Read README → "Video" before changing
- * the clip, the window, or the (deliberately absent) edge fades.
+ * 1920×810 H.264 CRF 27, 0.69 MB, from source 5.3–8.0s.
+ *
+ * BOTH the clip and that window are picked by MEASURING sharpness, never by
+ * eye, and never by a clip's average. Laplacian variance per second, then cut
+ * the best run. Two mistakes already shipped from skipping that:
+ *   1. The first cut used a stretch scoring ~30 inside a clip that ranges
+ *      22–92. It read as blurry on the live site, and it was.
+ *   2. This clip was rejected once on its 61.9 average. Scanned per second it
+ *      runs 42 → 147, with everything good in the last three seconds. The
+ *      average hid the only part worth using.
+ * Read README → "Video" before changing the clip, the window, or the
+ * (deliberately absent) edge fades.
  */
 export const ambient = {
   src: '/video/reef-night.mp4',
