@@ -240,6 +240,29 @@ its CSS display width, WebP, quality ~82.
 
 ---
 
+## Video
+
+`public/video/` holds the two clips for the gen-AI experiment section
+(`content/lab.ts`, `components/Lab.tsx`). They are AI-generated in Adobe
+Firefly and the page says so — the same honesty rule the product mocks follow.
+
+Encoded from 1080p originals to **854×480 H.264, CRF 31**: 562 KB (night) and
+377 KB (day), with WebP posters. VP9/WebM was tried and came out *bigger* on
+this footage — it is dark and full of fine particles, which VP9 spends bits on
+— so MP4 is the only source. Re-check that before adding a second format.
+
+The section costs **nothing** on first paint: `preload="none"` means neither
+file is fetched until something asks to play. Playback rules, in order:
+
+1. `prefers-reduced-motion` wins — no autoplay, and the file is never
+   downloaded at all. Verified: a reduced-motion visitor fetches 0 bytes of
+   video.
+2. Otherwise an `IntersectionObserver` plays the clip only while the panel is
+   on screen, and pauses it on the way out.
+3. The play/pause button always overrides.
+
+If you replace a clip, keep it under ~600 KB and re-run the checks above.
+
 ## Design tokens
 
 All colour, radius and layout tokens come from the Nocturne theme in the handoff
