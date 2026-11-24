@@ -242,27 +242,52 @@ its CSS display width, WebP, quality ~82.
 
 ## Video
 
-`public/video/reef-day.mp4` is the ambient band that **opens the page**, above
-the intro (`content/ambient.ts`, `components/Ambient.tsx`). It is decorative —
-the page reads the same without it, which is why the `<video>` is
-`aria-hidden` and the section has no heading.
+`public/video/reef-night.mp4` is the ambient band that **opens the page**,
+above the intro (`content/ambient.ts`, `components/Ambient.tsx`). It is
+decorative — the page reads the same without it, which is why the `<video>`
+is `aria-hidden` and the section has no heading.
 
 AI-generated in Adobe Firefly, with a visible credit. Keep the credit: it is
 the same honesty rule the product mocks follow for invented data.
 
-**1920×810 H.264, CRF 26 — 1.69 MB**, six seconds. The source is 1920×1080;
-it is cropped to 810 tall at encode time rather than by CSS, because the band
-only ever shows a horizontal slice and encoding the full frame spends bits on
-rows nobody sees. Full 1920 width is kept, so this is the real resolution
-ceiling of the source. VP9/WebM came out *bigger* on this footage, so MP4 is
-the only source — re-check before adding a format.
+**1920×810 H.264, CRF 27 — 1.37 MB**, 3.5 seconds.
 
-Because it now sits above the fold it loads on arrival rather than on scroll,
-so it is the page's heaviest asset. The 38 KB poster paints immediately and
-the video streams in behind it. If it needs to be lighter, drop to CRF 28
-(~1.34 MB) before dropping resolution.
+### Both the clip and the window were chosen by measurement
 
-Playback rules, in priority order:
+This footage varies enormously shot to shot, so do not pick by eye:
+
+- Source sharpness (Laplacian variance) runs **22–92** *within a single
+  clip*. The first daylight cut shipped used its softest stretch, scoring
+  ~30, and looked blurry for exactly that reason.
+- The night clip holds **70–92** across source 2.0–5.5s. That window is what
+  is encoded.
+
+Re-measure before changing the clip or the window.
+
+One trap: Laplacian variance over-rewards the bioluminescent particles, so it
+rates the night clip high even on frames where the subject is motion-blurred.
+Use it to shortlist, then look at the frames.
+
+Compression is not the limiter here. CRF 24, 26 and 28 all measured the same
+sharpness (88.5–88.6) — the ceiling is the source. Raise CRF before dropping
+resolution. VP9/WebM came out *bigger* on this footage, so MP4 only.
+
+The source is 1920×1080 and the band only shows a horizontal slice, so it is
+cropped to 810 tall at encode time rather than by CSS; encoding full height
+spends bits on rows nobody sees. Full 1920 width is kept.
+
+### No fades or tint over the footage
+
+An earlier pass faded both edges to `--color-page` and laid a `#f7f6f2/12`
+tint on top, tuned for the bright daylight clip. Over dark footage that
+greyed the image out and read as blur. A dark band against a light page wants
+**crisp edges**. If a light clip is ever used here, that trade reverses.
+
+### Playback
+
+Above the fold, so it loads on arrival rather than on scroll — the page's
+heaviest asset. The 83 KB poster paints first and the video streams in
+behind it. Rules, in priority order:
 
 1. `prefers-reduced-motion` wins — no autoplay, and the file is never
    downloaded at all.
@@ -272,14 +297,10 @@ Playback rules, in priority order:
    control. Do not remove it.
 3. Otherwise it plays only while on screen and pauses on the way out.
 
-**The pause control is required, not decoration.** WCAG 2.2.2 says motion that
-plays automatically for more than five seconds must be pausable, and this
-loops. Keep it visible and keyboard reachable.
-
-Both edges fade to `#f7f6f2` (`--color-page`). If the page colour changes, or
-the band moves next to a section with a different background, change those
-gradient stops to match. The credit sits below the band, never over it —
-grey-on-footage is unreadable.
+**The pause control is required, not decoration.** WCAG 2.2.2 says motion
+that plays automatically for more than five seconds must be pausable, and
+this loops. Keep it visible and keyboard reachable. The credit sits below the
+band, never over it — grey-on-footage is unreadable.
 
 ## Design tokens
 

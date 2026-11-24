@@ -121,24 +121,14 @@ export function Ambient() {
         />
 
         {/*
-          Edges melt into whatever sits either side, so the band is a passage
-          in the scroll rather than a rectangle dropped onto it. Top matches
-          --color-page (#f7f6f2, the section above); bottom matches the
-          résumé section below (#efece5). Change these with those colours.
+          No fades and no wash over the footage. An earlier pass faded both
+          edges to the light page colour and laid a #f7f6f2/12 tint on top —
+          tuned for the bright daylight clip. Over dark footage that greyed
+          the image out and read as blur, which is exactly what it was
+          mistaken for. Against a light page a dark band wants crisp edges.
+          If a light clip is ever used here, that trade reverses.
         */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(180deg, #f7f6f2 0%, rgba(247,246,242,0) 26%, rgba(247,246,242,0) 72%, #f7f6f2 100%)',
-          }}
-        />
-        {/* A touch of the page's warmth over the blue, so it sits in the palette. */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[#f7f6f2]/12"
-        />
+
       </div>
 
       {/* Sits below the band, not over it: grey-on-video is unreadable. */}
