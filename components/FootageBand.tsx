@@ -1,26 +1,28 @@
 'use client';
 
 import { Container } from './ui';
-import { ambient } from '@/content/ambient';
+import { bandClip } from '@/content/ambient';
 import { useFootagePlayback } from '@/lib/useFootagePlayback';
 
 /**
- * Full-bleed ambient footage, used as the transition into the closing
- * section rather than as a feature of its own.
+ * Full-bleed footage lower down the page, used as the transition into the
+ * closing section rather than as a feature of its own: dock pilings and
+ * mooring ropes dropping away into the water, the camera descending.
  *
- * It is meant to read as texture, not as content: the video is aria-hidden
- * because nothing is lost by skipping it, and the clip was chosen for its
- * calm dark areas rather than its sharpness score — see content/ambient.ts
- * for why the highest-scoring candidate was the wrong one.
+ * This was the page header until Megan picked the reef for that slot. The
+ * two still come from one 4K master, which is what keeps them looking like
+ * one film instead of two stock clips.
  *
- * Cut from the same 4K master as the dive header, which is what makes the
- * two bands look like one film instead of two stock clips.
+ * This slot is much wider than the clip, so object-cover drops about a
+ * third of the height. `objectPosition` keeps the top, where the waterline
+ * and the knots are — see content/ambient.ts for why that is done in CSS
+ * rather than by re-cutting.
  *
- * Playback rules live in useFootagePlayback, shared with DiveHeader. The
+ * Playback rules live in useFootagePlayback, shared with HeaderFootage. The
  * pause control is required by WCAG 2.2.2 because this loops — keep it
  * keyboard reachable and always visible.
  */
-export function Ambient() {
+export function FootageBand() {
   const { playing, videoRef, bandRef, toggle } = useFootagePlayback();
 
   return (
@@ -34,8 +36,9 @@ export function Ambient() {
         <video
           ref={videoRef}
           className="absolute inset-0 block size-full object-cover"
-          src={ambient.src}
-          poster={ambient.poster}
+          style={{ objectPosition: bandClip.objectPosition }}
+          src={bandClip.src}
+          poster={bandClip.poster}
           muted
           loop
           playsInline
@@ -57,7 +60,7 @@ export function Ambient() {
       {/* Sits below the band, not over it: grey-on-video is unreadable. */}
       <Container className="flex items-center justify-end gap-3 pt-2.5 pb-1">
         <span className="text-[12px] tracking-[0.02em] text-neutral-500">
-          {ambient.credit}
+          {bandClip.credit}
         </span>
         {/* Absolute, so it spans the whole section and feathers both edges
             into the page colour. Out of flow — the flex row is unaffected. */}
@@ -76,7 +79,7 @@ export function Ambient() {
           aria-pressed={playing}
           className="cursor-pointer rounded-[8px] border border-rule-outline bg-surface px-2.5 py-1.5 font-[inherit] text-[12px] font-semibold text-ink hover:border-accent"
         >
-          {playing ? ambient.pauseLabel : ambient.playLabel}
+          {playing ? bandClip.pauseLabel : bandClip.playLabel}
         </button>
       </Container>
     </section>
