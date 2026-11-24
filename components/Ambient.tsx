@@ -29,6 +29,17 @@ export function Ambient() {
   const [playing, setPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const bandRef = useRef<HTMLDivElement | null>(null);
+  /**
+   * Set once the visitor presses pause, and only cleared when they press
+   * play again. A ref, not state, so the observer callback always reads the
+   * current value instead of one captured when the effect last ran.
+   *
+   * Without this the observer called play() on every intersection, so a
+   * paused band restarted itself as soon as it scrolled out of view and
+   * back — and with a 0.2 threshold, sometimes without leaving the screen
+   * at all. That defeats the pause control WCAG 2.2.2 requires.
+   */
+  const userPausedRef = useRef(false);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -54,6 +65,7 @@ export function Ambient() {
         const entry = entries[0];
         if (!entry) return;
         if (entry.isIntersecting) {
+          if (userPausedRef.current) return; // their choice outranks autoplay
           v.play().then(
             () => setPlaying(true),
             () => setPlaying(false),
@@ -73,23 +85,25 @@ export function Ambient() {
     const v = videoRef.current;
     if (!v) return;
     if (v.paused) {
+      userPausedRef.current = false;
       v.play().then(
         () => setPlaying(true),
         () => setPlaying(false),
       );
     } else {
+      userPausedRef.current = true;
       v.pause();
       setPlaying(false);
     }
   }, []);
 
   return (
-    /* Same ground colour as the résumé section below, so the band flows
-       into it instead of ending on a seam. */
-    <section aria-label="Ambient footage" className="relative w-full bg-[#efece5]">
+    /* Opens the page, directly under the sticky header. Both edges meet
+       --color-page, so it reads as the top of the scroll, not a banner. */
+    <section aria-label="Ambient footage" className="relative w-full">
       <div
         ref={bandRef}
-        className="relative h-[clamp(190px,25vw,310px)] w-full overflow-hidden"
+        className="relative h-[clamp(230px,30vw,430px)] w-full overflow-hidden"
         /* Behind the poster while it loads, so the band never flashes white. */
         style={{ backgroundColor: '#0d2430' }}
       >
@@ -117,7 +131,7 @@ export function Ambient() {
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'linear-gradient(180deg, #f7f6f2 0%, rgba(247,246,242,0) 32%, rgba(239,236,229,0) 68%, #efece5 100%)',
+              'linear-gradient(180deg, #f7f6f2 0%, rgba(247,246,242,0) 26%, rgba(247,246,242,0) 72%, #f7f6f2 100%)',
           }}
         />
         {/* A touch of the page's warmth over the blue, so it sits in the palette. */}

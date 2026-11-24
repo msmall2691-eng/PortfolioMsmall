@@ -242,39 +242,44 @@ its CSS display width, WebP, quality ~82.
 
 ## Video
 
-`public/video/reef-day.mp4` is the ambient band between More work and the
-résumé (`content/ambient.ts`, `components/Ambient.tsx`). It is decorative —
+`public/video/reef-day.mp4` is the ambient band that **opens the page**, above
+the intro (`content/ambient.ts`, `components/Ambient.tsx`). It is decorative —
 the page reads the same without it, which is why the `<video>` is
 `aria-hidden` and the section has no heading.
 
-The clip is AI-generated in Adobe Firefly and carries a visible credit. Keep
-the credit: it is the same honesty rule the product mocks follow for invented
-data.
+AI-generated in Adobe Firefly, with a visible credit. Keep the credit: it is
+the same honesty rule the product mocks follow for invented data.
 
-Encoded from a 1080p original to **854×480 H.264, CRF 31** — 377 KB, trimmed
-to its calmest six seconds. VP9/WebM was tried and came out *bigger* on this
-footage, so MP4 is the only source. Re-check that before adding a format.
+**1920×810 H.264, CRF 26 — 1.69 MB**, six seconds. The source is 1920×1080;
+it is cropped to 810 tall at encode time rather than by CSS, because the band
+only ever shows a horizontal slice and encoding the full frame spends bits on
+rows nobody sees. Full 1920 width is kept, so this is the real resolution
+ceiling of the source. VP9/WebM came out *bigger* on this footage, so MP4 is
+the only source — re-check before adding a format.
 
-The band costs **nothing** on first paint: `preload="none"` means the file is
-not fetched until something asks to play. Playback rules, in order:
+Because it now sits above the fold it loads on arrival rather than on scroll,
+so it is the page's heaviest asset. The 38 KB poster paints immediately and
+the video streams in behind it. If it needs to be lighter, drop to CRF 28
+(~1.34 MB) before dropping resolution.
+
+Playback rules, in priority order:
 
 1. `prefers-reduced-motion` wins — no autoplay, and the file is never
    downloaded at all.
-2. Otherwise an `IntersectionObserver` plays it only while the band is on
-   screen and pauses it on the way out.
-3. The pause control always overrides.
+2. **An explicit pause wins over autoplay.** `userPausedRef` records it and
+   the `IntersectionObserver` checks it before calling `play()`. Without that
+   the band restarts itself on scrolling away and back, which defeats the
+   control. Do not remove it.
+3. Otherwise it plays only while on screen and pauses on the way out.
 
 **The pause control is required, not decoration.** WCAG 2.2.2 says motion that
 plays automatically for more than five seconds must be pausable, and this
-loops. Keep it visible and keyboard reachable; do not hide it behind a hover.
+loops. Keep it visible and keyboard reachable.
 
-The band's edges fade to whatever sits either side — top to `#f7f6f2`
-(`--color-page`), bottom to `#efece5` (the résumé section), and the band's
-own section carries `#efece5` so the two run together with no seam. If either
-colour changes, change the matching gradient stop with it.
-
-The credit sits *below* the band, not over it. An earlier pass overlapped it
-onto the footage and grey-on-blue was unreadable.
+Both edges fade to `#f7f6f2` (`--color-page`). If the page colour changes, or
+the band moves next to a section with a different background, change those
+gradient stops to match. The credit sits below the band, never over it —
+grey-on-footage is unreadable.
 
 ## Design tokens
 

@@ -13,13 +13,13 @@ export default function Page() {
       <HeaderOffset />
       <SiteHeader />
       <main id="top">
+        <Ambient />
         <Intro />
         <Projects />
         <About />
         <Toolkit />
         <DataSection />
         <MoreWork />
-        <Ambient />
         <ResumeSection />
         <SiteFooter />
       </main>
