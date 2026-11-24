@@ -21,3 +21,15 @@ export const ambient = {
   pauseLabel: 'Pause background footage',
   playLabel: 'Play background footage',
 } as const;
+
+/**
+ * The surface band at the very top (components/DiveHeader.tsx).
+ *
+ * A still, not a clip: the video that looked like this scene turned out to
+ * be the reef artwork. 1920×1080 WebP, 80 KB — against ~1.4 MB for video of
+ * the same thing.
+ */
+export const dive = {
+  src: '/img/dive-ropes.webp',
+  credit: 'Generated with Adobe Firefly',
+} as const;

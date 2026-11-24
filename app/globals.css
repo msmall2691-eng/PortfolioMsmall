@@ -5,56 +5,77 @@
    Hex values are final; change them here, not in components.
 --------------------------------------------------------------------------- */
 @theme {
+  /* ---------------------------------------------------------------------
+     DEEP-WATER THEME (Nov 2026). The site reads as a dive: deep blue-black
+     ground, light text, and the sea-life layer finally sitting ON something
+     rather than fighting a pale page.
+
+     Two families are deliberately LEFT LIGHT and must stay that way:
+
+       --color-paper-*  the résumé card. A white sheet on a dark ground reads
+                        as a document on a desk, which is the point.
+       --color-mock-*   the product mocks and the phone/browser frames in
+                        Work.tsx. Those are screenshots of light software;
+                        darkening them would misrepresent the product.
+  --------------------------------------------------------------------- */
+
   /* Ground + text */
-  --color-page: #f7f6f2;
-  --color-ink: #1c1e26;
-  --color-ink-invert: #ffffff;
+  --color-page: #070d14;
+  --color-ink: #eaf1f6;
+  /* Text that sits on an ink-coloured (now light) button. */
+  --color-ink-invert: #08121b;
 
-  /* Neutral text ramp (Nocturne) */
-  --color-neutral-100: #1c1e26;
-  --color-neutral-200: #2d303b;
-  --color-neutral-300: #3f4351;
-  --color-neutral-400: #5b5f6d;
-  --color-neutral-500: #6b6f7d;
-  --color-neutral-600: #8b8f9c;
-  --color-neutral-700: #595d6c;
-  --color-neutral-800: #3f424d;
-  --color-neutral-900: #292b31;
+  /* Neutral text ramp, re-pointed for a dark ground. 300 is body copy. */
+  --color-neutral-100: #ffffff;
+  --color-neutral-200: #e9eff4;
+  --color-neutral-300: #c5d1da;
+  --color-neutral-400: #96a5b1;
+  --color-neutral-500: #7f8d99;
+  --color-neutral-600: #67747f;
+  --color-neutral-700: #adb9c3;
+  --color-neutral-800: #d0d9e0;
+  --color-neutral-900: #e6ecf1;
 
-  /* Accent ramp */
-  --color-accent: #5546c9;
-  --color-accent-100: #f1effd;
-  --color-accent-300: #4636b8;
-  --color-accent-400: #5546c9;
-  --color-accent-700: #33278f;
-  --color-accent-800: #cfc9f3;
-  --color-accent-soft: #4636b8;
+  /* Accent ramp, brightened: the old #5546c9 is unreadable on this ground. */
+  --color-accent: #9c8cf5;
+  --color-accent-100: #171433;
+  --color-accent-300: #bcb1ff;
+  --color-accent-400: #9c8cf5;
+  --color-accent-700: #cfc7ff;
+  --color-accent-800: #3b336f;
+  --color-accent-soft: #8e7df0;
 
   /* Signals */
-  --color-cyan: #0d7486;
-  --color-status: #1f9d57;
+  --color-cyan: #63cde0;
+  --color-status: #4ccd84;
 
-  /* Surfaces */
-  --color-surface: #ffffff;
-  --color-surface-2: #f1effa;
-  --color-surface-3: #ecebe5;
-  --color-code: #1b1e30;
-  --color-card: #ffffff;
+  /* Surfaces, lifted off the ground rather than tinted. */
+  --color-surface: #0e1a24;
+  --color-surface-2: #14212d;
+  --color-surface-3: #0b1520;
+  --color-code: #060c13;
+  --color-card: #0f1b26;
 
   /* Rules */
-  --color-rule-section: #e5e2da;
-  --color-rule-inner: #dfdbd2;
-  --color-rule-outline: #c4c0b6;
+  --color-rule-section: #1b2a36;
+  --color-rule-inner: #22303d;
+  --color-rule-outline: #3a4d5f;
 
-  /* Paper (résumé + turnover cards) */
+  /* Paper (résumé card) — deliberately still light. See note above.
+     Everything inside that card MUST use these tokens. The neutral ramp is
+     pointed at a dark ground now, so borrowing from it puts light grey on
+     white paper: text-neutral-800 did exactly that and measured 1.37:1. */
   --color-paper: #fbfaf7;
   --color-paper-ink: #1d1f26;
+  --color-paper-body: #3f424d;
   --color-paper-muted: #595d6c;
-  --color-paper-soft: #75798c;
+  /* Was #75798c, which measured 4.13:1 on paper — under AA for small text
+     and already so before the dark theme. Darkened to 5.72:1. */
+  --color-paper-soft: #5f6373;
   --color-paper-rule: #e4e2dc;
   --color-paper-label: #5d5294;
 
-  /* Light UI chrome used inside the product mocks */
+  /* Light UI chrome inside the product mocks — deliberately still light. */
   --color-mock-bg: #f7f7f9;
   --color-mock-chrome: #ececf1;
   --color-mock-rule: #e4e4ea;
@@ -161,11 +182,38 @@
   }
 
   /* The two soft radial glows behind the page. */
+  /* Two faint shafts of light through deep water. */
   .page-glow {
     background:
-      radial-gradient(900px 520px at 8% -10%, #ebe7fb 0%, transparent 70%),
-      radial-gradient(700px 480px at 100% 20%, #e3f1f3 0%, transparent 70%),
+      radial-gradient(1000px 620px at 12% -8%, #12243a 0%, transparent 72%),
+      radial-gradient(820px 560px at 98% 14%, #0e2b33 0%, transparent 72%),
       var(--color-page);
+  }
+
+  /* The surface sway on the dive header. Slow enough to read as water
+     rather than animation. Rests at its start pose at 0% and 100%, and is
+     switched off outright under reduced motion — the global
+     animation-duration rule does NOT park an infinite animation, it samples
+     random points on the path. (Learned the hard way; see the drift note.) */
+  .dive-sway {
+    animation: dive-sway 26s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  @keyframes dive-sway {
+    0%,
+    100% {
+      transform: scale(1.06) translate3d(0, 0, 0);
+    }
+    50% {
+      transform: scale(1.09) translate3d(0, -1.4%, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dive-sway {
+      animation: none !important;
+    }
   }
 
   /* --- The drifting sea-life layer (components/Drift.tsx) -------------
