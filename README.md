@@ -242,26 +242,39 @@ its CSS display width, WebP, quality ~82.
 
 ## Video
 
-`public/video/` holds the two clips for the gen-AI experiment section
-(`content/lab.ts`, `components/Lab.tsx`). They are AI-generated in Adobe
-Firefly and the page says so — the same honesty rule the product mocks follow.
+`public/video/reef-day.mp4` is the ambient band between More work and the
+résumé (`content/ambient.ts`, `components/Ambient.tsx`). It is decorative —
+the page reads the same without it, which is why the `<video>` is
+`aria-hidden` and the section has no heading.
 
-Encoded from 1080p originals to **854×480 H.264, CRF 31**: 562 KB (night) and
-377 KB (day), with WebP posters. VP9/WebM was tried and came out *bigger* on
-this footage — it is dark and full of fine particles, which VP9 spends bits on
-— so MP4 is the only source. Re-check that before adding a second format.
+The clip is AI-generated in Adobe Firefly and carries a visible credit. Keep
+the credit: it is the same honesty rule the product mocks follow for invented
+data.
 
-The section costs **nothing** on first paint: `preload="none"` means neither
-file is fetched until something asks to play. Playback rules, in order:
+Encoded from a 1080p original to **854×480 H.264, CRF 31** — 377 KB, trimmed
+to its calmest six seconds. VP9/WebM was tried and came out *bigger* on this
+footage, so MP4 is the only source. Re-check that before adding a format.
+
+The band costs **nothing** on first paint: `preload="none"` means the file is
+not fetched until something asks to play. Playback rules, in order:
 
 1. `prefers-reduced-motion` wins — no autoplay, and the file is never
-   downloaded at all. Verified: a reduced-motion visitor fetches 0 bytes of
-   video.
-2. Otherwise an `IntersectionObserver` plays the clip only while the panel is
-   on screen, and pauses it on the way out.
-3. The play/pause button always overrides.
+   downloaded at all.
+2. Otherwise an `IntersectionObserver` plays it only while the band is on
+   screen and pauses it on the way out.
+3. The pause control always overrides.
 
-If you replace a clip, keep it under ~600 KB and re-run the checks above.
+**The pause control is required, not decoration.** WCAG 2.2.2 says motion that
+plays automatically for more than five seconds must be pausable, and this
+loops. Keep it visible and keyboard reachable; do not hide it behind a hover.
+
+The band's edges fade to whatever sits either side — top to `#f7f6f2`
+(`--color-page`), bottom to `#efece5` (the résumé section), and the band's
+own section carries `#efece5` so the two run together with no seam. If either
+colour changes, change the matching gradient stop with it.
+
+The credit sits *below* the band, not over it. An earlier pass overlapped it
+onto the footage and grey-on-blue was unreadable.
 
 ## Design tokens
 

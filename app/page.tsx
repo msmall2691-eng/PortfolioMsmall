@@ -3,7 +3,7 @@ import { HeaderOffset } from '@/components/HeaderOffset';
 import { Intro, Projects, MoreWork, About } from '@/components/Home';
 import { Toolkit } from '@/components/Toolkit';
 import { DataSection } from '@/components/DataSection';
-import { Lab } from '@/components/Lab';
+import { Ambient } from '@/components/Ambient';
 import { ResumeSection } from '@/components/ResumeSection';
 import { SiteFooter } from '@/components/SiteFooter';
 
@@ -19,7 +19,7 @@ export default function Page() {
         <Toolkit />
         <DataSection />
         <MoreWork />
-        <Lab />
+        <Ambient />
         <ResumeSection />
         <SiteFooter />
       </main>
