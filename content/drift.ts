@@ -19,6 +19,18 @@
  * which is fine and normal. Gate: median lift < 1.0 and under half the ring
  * more than 2 above page luma. The assets here measure 0.00 / 0%.
  *
+ * A BORDER TEST IS NOT ENOUGH. It only sees the outer ring, so it misses
+ * haze sitting INSIDE the crop — a light shaft that never reaches the edge
+ * passes it. Second measure: take the pixels whose alpha came out under
+ * 0.15 (background that should have keyed away to nothing) and ask how far
+ * above page luma they still sit. Reject on p95 above 6.
+ *
+ * Re-cut from the full-resolution source artwork, every creature passed the
+ * border test, manta included — and the manta was still wrong. Its haze p95
+ * is 10.31 against 1.3-5.5 for everything that passes, and the glow is
+ * plainly visible once composited. The warning below was right and the
+ * border test alone would have overruled it.
+ *
  * What actually decides it is the SOURCE, not the feather. Creatures cut
  * from the dark 26s frame all pass. Everything cut from the lit reef frames
  * fails and cannot be rescued — turtle 23.5, anemone 30.9 against a

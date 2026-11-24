@@ -440,6 +440,27 @@ anglerfish, clownfish, clownfish2, eel, turtle
 replacements       median 0.00,  0%           -> pass
 ```
 
+### A border test is not enough
+
+It only sees the outer ring, so haze **inside** the crop passes it — a
+light shaft that never reaches the edge is invisible to it. Second measure:
+take pixels whose alpha came out under 0.15 (background that should have
+keyed away) and ask how far above page luma they still sit. **Reject on p95
+above 6.**
+
+Re-cut from the full-resolution source artwork, all twelve creatures passed
+the border test — manta included — and the manta was still wrong:
+
+```
+manta        border 0.01   haze p95 10.31   <- reject
+turtle       border 0.00   haze p95  5.38
+jellyR       border 0.00   haze p95  3.64
+octopus      border 0.00   haze p95  5.15
+```
+
+The existing warning about the manta and the light shaft was correct, and
+the border test alone would have overruled it. Run both.
+
 ### The source decides it, not the feather
 
 Of nine candidate crops, only the three from the dark 26s frame passed.
