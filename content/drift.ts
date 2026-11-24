@@ -57,7 +57,7 @@
  * (which needed 0.36–0.46 just to be visible at all). Distant ones are
  * smaller, fainter and blurred.
  *
- * Nothing belongs in the top ~7%: the dive header is opaque and covers it.
+ * Nothing belongs in the top ~7%: the header footage is opaque and covers it.
  */
 
 export type Drifter = {

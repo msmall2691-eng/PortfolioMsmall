@@ -1,35 +1,31 @@
 'use client';
 
 import { Container } from './ui';
-import { dive } from '@/content/ambient';
+import { headerClip } from '@/content/ambient';
 import { useFootagePlayback } from '@/lib/useFootagePlayback';
 
 /**
- * The surface: dock pilings and mooring ropes dropping away into the water,
- * directly under the sticky header. It opens the dive that the rest of the
- * page descends through — ropes at the top, deep reef below.
+ * The footage that opens the page, directly under the sticky header: the
+ * octopus reef, with the turtle, the manta behind it and fish schools on
+ * both sides.
  *
- * This was a still image until the real footage turned up. An earlier note
- * here claimed the rope video "turned out to be the reef artwork"; that was
- * wrong. The rope footage exists and is 4K, and the camera descends during
- * the shot, so the header now dives on its own instead of faking it with a
- * CSS sway.
+ * This was the rope/piling shot until Megan compared the two and picked the
+ * reef — the octopus is the stronger first impression. The ropes moved down
+ * to FootageBand. Both still come from the same 4K master, so they match.
  *
- * It is cut from the same 4K master as the reef band, which is why the two
- * match: one source, one lighting setup, one palette.
+ * Playback rules live in useFootagePlayback, shared with FootageBand:
+ * reduced motion never fetches the file and shows the poster instead, and
+ * the pause control is required by WCAG 2.2.2 because this loops. Do not
+ * remove it.
  *
- * Playback rules live in useFootagePlayback — reduced motion never fetches
- * the file and shows the poster instead, and the pause control is required
- * by WCAG 2.2.2 because this loops. Do not remove it.
- *
- * The bottom edge fades to --color-page so the surface dissolves into the
+ * The bottom edge fades to --color-page so the footage dissolves into the
  * dark rather than ending on a line.
  */
-export function DiveHeader() {
+export function HeaderFootage() {
   const { playing, videoRef, bandRef, toggle } = useFootagePlayback();
 
   return (
-    <section aria-label="Surface" className="relative w-full overflow-hidden">
+    <section aria-label="Header footage" className="relative w-full overflow-hidden">
       <div
         ref={bandRef}
         className="relative h-[clamp(300px,46vw,560px)] w-full overflow-hidden bg-[#061019]"
@@ -37,8 +33,8 @@ export function DiveHeader() {
         <video
           ref={videoRef}
           className="absolute inset-0 block size-full object-cover object-center"
-          src={dive.src}
-          poster={dive.poster}
+          src={headerClip.src}
+          poster={headerClip.poster}
           muted
           loop
           playsInline
@@ -59,7 +55,7 @@ export function DiveHeader() {
 
       <Container className="flex items-center justify-end gap-3 pt-2.5 pb-1">
         <span className="text-[12px] tracking-[0.02em] text-neutral-500">
-          {dive.credit}
+          {headerClip.credit}
         </span>
         <button
           type="button"
@@ -67,7 +63,7 @@ export function DiveHeader() {
           aria-pressed={playing}
           className="cursor-pointer rounded-[8px] border border-rule-outline bg-surface px-2.5 py-1.5 font-[inherit] text-[12px] font-semibold text-ink hover:border-accent"
         >
-          {playing ? dive.pauseLabel : dive.playLabel}
+          {playing ? headerClip.pauseLabel : headerClip.playLabel}
         </button>
       </Container>
     </section>
