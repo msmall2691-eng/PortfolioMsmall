@@ -6,14 +6,25 @@
  * z-0 under the content, and clips itself — nothing here can affect reading,
  * clicking or page width.
  *
- * CUTTING THEM OUT. The artwork's water is lit teal, not black, so a plain
- * luminance key leaves a visible rectangle — the first pass did exactly that.
- * Each cutout is therefore luminance key MULTIPLIED BY a radial falloff, so
- * the edges dissolve instead of ending. On this dark ground the leftover
- * dark-teal residue disappears. Two creatures were cut and then dropped: the
- * manta ray and a close crop of the octopus both sit in the bright light
- * shaft, where nothing separates them from the water. Do not re-add them
- * from that source.
+ * CUTTING THEM OUT, AND PROVING IT WORKED. Luminance key multiplied by a
+ * radial falloff. That is necessary but NOT sufficient, and eyeballing it
+ * does not tell you which — jelly.webp shipped with a visible rectangle and
+ * went unnoticed until it happened to land against the bright lower edge of
+ * the header.
+ *
+ * The test: composite the cutout onto --color-page at the opacity it is
+ * actually rendered at, then look at the outermost ring of pixels. A
+ * rectangle lifts the WHOLE ring, so use the MEDIAN lift, not the max — the
+ * max is tripped by any creature whose body simply reaches the crop edge,
+ * which is fine and normal. Gate: median lift < 1.0 and under half the ring
+ * more than 2 above page luma. The assets here measure 0.00 / 0%.
+ *
+ * What actually decides it is the SOURCE, not the feather. Creatures cut
+ * from the dark 26s frame all pass. Everything cut from the lit reef frames
+ * fails and cannot be rescued — turtle 23.5, anemone 30.9 against a
+ * threshold of 2. The manta ray and a close crop of the octopus sit in the
+ * bright light shaft and fail the same way; they were dropped twice, once by
+ * eye and once by measurement. Do not re-add them from that source.
  *
  * OPACITY. The page is now near-black, and these creatures are relatively
  * bright, so they carry much higher opacity than the old light-page version
@@ -45,17 +56,17 @@ export type Drifter = {
 
 /** The long home page: spread out, alternating sides. */
 export const homeDrift: readonly Drifter[] = [
-  { src: '/img/sea/jelly.webp',      top: '8%',  left: '3%',  width: 'min(110px, 15vw)', opacity: 0.6,  path: 'b', duration: 34, delay: 0 },
+  { src: '/img/sea/jelly.webp',      top: '11%', left: '3%',  width: 'min(110px, 15vw)', opacity: 0.6,  path: 'b', duration: 34, delay: 0 },
   { src: '/img/sea/eel.webp',        top: '14%', left: '76%', width: 'min(210px, 28vw)', opacity: 0.4,  blur: 0.8, path: 'c', duration: 46, delay: 3, flip: true },
   { src: '/img/sea/turtle.webp',     top: '22%', left: '79%', width: 'min(240px, 30vw)', opacity: 0.7,  path: 'a', duration: 38, delay: 1 },
   { src: '/img/sea/clownfish.webp',  top: '31%', left: '4%',  width: 'min(120px, 16vw)', opacity: 0.72, path: 'b', duration: 29, delay: 5 },
-  { src: '/img/sea/jelly2.webp',     top: '40%', left: '88%', width: 'min(95px, 13vw)',  opacity: 0.45, blur: 0.7, path: 'c', duration: 43, delay: 2 },
+  { src: '/img/sea/minnow.webp',     top: '40%', left: '88%', width: 'min(95px, 13vw)',  opacity: 0.45, blur: 0.7, path: 'c', duration: 43, delay: 2 },
   { src: '/img/sea/anglerfish.webp', top: '49%', left: '-1%', width: 'min(230px, 29vw)', opacity: 0.6,  path: 'a', duration: 50, delay: 4 },
   { src: '/img/sea/clownfish2.webp', top: '58%', left: '85%', width: 'min(115px, 15vw)', opacity: 0.68, path: 'b', duration: 31, delay: 6, flip: true },
   { src: '/img/sea/jelly.webp',      top: '66%', left: '6%',  width: 'min(85px, 12vw)',  opacity: 0.42, blur: 0.9, path: 'c', duration: 47, delay: 1, flip: true },
   { src: '/img/sea/turtle.webp',     top: '75%', left: '82%', width: 'min(175px, 24vw)', opacity: 0.5,  blur: 0.5, path: 'a', duration: 44, delay: 0, flip: true },
   { src: '/img/sea/eel.webp',        top: '84%', left: '2%',  width: 'min(185px, 25vw)', opacity: 0.38, blur: 1.0, path: 'b', duration: 52, delay: 7 },
-  { src: '/img/sea/clownfish.webp',  top: '92%', left: '89%', width: 'min(100px, 14vw)', opacity: 0.62, path: 'c', duration: 33, delay: 3, flip: true },
+  { src: '/img/sea/driftfish.webp',  top: '92%', left: '89%', width: 'min(100px, 14vw)', opacity: 0.62, path: 'c', duration: 33, delay: 3, flip: true },
 ];
 
 /** Case studies are shorter, so fewer and fainter. */
