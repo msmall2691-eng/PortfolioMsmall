@@ -302,6 +302,61 @@ that plays automatically for more than five seconds must be pausable, and
 this loops. Keep it visible and keyboard reachable. The credit sits below the
 band, never over it — grey-on-footage is unreadable.
 
+## The sea-life layer
+
+Creatures cut out of the Firefly footage, drifting faintly behind every page
+(`content/drift.ts`, `components/Drift.tsx`, keyframes in `globals.css`).
+Nine on the home page, four on each case study.
+
+Decorative and inert: the layer is `aria-hidden`, `pointer-events-none`, sits
+at `z-0` under `<main>` (`z-10`) and the header (`z-20`), and clips itself so
+nothing can widen the document.
+
+### Cutting another creature
+
+The night clip lights its creatures against near-black, so brightness alone
+separates them — no segmentation model needed. Per creature: crop tight
+around it in a frame, build alpha from luminance with a soft knee, zero
+anything below a floor (this is what kills the grey rectangle), feather by
+about a pixel, then trim to the alpha bounding box.
+
+Two things that went wrong first time and are worth not repeating:
+
+- **Crop tight.** A loose box drags in background water and whatever is
+  behind the subject, and the key cannot tell them apart. The first turtle
+  came out with a visible rectangle of haze and a piece of the octopus.
+- **The floor matters more than the threshold.** Without it, low-level haze
+  survives at low alpha and reads as a dirty box on a light page.
+
+Assets live in `public/img/sea/`, WebP with alpha, 99 KB for all four.
+
+### Tuning
+
+- **Opacity.** The page is light and these creatures are mid-tone, so
+  anything under about 0.2 vanishes rather than reading as subtle — a first
+  pass at 0.09–0.2 was invisible on screen. Sharp creatures sit at 0.36–0.46;
+  the blurred schools, which cover far more area, stay at 0.2–0.26.
+- **Nothing above ~8% down.** The video band at the top is opaque and would
+  simply cover it.
+- **Keep to the edges.** The centre column is copy, and much of the page is
+  opaque white cards that hide anything behind them.
+- **Depth** is faked the way distance works underwater: further away means
+  smaller, fainter and softer (`blur`).
+
+### Motion
+
+Three keyframe paths at 29–52s with staggered delays, so the loops never
+visibly line up. Only `transform` and `opacity` animate.
+
+Each path rests at the origin at 0% **and** 100%. That matters: the global
+`prefers-reduced-motion` rule collapses `animation-duration` to `0.01ms`,
+which parks every creature at its resting position instead of freezing it
+mid-drift.
+
+The `flip` option uses the independent `scale` property, **not**
+`transform: scaleX(-1)`. The keyframes animate `transform`, and a running
+animation beats an inline transform — the flip would silently do nothing.
+
 ## Design tokens
 
 All colour, radius and layout tokens come from the Nocturne theme in the handoff
