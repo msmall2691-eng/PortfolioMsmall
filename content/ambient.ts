@@ -19,6 +19,17 @@
  * than on a strip under each band. Keep it — same honesty rule the product
  * mocks follow for invented data.
  *
+ * SEAMLESS LOOPS. Both clips crossfade their own tail over their own head,
+ * so the loop point lands mid-dissolve. Before this the jump from last
+ * frame back to first measured 4.9x a normal frame-to-frame change on the
+ * header and 4.6x on the band, and it read as a visible clunk. After:
+ * 0.3x and 1.0x — the header's loop point is now smoother than the motion
+ * around it. Recipe, for a window of D+F cut from the master:
+ *   O(t) = crossfade from C(t+D) to C(t) over t in [0,F)
+ *   O(t) = C(t)                          for  t in [F,D)
+ * so O(0) == C(D), which is exactly what O(D) runs into. Re-cutting either
+ * clip without this will bring the clunk back.
+ *
  * PICKING A WINDOW. Measure, but do not obey the measurement. Laplacian
  * variance counts texture density, not quality, and it has been wrong here
  * three times:
@@ -37,7 +48,7 @@
 
 /**
  * The header, at the very top (components/HeaderFootage.tsx).
- * 1920x810, 1.0 MB, from master 11.0-15.0s.
+ * 1920x810, 820 KB, CRF 31, from master 11.0-15.8s.
  *
  * The slot is about 2.29:1 and the clip is 2.37:1, so object-cover trims
  * roughly 3% off the sides. Harmless — the octopus is centred.
@@ -51,7 +62,8 @@ export const headerClip = {
 
 /**
  * The band lower down, after the work and before the resume
- * (components/FootageBand.tsx). 1920x840, 1.2 MB, from master 0.15-3.3s.
+ * (components/FootageBand.tsx). 1920x840, 741 KB, CRF 31, from master
+ * 0.15-4.05s.
  * The camera descends during the shot.
  *
  * This slot is much wider than the clip — about 3.33:1 against 2.29:1 — so
