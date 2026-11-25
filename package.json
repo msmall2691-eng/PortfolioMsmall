@@ -2,7 +2,7 @@
   "name": "megan-small-portfolio",
   "version": "1.0.0",
   "private": true,
-  "description": "Personal portfolio and resume for Megan Small — business systems, implementation and front-end work.",
+  "description": "Personal portfolio and resume for Megan Small \u2014 business systems, implementation and front-end work.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "next": "15.5.28",
+    "next": "16.4.6",
     "react": "19.1.1",
     "react-dom": "19.1.1"
   },
