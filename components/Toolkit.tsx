@@ -1,14 +1,16 @@
 import { Container } from "./ui";
 import { toolkit, skillGroups, credentials } from "@/content/skills";
+import { SectionArt } from './SectionArt';
 
 export function Toolkit() {
   return (
     <section
       id="skills"
       aria-labelledby="sk-h"
-      className="section-anchor border-t border-rule-section"
+      className="section-anchor relative overflow-hidden border-t border-rule-section"
     >
-      <Container className="flex flex-col gap-7 py-20">
+      <SectionArt name="toolkit" />
+      <Container className="relative z-10 flex flex-col gap-7 py-20">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <h2
             id="sk-h"

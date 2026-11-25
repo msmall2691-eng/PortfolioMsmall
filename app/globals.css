@@ -190,6 +190,42 @@
       var(--color-page);
   }
 
+  /* --- Scroll reveal (components/RevealOnScroll.tsx) -------------------
+     Sections rise and fade in as they enter view. This is the main thing
+     that makes the page feel alive rather than printed.
+
+     EVERYTHING here is scoped to html.reveal-ready, which ONLY the
+     RevealOnScroll component sets, and which it does not set under
+     prefers-reduced-motion. Without JavaScript the class never appears and
+     nothing is ever hidden — the page renders complete. Do not move these
+     rules out of that scope: hiding by default would mean a scripting
+     failure leaves a blank page with the content sitting at opacity 0. */
+  .reveal-ready [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+    transition:
+      opacity 0.75s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 0.75s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal-ready [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+
+  /* A second belt to the braces: even if the class were somehow set under
+     reduced motion, nothing moves and nothing is hidden. */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-ready [data-reveal],
+    .reveal-ready [data-reveal].is-revealed {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
   /* --- The drifting sea-life layer (components/Drift.tsx) -------------
      Three slow paths, so creatures never move in unison. Each rests at the
      origin at 0% and 100% so the resting pose is the laid-out position —
