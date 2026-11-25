@@ -215,6 +215,20 @@
     will-change: auto;
   }
 
+  /* PRINT. A reveal that has not fired yet is still at opacity 0, and
+     printing does not scroll, so without this a printed page comes out
+     with only the first section on it and the rest blank. Recruiters do
+     print portfolios. Caught by review after this shipped: 7 of 8
+     sections were invisible under print media. */
+  @media print {
+    .reveal-ready [data-reveal],
+    .reveal-ready [data-reveal].is-revealed {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
   /* A second belt to the braces: even if the class were somehow set under
      reduced motion, nothing moves and nothing is hidden. */
   @media (prefers-reduced-motion: reduce) {
