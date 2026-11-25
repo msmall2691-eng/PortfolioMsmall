@@ -5,7 +5,6 @@
  * Every number in the product mocks is sample data and must stay fake.
  * No client names, addresses, gate codes or phone numbers anywhere.
  */
-import { links } from './site';
 
 export const caseStudy = {
   eyebrow: 'FEATURED PROJECT · BRIGHTBASE',

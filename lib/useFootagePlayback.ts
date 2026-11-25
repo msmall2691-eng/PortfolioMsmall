@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 /**
  * Shared playback rules for every piece of decorative footage on the site.
  *
- * Both bands (the surface header and the reef band) need exactly these rules,
+ * Both bands (the reef header and the ropes band) need exactly these rules,
  * and one of them has already shipped a bug here, so the logic lives in one
  * place rather than being copied.
  *
@@ -19,6 +19,24 @@ import { useCallback, useEffect, useRef, useState } from 'react';
  * motion which plays automatically for more than five seconds can be paused,
  * and these loop forever. Keep it keyboard reachable and always visible —
  * do not hide it behind a hover.
+ *
+ * WHERE `playing` COMES FROM, and why it matters. Nothing here sets `playing`
+ * by hand. The one effect below subscribes to the <video> element's own `play`
+ * and `pause` events, and every other path — the observer, the reduced-motion
+ * branch, the toggle — only ever calls `v.play()` or `v.pause()` and lets the
+ * resulting event update the state.
+ *
+ * That is deliberate, for two reasons:
+ *
+ *  - The element is the single source of truth. Setting `playing` optimistically
+ *    alongside a play() call lets the two drift whenever the browser pauses the
+ *    video on its own — a hidden tab, low power mode, a failed autoplay promise.
+ *    The button then shows the wrong icon, which is worse than useless on a
+ *    control whose whole job is to say what the video is doing.
+ *  - Calling setState synchronously in an effect body triggers a cascading
+ *    render, which React's `react-hooks/set-state-in-effect` rule flags as an
+ *    error. The fix is not to silence it: an effect should subscribe to an
+ *    external system and set state from the callback, which is what this does.
  */
 export function useFootagePlayback() {
   const [reduced, setReduced] = useState(false);
@@ -46,14 +64,33 @@ export function useFootagePlayback() {
     return () => mq.removeEventListener('change', sync);
   }, []);
 
+  // The only place `playing` is written. See the note above.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+
+    const onPlay = () => setPlaying(true);
+    const onPause = () => setPlaying(false);
+
+    v.addEventListener('play', onPlay);
+    v.addEventListener('pause', onPause);
+
+    // The element may already be running by the time this attaches.
+    if (!v.paused) setPlaying(true);
+
+    return () => {
+      v.removeEventListener('play', onPlay);
+      v.removeEventListener('pause', onPause);
+    };
+  }, []);
+
   useEffect(() => {
     const el = bandRef.current;
     const v = videoRef.current;
     if (!el || !v) return;
 
     if (reduced) {
-      v.pause();
-      setPlaying(false);
+      v.pause(); // the `pause` listener clears `playing`
       return;
     }
 
@@ -63,13 +100,10 @@ export function useFootagePlayback() {
         if (!entry) return;
         if (entry.isIntersecting) {
           if (userPausedRef.current) return; // their choice outranks autoplay
-          v.play().then(
-            () => setPlaying(true),
-            () => setPlaying(false),
-          );
+          // A rejected promise fires no `play` event, so `playing` stays false.
+          void v.play().catch(() => {});
         } else {
           v.pause();
-          setPlaying(false);
         }
       },
       { threshold: 0.2 },
@@ -83,14 +117,10 @@ export function useFootagePlayback() {
     if (!v) return;
     if (v.paused) {
       userPausedRef.current = false;
-      v.play().then(
-        () => setPlaying(true),
-        () => setPlaying(false),
-      );
+      void v.play().catch(() => {});
     } else {
       userPausedRef.current = true;
       v.pause();
-      setPlaying(false);
     }
   }, []);
 
