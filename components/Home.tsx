@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Container } from "./ui";
 import { profile, links } from "@/content/site";
 import { intro, projects, moreWork, github, aboutShort } from "@/content/home";
+import { SectionArt } from './SectionArt';
 
 const label = "font-mono-ui text-[11px] tracking-[0.12em] text-neutral-500";
 const h2 = "text-[22px] font-semibold tracking-[-0.015em]";
@@ -92,8 +93,9 @@ export function Projects() {
   const featured = projects.slice(0, FEATURED_COUNT);
   const rest = projects.slice(FEATURED_COUNT);
   return (
-    <section id="work" aria-labelledby="work-h" className="section-anchor border-t border-rule-section">
-      <Container className="flex flex-col gap-5 py-9 md:gap-6 md:py-12">
+    <section id="work" aria-labelledby="work-h" className="section-anchor relative overflow-hidden border-t border-rule-section">
+      <SectionArt name="projects" />
+      <Container className="relative z-10 flex flex-col gap-5 py-9 md:gap-6 md:py-12">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <h2 id="work-h" className={h2}>Projects</h2>
           <p className="text-[14px] text-neutral-400">Each one links to a short case study.</p>
@@ -232,8 +234,9 @@ export function MoreWork() {
  */
 export function About() {
   return (
-    <section id="about" aria-labelledby="about-h" className="section-anchor border-t border-rule-section">
-      <Container className="grid gap-6 py-9 md:grid-cols-[180px_minmax(0,72ch)] md:gap-10 md:py-12">
+    <section id="about" aria-labelledby="about-h" className="section-anchor relative overflow-hidden border-t border-rule-section">
+      <SectionArt name="about" />
+      <Container className="relative z-10 grid gap-6 py-9 md:grid-cols-[180px_minmax(0,72ch)] md:gap-10 md:py-12">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/img/meg-headshot.webp"
