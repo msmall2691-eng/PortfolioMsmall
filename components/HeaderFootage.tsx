@@ -1,8 +1,8 @@
 'use client';
 
-import { Container } from './ui';
 import { headerClip } from '@/content/ambient';
 import { useFootagePlayback } from '@/lib/useFootagePlayback';
+import { FootageToggle } from './FootageToggle';
 
 /**
  * The footage that opens the page, directly under the sticky header: the
@@ -51,21 +51,15 @@ export function HeaderFootage() {
               'linear-gradient(180deg, rgba(7,13,20,0) 38%, rgba(7,13,20,0.55) 72%, #070d14 100%)',
           }}
         />
+
+        <FootageToggle
+          playing={playing}
+          onToggle={toggle}
+          pauseLabel={headerClip.pauseLabel}
+          playLabel={headerClip.playLabel}
+        />
       </div>
 
-      <Container className="flex items-center justify-end gap-3 pt-2.5 pb-1">
-        <span className="text-[12px] tracking-[0.02em] text-neutral-500">
-          {headerClip.credit}
-        </span>
-        <button
-          type="button"
-          onClick={toggle}
-          aria-pressed={playing}
-          className="cursor-pointer rounded-[8px] border border-rule-outline bg-surface px-2.5 py-1.5 font-[inherit] text-[12px] font-semibold text-ink hover:border-accent"
-        >
-          {playing ? headerClip.pauseLabel : headerClip.playLabel}
-        </button>
-      </Container>
     </section>
   );
 }

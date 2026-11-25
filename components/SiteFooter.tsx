@@ -8,6 +8,9 @@ export function SiteFooter() {
         <span>{footer.left}</span>
         <span>{footer.right}</span>
       </Container>
+      <Container className="pt-1.5 text-[12.5px] text-neutral-500">
+        <span>{footer.footage}</span>
+      </Container>
     </footer>
   );
 }
