@@ -30,7 +30,12 @@ export function ResumeSection() {
             <Eyebrow>{resumeHeader.eyebrow}</Eyebrow>
             <h2
               id="ct-h"
-              className="text-[clamp(30px,4vw,44px)] leading-[1.05] font-semibold tracking-[-0.03em]"
+              /*
+                Was clamp(30px,4vw,44px) -- 44px at 1440, which made this the
+                largest type on the page, bigger than the h1 of her own name
+                at 42px. Matched to the Skills heading so the h1 stays on top.
+              */
+              className="text-[clamp(28px,3.2vw,36px)] leading-[1.05] font-semibold tracking-[-0.03em]"
             >
               {resumeHeader.heading}
             </h2>
