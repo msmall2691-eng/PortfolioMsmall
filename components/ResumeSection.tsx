@@ -1,7 +1,6 @@
-import { Container, Eyebrow } from './ui';
+import { Container, Eyebrow, sectionHeading } from './ui';
 import { profile } from '@/content/site';
 import { resumeHeader, resumeCard, jobs, education, contactRow } from '@/content/resume';
-import { SectionArt } from './SectionArt';
 
 /**
  * Résumé and contact.
@@ -33,21 +32,15 @@ export function ResumeSection() {
     <section
       id="resume"
       aria-labelledby="ct-h"
-      className="section-anchor relative overflow-hidden border-t border-rule-section bg-surface-3"
+      className="section-anchor border-t border-rule-section bg-surface-3"
     >
-      <SectionArt name="resume" />
-      <Container className="section-anchor relative z-10 flex flex-col gap-10 pt-22 pb-18">
+      <Container className="section-anchor flex flex-col gap-10 pt-22 pb-18">
         <div className="flex flex-wrap items-end justify-between gap-5">
           <div className="flex flex-col gap-2.5">
             <Eyebrow>{resumeHeader.eyebrow}</Eyebrow>
             <h2
               id="ct-h"
-              /*
-                Was clamp(30px,4vw,44px) -- 44px at 1440, which made this the
-                largest type on the page, bigger than the h1 of her own name
-                at 42px. Matched to the Skills heading so the h1 stays on top.
-              */
-              className="text-[clamp(28px,3.2vw,36px)] leading-[1.05] font-semibold tracking-[-0.03em]"
+              className={sectionHeading}
             >
               {resumeHeader.heading}
             </h2>

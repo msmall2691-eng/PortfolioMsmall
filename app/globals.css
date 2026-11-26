@@ -1,81 +1,100 @@
 @import 'tailwindcss';
 
 /* ---------------------------------------------------------------------------
-   Design tokens — translated from the Nocturne theme in the design handoff.
-   Hex values are final; change them here, not in components.
+   Design tokens. Hex values are final; change them here, not in components.
 --------------------------------------------------------------------------- */
 @theme {
   /* ---------------------------------------------------------------------
-     DEEP-WATER THEME (Nov 2026). The site reads as a dive: deep blue-black
-     ground, light text, and the sea-life layer finally sitting ON something
-     rather than fighting a pale page.
+     LIGHT BASE (Nov 2026). The page is a warm off-white sheet with dark
+     text. The two footage bands are the only dark surfaces, and they are
+     dark ON PURPOSE — punctuation, not theme.
 
-     Two families are deliberately LEFT LIGHT and must stay that way:
+     THE WHOLE PAGE IS NOW ONE FAMILY. The résumé card already had a
+     measured light palette (--color-paper-*), so the page tokens below are
+     built out of those same values rather than a second light ramp sitting
+     beside them:
 
-       --color-paper-*  the résumé card. A white sheet on a dark ground reads
-                        as a document on a desk, which is the point.
-       --color-mock-*   the product mocks and the phone/browser frames in
-                        Work.tsx. Those are screenshots of light software;
-                        darkening them would misrepresent the product.
+       --color-ink         = --color-paper-ink
+       --color-neutral-300 = --color-paper-body   (body copy)
+       --color-neutral-500 = --color-paper-soft   (quiet labels)
+
+     The ramp runs DARKEST AT 100 to LIGHTEST AT 900, because that is the
+     direction the call sites already use: 300 is body copy, 400 is
+     secondary copy, 500 is a quiet label. Keep it monotonic.
+
+     ONE ACCENT. Indigo, and only indigo — links, the focus ring, the
+     active tab, the chart bars, mono eyebrows. The old second accent
+     (a cyan) and the nine per-card pastels in the skills grid are gone;
+     on a light page they read as decoration rather than signal.
   --------------------------------------------------------------------- */
 
   /* Ground + text */
-  --color-page: #070d14;
-  --color-ink: #eaf1f6;
-  /* Text that sits on an ink-coloured (now light) button. */
-  --color-ink-invert: #08121b;
+  --color-page: #f6f4ee;
+  --color-ink: #1d1f26;
+  /* Text that sits on an ink-coloured (dark) button. */
+  --color-ink-invert: #faf9f6;
 
-  /* Neutral text ramp, re-pointed for a dark ground. 300 is body copy. */
-  --color-neutral-100: #ffffff;
-  --color-neutral-200: #e9eff4;
-  --color-neutral-300: #c5d1da;
-  --color-neutral-400: #96a5b1;
-  --color-neutral-500: #7f8d99;
-  --color-neutral-600: #67747f;
-  --color-neutral-700: #adb9c3;
-  --color-neutral-800: #d0d9e0;
-  --color-neutral-900: #e6ecf1;
+  /* The one dark surface: the footage bands. Both clips are dark
+     underwater video, so they land on a near-black plate of their own and
+     feather into THAT, not into the page. A clip fading into #f6f4ee would
+     wash to grey at both edges; against this it keeps its density and the
+     band reads as a deliberate dark slab between two light sections. */
+  --color-deep: #0b1118;
 
-  /* Accent ramp, brightened: the old #5546c9 is unreadable on this ground. */
-  --color-accent: #9c8cf5;
-  --color-accent-100: #171433;
-  --color-accent-300: #bcb1ff;
-  --color-accent-400: #9c8cf5;
-  --color-accent-700: #cfc7ff;
-  --color-accent-800: #3b336f;
-  --color-accent-soft: #8e7df0;
+  /* Neutral text ramp. 300 is body copy, 400 secondary, 500 quiet labels.
+     Measured on --color-page: 9.10:1 / 6.55:1 / 5.43:1. */
+  --color-neutral-100: #0f1116;
+  --color-neutral-200: #23262d;
+  --color-neutral-300: #3f424d;
+  --color-neutral-400: #535764;
+  --color-neutral-500: #5f6373;
+  --color-neutral-600: #767a87;
+  --color-neutral-700: #9a9ea9;
+  --color-neutral-800: #c6c8d0;
+  --color-neutral-900: #e6e7ec;
+
+  /* Accent ramp. Hover goes DARKER on a light ground, so -700 is the
+     darkest step and -300 sits between it and the base. */
+  --color-accent: #4b3dc4;
+  --color-accent-100: #f1effb;
+  --color-accent-300: #332a8c;
+  --color-accent-400: #4b3dc4;
+  --color-accent-700: #2b2280;
+  --color-accent-800: #ded9f4;
+  --color-accent-soft: #4335b8;
 
   /* Signals */
-  --color-cyan: #63cde0;
-  --color-status: #4ccd84;
+  --color-status: #15803d;
 
-  /* Surfaces, lifted off the ground rather than tinted. */
-  --color-surface: #0e1a24;
-  --color-surface-2: #14212d;
-  --color-surface-3: #0b1520;
-  --color-code: #060c13;
-  --color-card: #0f1b26;
+  /* Surfaces. Cards are plain white on the warm page — that small warm/cool
+     step is what lifts them, not a border glow or a gradient. */
+  --color-surface: #e7e3d9;
+  --color-surface-2: #efece4;
+  --color-surface-3: #f1eee6;
+  --color-card: #ffffff;
+  /* The DAX block stays dark. A dark code panel on a light page is the one
+     inversion that is idiomatic rather than decorative, and it gives the
+     page a second anchor besides the footage. Text in it is #e4e7f5 at
+     15.09:1. */
+  --color-code: #10131a;
 
-  /* Rules */
-  --color-rule-section: #1b2a36;
-  --color-rule-inner: #22303d;
-  --color-rule-outline: #3a4d5f;
+  /* Rules. Hairlines are deliberately quiet; a button outline is not. */
+  --color-rule-section: #dcd7c8;
+  --color-rule-inner: #e3dfd3;
+  --color-rule-outline: #a8a292;
 
-  /* Paper (résumé card) — deliberately still light. See note above.
-     Everything inside that card MUST use these tokens. The neutral ramp is
-     pointed at a dark ground now, so borrowing from it puts light grey on
-     white paper: text-neutral-800 did exactly that and measured 1.37:1. */
+  /* Paper (résumé card). The sheet is a half-step brighter than the page so
+     it still reads as a document laid on a desk. These values are measured;
+     everything inside that card must use them. */
   --color-paper: #fbfaf7;
   --color-paper-ink: #1d1f26;
   --color-paper-body: #3f424d;
   --color-paper-muted: #595d6c;
-  /* Was #75798c, which measured 4.13:1 on paper — under AA for small text
-     and already so before the dark theme. Darkened to 5.72:1. */
   --color-paper-soft: #5f6373;
   --color-paper-rule: #e4e2dc;
   --color-paper-label: #5d5294;
 
-  /* Light UI chrome inside the product mocks — deliberately still light. */
+  /* Light UI chrome inside the product mocks. */
   --color-mock-bg: #f7f7f9;
   --color-mock-chrome: #ececf1;
   --color-mock-rule: #e4e4ea;
@@ -135,7 +154,7 @@
   }
 
   a {
-    color: var(--color-accent-300);
+    color: var(--color-accent-soft);
     text-decoration: none;
   }
 
@@ -146,10 +165,22 @@
   /* In-body prose links keep an underline for legibility. */
   p a,
   li a {
-    color: var(--color-accent-400);
+    color: var(--color-accent-soft);
     text-decoration: underline;
     text-decoration-thickness: 1.5px;
     text-underline-offset: 3px;
+  }
+
+  /* ...but a HEADING that happens to be a link is not prose. Every project
+     card title is an <h3><Link> inside an <li>, so the rule above was
+     underlining all of them — on a dark page that barely showed, on a light
+     one it is the noisiest thing in the section, and the whole card is
+     already a click target. */
+  h1 a,
+  h2 a,
+  h3 a,
+  h4 a {
+    text-decoration: none;
   }
 
   :focus-visible {
@@ -179,15 +210,6 @@
      fallbacks, measured at each breakpoint. */
   .section-anchor {
     scroll-margin-top: calc(var(--header-h, 150px) + 10px);
-  }
-
-  /* The two soft radial glows behind the page. */
-  /* Two faint shafts of light through deep water. */
-  .page-glow {
-    background:
-      radial-gradient(1000px 620px at 12% -8%, #12243a 0%, transparent 72%),
-      radial-gradient(820px 560px at 98% 14%, #0e2b33 0%, transparent 72%),
-      var(--color-page);
   }
 
   /* --- Scroll reveal (components/RevealOnScroll.tsx) -------------------
@@ -240,92 +262,8 @@
     }
   }
 
-  /* --- The drifting sea-life layer (components/Drift.tsx) -------------
-     Three slow paths, so creatures never move in unison. Each rests at the
-     origin at 0% and 100% so the resting pose is the laid-out position —
-     but that alone does NOT stop them under reduced motion; see the
-     explicit override below, which is what actually does.
-
-     Only `transform` and `opacity` are animated, so these stay off the
-     main thread. The flip in Drift.tsx uses the independent `scale`
-     property for the same reason — animating `transform` here would
-     override an inline scaleX(). */
-  .drift {
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-    will-change: transform;
-  }
-
-  .drift-a {
-    animation-name: drift-a;
-  }
-  .drift-b {
-    animation-name: drift-b;
-  }
-  .drift-c {
-    animation-name: drift-c;
-  }
-
-  /* An infinite animation is NOT parked by the global reduced-motion rule
-     that collapses animation-duration to 0.01ms. At that duration the cycle
-     completes thousands of times per rendered frame, so each frame samples
-     an arbitrary point on the path: measured here as three different
-     transforms across 25 frames, one of them translate(6.9px, -24px) — the
-     middle of the drift, not the rest position. The result is jitter, which
-     is the opposite of what the setting asks for.
-
-     Matching the 0% and 100% keyframes does not help, for the same reason.
-     The animation has to actually be switched off. */
-  @media (prefers-reduced-motion: reduce) {
-    .drift {
-      animation: none !important;
-    }
-  }
-
-  @keyframes drift-a {
-    0%,
-    100% {
-      transform: translate3d(0, 0, 0) rotate(0deg);
-    }
-    50% {
-      transform: translate3d(26px, -20px, 0) rotate(1.5deg);
-    }
-  }
-
-  @keyframes drift-b {
-    0%,
-    100% {
-      transform: translate3d(0, 0, 0) rotate(0deg);
-    }
-    35% {
-      transform: translate3d(-18px, -14px, 0) rotate(-1.2deg);
-    }
-    70% {
-      transform: translate3d(12px, -26px, 0) rotate(0.8deg);
-    }
-  }
-
-  @keyframes drift-c {
-    0%,
-    100% {
-      transform: translate3d(0, 0, 0) rotate(0deg);
-    }
-    50% {
-      transform: translate3d(-30px, 16px, 0) rotate(-1deg);
-    }
-  }
-
   .font-mono-ui {
     font-family: var(--font-jetbrains), 'JetBrains Mono', ui-monospace, monospace;
-  }
-
-  /* Gradient text clip used on the hero headline. */
-  .text-gradient {
-    background: linear-gradient(90deg, #5546c9 0%, #7a4fd1 45%, #0d7486 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
   }
 
   /* 2px accent underline on in-page link rows. */

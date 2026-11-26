@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Container, Eyebrow, SmartLink, isReachable } from './ui';
+import { Container, Eyebrow, SmartLink, isReachable, sectionHeading } from './ui';
 import {
   dataSection,
   kpis,
@@ -21,7 +21,7 @@ const sectionLinks: readonly SectionLink[] = [
   { href: links.powerbiStack, label: 'Software stack: build vs buy ↗' },
 ];
 
-const h2 = 'text-[22px] font-semibold tracking-[-0.015em]';
+// Section heading size lives in ui.tsx as `sectionHeading`. See the note there.
 
 export function DataSection() {
   const [active, setActive] = useState<ChartId>('segment');
@@ -48,7 +48,7 @@ export function DataSection() {
       <Container className="flex flex-col gap-6 py-9 md:gap-9 md:py-12">
         <div className="flex max-w-[680px] flex-col gap-3">
           <Eyebrow>{dataSection.eyebrow}</Eyebrow>
-          <h2 id="data-h" className={h2}>
+          <h2 id="data-h" className={sectionHeading}>
             {dataSection.heading}
           </h2>
           <p className="text-[15px] leading-[1.6] text-neutral-300 text-pretty">

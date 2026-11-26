@@ -1,11 +1,10 @@
 import Link from "next/link";
-import { Container } from "./ui";
+import { Container, sectionHeading } from './ui';
 import { profile, links } from "@/content/site";
 import { intro, projects, moreWork, github, aboutShort } from "@/content/home";
-import { SectionArt } from './SectionArt';
 
 const label = "font-mono-ui text-[11px] tracking-[0.12em] text-neutral-500";
-const h2 = "text-[22px] font-semibold tracking-[-0.015em]";
+// Section heading size lives in ui.tsx as `sectionHeading`. See the note there.
 const linkCls = "font-medium text-accent-soft hover:text-accent-700";
 
 function Go({ href, children }: { href: string; children: React.ReactNode }) {
@@ -101,20 +100,19 @@ export function Projects() {
   const featured = projects.slice(0, FEATURED_COUNT);
   const rest = projects.slice(FEATURED_COUNT);
   return (
-    <section id="work" aria-labelledby="work-h" className="section-anchor relative overflow-hidden border-t border-rule-section">
-      <SectionArt name="projects" />
-      <Container className="relative z-10 flex flex-col gap-5 py-9 md:gap-6 md:py-12">
+    <section id="work" aria-labelledby="work-h" className="section-anchor border-t border-rule-section">
+      <Container className="flex flex-col gap-5 py-9 md:gap-6 md:py-12">
         {/*
           The caption sits UNDER the heading, not opposite it.
-          As a right-hand item in a justify-between row it landed on top of
-          the octopus art panel, which is anchored right for this section.
-          Measured over that panel it ran a 6.83:1 median but a 2.88:1
-          minimum, with 2.3% of the text box below the 4.5:1 AA floor --
-          text that renders perfectly and is unreadable in patches.
-          Keeping it in the left column puts it over flat page background.
+          It began as a right-hand item in a justify-between row, which put
+          it on top of the artwork panel this section used to carry: 6.83:1
+          median but a 2.88:1 minimum, with 2.3% of the text box below the
+          4.5:1 AA floor -- text that renders perfectly and is unreadable in
+          patches. The panel is gone now, but the heading-then-caption stack
+          is also simply the clearer read, so it stays.
         */}
         <div className="flex flex-col gap-1.5">
-          <h2 id="work-h" className={h2}>Projects</h2>
+          <h2 id="work-h" className={sectionHeading}>Projects</h2>
           <p className="max-w-[46ch] text-[14px] text-neutral-400">Each one links to a short case study.</p>
         </div>
         <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2">
@@ -205,7 +203,7 @@ export function MoreWork() {
     <section id="more" aria-labelledby="more-h" className="section-anchor border-t border-rule-section">
       <Container className="grid gap-7 py-9 md:gap-10 md:py-12 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
         <div className="flex flex-col gap-3">
-          <h2 id="more-h" className={h2}>More work</h2>
+          <h2 id="more-h" className={sectionHeading}>More work</h2>
           <ul className="m-0 flex list-none flex-col p-0">
             {moreWork.map((row) => (
               <li key={row.title} className="flex flex-col gap-1 border-t border-rule-inner py-3.5 first:border-t-0">
@@ -234,7 +232,8 @@ export function MoreWork() {
         </div>
 
         <div id="github" className="section-anchor flex flex-col gap-3 self-start rounded-card border border-rule-inner bg-card p-5">
-          <h2 className={h2}>On GitHub</h2>
+          {/* An h3: this is a card inside #more, not a section of its own. */}
+          <h3 className="text-[16.5px] font-semibold">On GitHub</h3>
           <p className="text-[14px] leading-[1.5] text-neutral-300">{github.stats}</p>
           <ul className="m-0 flex list-none flex-col p-0">
             {github.repos.map((r) => (
@@ -270,9 +269,8 @@ export function MoreWork() {
  */
 export function About() {
   return (
-    <section id="about" aria-labelledby="about-h" className="section-anchor relative overflow-hidden border-t border-rule-section">
-      <SectionArt name="about" />
-      <Container className="relative z-10 grid gap-6 py-9 md:grid-cols-[180px_minmax(0,72ch)] md:gap-10 md:py-12">
+    <section id="about" aria-labelledby="about-h" className="section-anchor border-t border-rule-section">
+      <Container className="grid gap-6 py-9 md:grid-cols-[180px_minmax(0,72ch)] md:gap-10 md:py-12">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/img/meg-headshot.webp"
@@ -283,7 +281,7 @@ export function About() {
           className="block aspect-4/5 w-[120px] rounded-[14px] object-cover object-[center_30%] md:w-full"
         />
         <div className="flex flex-col gap-3">
-          <h2 id="about-h" className={h2}>About</h2>
+          <h2 id="about-h" className={sectionHeading}>About</h2>
           {aboutShort.paragraphs.map((p) => (
             <p key={p} className="text-[15px] leading-[1.6] text-neutral-300 text-pretty">{p}</p>
           ))}
