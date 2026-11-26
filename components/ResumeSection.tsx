@@ -1,10 +1,18 @@
 import { Container, Eyebrow, sectionHeading } from './ui';
 import { profile } from '@/content/site';
 import { resumeHeader, resumeCard, jobs, education, contactRow } from '@/content/resume';
-import { SectionArt } from './SectionArt';
 
 /**
  * Résumé and contact.
+ *
+ * THIS SECTION WAS ALREADY THE LIGHT ONE — a white sheet on `bg-surface-3`,
+ * the only light surface on an otherwise dark page. It is now the last of
+ * four light bands, so the lift has to come from somewhere other than "this
+ * is the light bit": the band is the desk (`--color-paper-band`), the card
+ * is still `--color-paper`, and a hairline plus a soft shadow separate them.
+ * The `bg-surface-3` ground and the artwork panel behind it are both gone —
+ * the band provides the ground, and the artwork panels did not survive a
+ * light one (the About section in components/Home.tsx says why).
  *
  * CONTACT COMES FIRST, and it carries `id="contact"`. Both of those are
  * deliberate and both were bugs.
@@ -33,10 +41,9 @@ export function ResumeSection() {
     <section
       id="resume"
       aria-labelledby="ct-h"
-      className="section-anchor relative overflow-hidden border-t border-rule-section bg-surface-3"
+      className="section-anchor relative overflow-hidden"
     >
-      <SectionArt name="resume" />
-      <Container className="section-anchor relative z-10 flex flex-col gap-10 pt-22 pb-18">
+      <Container className="band-y section-anchor relative z-10 flex flex-col gap-10">
         <div className="flex flex-wrap items-end justify-between gap-5">
           <div className="flex flex-col gap-2.5">
             <Eyebrow>{resumeHeader.eyebrow}</Eyebrow>
@@ -94,7 +101,7 @@ export function ResumeSection() {
           </div>
         </div>
 
-        <div className="rounded-[18px] bg-paper p-[clamp(24px,5vw,56px)] text-paper-ink shadow-[0_20px_50px_rgba(28,30,50,0.10)]">
+        <div className="rounded-[18px] border border-paper-rule bg-paper p-[clamp(24px,5vw,56px)] text-paper-ink shadow-[0_18px_44px_rgba(40,44,58,0.08)]">
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-2 border-b border-paper-rule pb-6">
               <p className="text-[clamp(26px,3vw,34px)] font-bold tracking-[-0.02em]">

@@ -98,8 +98,10 @@ only decide how things look.
 
 ### Page order
 
-`app/page.tsx` renders, in order: `Intro`, `Projects`, `About`, **`Toolkit`**,
-`DataSection`, `MoreWork`, **`ResumeSection`**.
+`app/page.tsx` renders, in order: `HeaderFootage`, `Intro`, `Projects`,
+`DataSection`, `MoreWork`, `FootageBand`, **`Toolkit`**, `About`,
+**`ResumeSection`**, `SiteFooter` — alternating dark and light bands with a
+`Seam` at each junction. See **Alternating light and dark bands** below.
 
 `Toolkit` and `ResumeSection` were remounted in Nov 2026 after the Nov 7
 compact rewrite had left them orphaned. Each one owns an anchor that a compact
@@ -327,13 +329,36 @@ each band, never over it — grey-on-footage is unreadable.
 
 ## The sea-life layer
 
-Creatures cut out of the Firefly footage, drifting faintly behind every page
-(`content/drift.ts`, `components/Drift.tsx`, keyframes in `globals.css`).
-Nine on the home page, four on each case study.
+Creatures cut out of the Firefly footage, drifting faintly behind the dark
+parts of a page (`content/drift.ts`, `components/Drift.tsx`, keyframes in
+`globals.css`). Five on the home page, six on each case study.
 
 Decorative and inert: the layer is `aria-hidden`, `pointer-events-none`, sits
-at `z-0` under `<main>` (`z-10`) and the header (`z-20`), and clips itself so
-nothing can widen the document.
+at `z-0` under the content (`z-10`) and the header (`z-20`), and clips itself
+so nothing can widen the document.
+
+**On the home page it is mounted per dark section, not once per page.** It
+was one list of thirteen positioned in percentages of the whole document,
+which assumed the whole document was one dark ground. Half the page is a
+light band now, and a light band is opaque: eight of the thirteen were being
+fetched and then painted behind a white surface where nothing could see
+them, and which five survived was down to the page height. Each list is
+positioned against its own section box now — stable under any copy change,
+and the creatures appear only in the dark scenes, which is the point of
+keeping a dark identity at all. The host section needs
+`relative overflow-hidden`, and its content needs `relative z-10`.
+
+### The artwork panels are gone
+
+There were four `SectionArt` panels, behind Projects, About, Skills and the
+résumé. Three of those sections are light bands now, and a panel cut from
+dark artwork reads as a bruise across a white section and takes the contrast
+down with it in patches. The fourth, on About, was the worst of them: About
+is a 180px portrait beside 72ch of copy, so the panel had nowhere to sit
+except under the paragraphs, and the octopus was plainly legible through the
+body text. The component and `content/sectionArt.ts` are deleted;
+`public/img/art/*.webp` are kept, unused, for a future section with a spare
+column.
 
 ### Cutting and tuning
 
@@ -365,9 +390,11 @@ animation beats an inline transform — the flip would silently do nothing.
 
 ## The deep-water theme
 
-The site is dark (`--color-page: #070d14`). It reads as a dive: mooring ropes
-at the surface, then descent into dark water where the sea life drifts, with
-the reef footage as a deep moment just before the résumé.
+The site's ground is dark (`--color-page: #070d14`). It reads as a dive: the
+reef footage opening the page, descent into dark water where the sea life
+drifts, mooring ropes and the waterline in the middle. The page alternates
+dark and light bands down its length — see **Alternating light and dark
+bands** below; everything in this section is the dark half.
 
 **Two colour families are deliberately still light. Keep them that way:**
 
@@ -387,13 +414,72 @@ grey on white paper. `text-neutral-800` did exactly that and measured
 exists. `--color-paper-soft` was also darkened from `#75798c` (4.13:1, under
 AA, and already so before the dark theme) to `#5f6373` (5.72:1).
 
-A contrast pass over the built page measures every distinct text/background
-pair against WCAG AA. It currently reports **0 failures across 55 pairs**;
-the closest pass is 5.12:1. Re-run it after any colour change.
+A contrast pass over the built page measures text against the background it
+actually sits on: the page is screenshotted twice, once normally and once
+with every glyph made transparent, so the second image IS the background.
+Each text node is measured over its own `Range.getClientRects()`, not over
+its element box — an element box includes the empty half of a `<p>`, the
+element's own border-bottom and any child `<img>`, and all three produced
+false failures (a 2px accent underline inside a link box measured 1.18:1
+against the link text above it).
+
+It currently reports **0 failures over 204 text nodes at 1440 and 178 at
+390**. Worst cases: **5.27:1** in the light bands (11px `neutral-500`
+labels) and **5.73:1** in the dark bands (the 11px `EXPERIENCE` eyebrow);
+the worst single background pixel anywhere behind text is 4.66:1, under a
+28px heading, against a 3:1 floor. Re-run it after any colour change.
 
 Hardcoded light values outside the token block had to move with it — the two
 sticky headers' glass, the résumé section ground, and `themeColor` in
 `app/layout.tsx`. Grep for `#f7f6f2` before assuming a theme change is done.
+
+## Alternating light and dark bands
+
+The page was dark end to end, which made eight sections read as one long
+scroll. It alternates now — dark header footage and intro, light Projects,
+dark Data, light More work, the ropes footage, light Skills, dark About,
+light Résumé down to the footer — so each section reads as a deliberate
+scene. The dark identity is still the page's; light is the counterpoint.
+
+**One class does a light band.** `band-light` in `app/globals.css`
+re-points the theme variables, and every component inside keeps the class
+names it already had: `text-neutral-300` is still body copy, `bg-card` is
+still a card. That works because Tailwind v4 compiles a utility to
+`color: var(--color-neutral-300)`, so overriding the variable on a wrapper
+overrides every utility beneath it. No parallel `light:` class set to keep
+in sync, and no component knows which band it is in — Toolkit and Projects
+were not written for this and needed no class changes.
+
+The light values continue the paper family: `--color-paper-band` is the
+ground, `--color-paper-card` the raised sheet, `--color-paper` still the
+résumé card. The accent flips from the brightened violet (which measures
+1.7:1 on a light ground) back toward the brand violet, darkened to clear AA.
+
+**`band-light` goes OUTSIDE the `[data-reveal]` element, never on it.** On
+it, the ground starts at opacity 0 and fades in with the content — a
+full-bleed flash at every junction.
+
+### Junctions
+
+A light section butted against a dark one is a hard rule across the
+viewport, and it makes the two read as two different websites stacked.
+`components/Seam.tsx` dissolves them over ~104px by fading the light
+ground's ALPHA in and out, not by interpolating between two hex values:
+interpolating passes through a dead grey midpoint, and an alpha fade means
+the dark end matches the dark band exactly by construction, glows and
+drifting sea life included. One faint ruler of ticks and one 40px accent
+bar on the gutter are the whole decoration.
+
+`.band-y` is deliberately smaller than it looks like it should be, because
+a seam is whitespace too. At 96px the gap between two sections came to
+324px and read as a missing section.
+
+**The footage bands fade to whatever is adjacent.** `HeaderFootage` still
+lands both edges on `#070d14`; `FootageBand` now sits between two light
+bands, so both of its edges fade to `--color-paper-band` and it reads as a
+window of deep water opening in a white page. It gets no seam — the
+dissolve is already being done by its own gradient, and doing it twice
+reads as a grey stripe. Move either band and the stops move with it.
 
 ## The dive header
 
@@ -481,9 +567,12 @@ once by eye and once by measurement. Do not re-add them from that source.
 Eight creatures in `public/img/sea/`, ~134 KB. Bright creatures on the
 near-black ground sit at 0.5–0.72 opacity, distant ones at 0.38–0.45 with
 blur; further away means smaller, fainter, softer. Keep clear of the centre
-column, which is copy. Nothing above ~11% down — the header covers it, and
-a creature in its fade is exactly how the `jelly.webp` rectangle got
-spotted.
+column, which is copy. On a case study, where the layer still spans the
+whole page, nothing goes above ~11% down — the header covers it, and a
+creature in its fade is exactly how the `jelly.webp` rectangle got spotted.
+
+Percentages are of the box the layer is mounted in, which on the home page
+is one dark section and on a case study is the whole page.
 
 ## Design tokens
 

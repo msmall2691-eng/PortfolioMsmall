@@ -2,7 +2,8 @@ import Link from "next/link";
 import { Container, sectionHeading } from './ui';
 import { profile, links } from "@/content/site";
 import { intro, projects, moreWork, github, aboutShort } from "@/content/home";
-import { SectionArt } from './SectionArt';
+import { Drift } from './Drift';
+import { introDrift } from '@/content/drift';
 
 const label = "font-mono-ui text-[11px] tracking-[0.12em] text-neutral-500";
 // Section heading size lives in ui.tsx as `sectionHeading`. See the note there.
@@ -22,8 +23,11 @@ function Go({ href, children }: { href: string; children: React.ReactNode }) {
 
 export function Intro() {
   return (
-    <section className="pt-[clamp(36px,5vw,64px)] pb-12">
-      <Container className="grid gap-7 md:gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-start">
+    <section className="relative overflow-hidden pt-[clamp(36px,5vw,64px)] pb-[clamp(28px,3.4vw,48px)]">
+      {/* The sea-life layer lives in the dark sections now; see
+          content/drift.ts for why it is no longer one page-wide list. */}
+      <Drift items={introDrift} />
+      <Container className="relative z-10 grid gap-7 md:gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-start">
         <div className="flex flex-col gap-4">
           <h1 className="text-[clamp(32px,3.6vw,42px)] leading-[1.1] font-semibold tracking-[-0.025em]">
             {intro.name}
@@ -100,18 +104,23 @@ const FEATURED_COUNT = 4;
 export function Projects() {
   const featured = projects.slice(0, FEATURED_COUNT);
   const rest = projects.slice(FEATURED_COUNT);
+  /*
+    A LIGHT band. The ground comes from the `band-light` wrapper in
+    app/page.tsx, and no class in here changed to get it — see the token
+    note in app/globals.css. The art panel that used to sit behind this
+    section did NOT survive the move: see the note in About, below.
+  */
   return (
-    <section id="work" aria-labelledby="work-h" className="section-anchor relative overflow-hidden border-t border-rule-section">
-      <SectionArt name="projects" />
-      <Container className="relative z-10 flex flex-col gap-5 py-9 md:gap-6 md:py-12">
+    <section id="work" aria-labelledby="work-h" className="section-anchor relative overflow-hidden">
+      <Container className="band-y relative z-10 flex flex-col gap-5 md:gap-6">
         {/*
-          The caption sits UNDER the heading, not opposite it.
-          As a right-hand item in a justify-between row it landed on top of
-          the octopus art panel, which is anchored right for this section.
-          Measured over that panel it ran a 6.83:1 median but a 2.88:1
+          The caption sits UNDER the heading, not opposite it. As a
+          right-hand item in a justify-between row it landed on top of the
+          octopus art panel that used to be anchored right here, and
+          measured over that panel it ran a 6.83:1 median but a 2.88:1
           minimum, with 2.3% of the text box below the 4.5:1 AA floor --
-          text that renders perfectly and is unreadable in patches.
-          Keeping it in the left column puts it over flat page background.
+          text that renders perfectly and is unreadable in patches. The
+          panel is gone and this is still the better column for it.
         */}
         <div className="flex flex-col gap-1.5">
           <h2 id="work-h" className={sectionHeading}>Projects</h2>
@@ -202,8 +211,8 @@ export function Projects() {
 
 export function MoreWork() {
   return (
-    <section id="more" aria-labelledby="more-h" className="section-anchor border-t border-rule-section">
-      <Container className="grid gap-7 py-9 md:gap-10 md:py-12 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+    <section id="more" aria-labelledby="more-h" className="section-anchor">
+      <Container className="band-y grid gap-7 md:gap-10 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
         <div className="flex flex-col gap-3">
           <h2 id="more-h" className={sectionHeading}>More work</h2>
           <ul className="m-0 flex list-none flex-col p-0">
@@ -271,9 +280,26 @@ export function MoreWork() {
  */
 export function About() {
   return (
-    <section id="about" aria-labelledby="about-h" className="section-anchor relative overflow-hidden border-t border-rule-section">
-      <SectionArt name="about" />
-      <Container className="relative z-10 grid gap-6 py-9 md:grid-cols-[180px_minmax(0,72ch)] md:gap-10 md:py-12">
+    <section id="about" aria-labelledby="about-h" className="section-anchor relative overflow-hidden">
+      {/*
+        THE ARTWORK PANEL THAT WAS HERE IS GONE, and so is the SectionArt
+        component. There were four panels. Three sat behind sections that
+        are light bands now, where a panel cut from dark artwork reads as a
+        bruise across a white section and takes the contrast with it.
+
+        This one was the survivor, on the one dark section left — and it was
+        the worst of the four. About is a 180px portrait beside 72ch of
+        copy, which is nearly the full container, so the panel had nowhere
+        to sit except directly under the paragraphs. Rendered, the octopus
+        was plainly legible THROUGH the body text. Opposite columns is what
+        made the other three safe and this section does not have one.
+
+        The dark bands keep their texture from `.page-glow` and the drift
+        layer, and Megan's artwork is still on the page in the two clips
+        and the drifting cutouts. public/img/art/*.webp are kept, unused,
+        in case a future section has a column to spare.
+      */}
+      <Container className="band-y relative z-10 grid gap-6 md:grid-cols-[180px_minmax(0,72ch)] md:gap-10">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/img/meg-headshot.webp"

@@ -15,37 +15,26 @@ export type SkillGroup = {
   n: string;
   name: string;
   sub: string;
-  color: string;
   tools: readonly string[];
 };
 
 /**
- * Rail colours in display order. They are positional decoration, not
- * identity, so reordering the groups below keeps this sequence intact.
- */
-const RAIL_COLORS = [
-  '#b5abfc',
-  '#5fc4d6',
-  '#8fd3a8',
-  '#f2c47a',
-  '#f29e8e',
-  '#9db8f5',
-  '#d7a6f0',
-  '#cfd3e5',
-  // Ninth. There are nine groups and there were eight colours, so the rail
-  // was assigned with `i % 8` and cards 01 and 09 both came out #b5abfc.
-  // Keep this list the same length as GROUPS below.
-  '#e8b3c4',
-] as const;
-
-/**
- * Ordered to lead with building and modelling, then the design work, then
- * the analysis and operations grounding underneath it.
+ * THERE WAS A NINE-COLOUR RAIL HERE — a pastel bar across the top of each
+ * card and the same colour behind its number — and it is gone.
  *
- * Numbers and rail colours are derived from position below, so changing
- * this order is the only edit a reorder needs.
+ * It was positional decoration, carrying no meaning: nothing told a reader
+ * what pink or amber signified, because they signified nothing. On the dark
+ * ground nine pastels read as a palette. Skills is a LIGHT band now, and
+ * nine pastels on white read as nine unrelated tags, which is the opposite
+ * of the restraint the rest of the page keeps to. The numbers stay — they
+ * are the index, and they are the one accent.
+ *
+ * Ordered to lead with building and modelling, then the design work, then
+ * the analysis and operations grounding underneath it. Numbers are derived
+ * from position below, so changing this order is the only edit a reorder
+ * needs.
  */
-const GROUPS: readonly Omit<SkillGroup, 'n' | 'color'>[] = [
+const GROUPS: readonly Omit<SkillGroup, 'n'>[] = [
   {
     name: 'Back end & data',
     sub: 'Models, APIs and numbers',
@@ -128,7 +117,6 @@ const GROUPS: readonly Omit<SkillGroup, 'n' | 'color'>[] = [
 export const skillGroups: readonly SkillGroup[] = GROUPS.map((group, i) => ({
   ...group,
   n: String(i + 1).padStart(2, '0'),
-  color: RAIL_COLORS[i % RAIL_COLORS.length]!,
 }));
 
 export const credentials = [

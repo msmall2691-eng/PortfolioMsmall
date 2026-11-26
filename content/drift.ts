@@ -57,7 +57,10 @@
  * (which needed 0.36–0.46 just to be visible at all). Distant ones are
  * smaller, fainter and blurred.
  *
- * Nothing belongs in the top ~7%: the header footage is opaque and covers it.
+ * POSITIONS ARE RELATIVE TO THE BOX THE LAYER IS MOUNTED IN. On the home
+ * page that is a single dark section (see the note on `introDrift` below);
+ * on a case study it is still the whole page, where nothing belongs in the
+ * top ~7% because the header footage is opaque and covers it.
  */
 
 export type Drifter = {
@@ -80,21 +83,38 @@ export type Drifter = {
   flip?: boolean;
 };
 
-/** The long home page: spread out, alternating sides. */
-export const homeDrift: readonly Drifter[] = [
-  { src: '/img/sea/jelly.webp',      top: '11%', left: '3%',  width: 'min(110px, 15vw)', opacity: 0.6,  path: 'b', duration: 34, delay: 0 },
-  { src: '/img/sea/eel.webp',        top: '14%', left: '76%', width: 'min(210px, 28vw)', opacity: 0.4,  blur: 0.8, path: 'c', duration: 46, delay: 3, flip: true },
-  { src: '/img/sea/turtle.webp',     top: '22%', left: '79%', width: 'min(240px, 30vw)', opacity: 0.7,  path: 'a', duration: 38, delay: 1 },
-  { src: '/img/sea/clownfish.webp',  top: '31%', left: '4%',  width: 'min(120px, 16vw)', opacity: 0.72, path: 'b', duration: 29, delay: 5 },
-  { src: '/img/sea/minnow.webp',     top: '40%', left: '88%', width: 'min(95px, 13vw)',  opacity: 0.45, blur: 0.7, path: 'c', duration: 43, delay: 2 },
-  { src: '/img/sea/anglerfish.webp', top: '49%', left: '-1%', width: 'min(230px, 29vw)', opacity: 0.6,  path: 'a', duration: 50, delay: 4 },
-  { src: '/img/sea/clownfish2.webp', top: '58%', left: '85%', width: 'min(115px, 15vw)', opacity: 0.68, path: 'b', duration: 31, delay: 6, flip: true },
-  { src: '/img/sea/glowjelly.webp',  top: '63%', left: '2%',  width: 'min(120px, 16vw)', opacity: 0.62, path: 'c', duration: 41, delay: 2 },
-  { src: '/img/sea/jelly.webp',      top: '66%', left: '6%',  width: 'min(85px, 12vw)',  opacity: 0.42, blur: 0.9, path: 'c', duration: 47, delay: 1, flip: true },
-  { src: '/img/sea/turtle.webp',     top: '75%', left: '82%', width: 'min(175px, 24vw)', opacity: 0.5,  blur: 0.5, path: 'a', duration: 44, delay: 0, flip: true },
-  { src: '/img/sea/eel.webp',        top: '84%', left: '2%',  width: 'min(185px, 25vw)', opacity: 0.38, blur: 1.0, path: 'b', duration: 52, delay: 7 },
-  { src: '/img/sea/glowjelly2.webp', top: '79%', left: '91%', width: 'min(85px, 12vw)',  opacity: 0.52, blur: 0.6, path: 'a', duration: 45, delay: 5, flip: true },
-  { src: '/img/sea/driftfish.webp',  top: '92%', left: '89%', width: 'min(100px, 14vw)', opacity: 0.62, path: 'c', duration: 33, delay: 3, flip: true },
+/**
+ * THE HOME PAGE LIST WAS THIRTEEN CREATURES SPREAD DOWN THE WHOLE PAGE.
+ * It is five now, in two lists, and the reason is the alternating bands.
+ *
+ * That list was positioned in percentages of the ENTIRE document, on the
+ * assumption that the whole document was one dark ground. Half the page is
+ * a light band now, and a light band is opaque, so eight of those thirteen
+ * were lazily fetched and then painted behind an opaque white surface where
+ * nothing could ever see them. The other five sat in the dark sections by
+ * luck, and any future copy edit that changed the page height would have
+ * reshuffled which five.
+ *
+ * So the layer moved INTO the dark sections it belongs to, and each list is
+ * positioned against its own section box rather than the document. That is
+ * stable under any amount of copy change, it is five images instead of
+ * thirteen, and the creatures now only appear in the dark scenes — which is
+ * the point of keeping a dark identity at all.
+ *
+ * `caseDrift` below is unchanged: a case study is still dark end to end.
+ */
+
+/** Behind the intro, under the header footage. */
+export const introDrift: readonly Drifter[] = [
+  { src: '/img/sea/turtle.webp',     top: '2%',  left: '83%', width: 'min(230px, 26vw)', opacity: 0.5, path: 'a', duration: 38, delay: 1 },
+  { src: '/img/sea/jelly.webp',      top: '44%', left: '0%',  width: 'min(100px, 13vw)', opacity: 0.5, path: 'b', duration: 34, delay: 0 },
+  { src: '/img/sea/eel.webp',        top: '58%', left: '88%', width: 'min(170px, 22vw)', opacity: 0.3, blur: 0.9, path: 'c', duration: 46, delay: 3, flip: true },
+];
+
+/** Behind the Power BI section. */
+export const dataDrift: readonly Drifter[] = [
+  { src: '/img/sea/anglerfish.webp', top: '6%',  left: '-3%', width: 'min(200px, 24vw)', opacity: 0.42, blur: 0.4, path: 'a', duration: 50, delay: 4 },
+  { src: '/img/sea/glowjelly2.webp', top: '62%', left: '90%', width: 'min(105px, 14vw)', opacity: 0.48, path: 'c', duration: 45, delay: 2, flip: true },
 ];
 
 /** Case studies are shorter, so fewer and fainter. */

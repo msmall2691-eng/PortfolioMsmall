@@ -21,6 +21,19 @@ import { FootageToggle } from './FootageToggle';
  * Playback rules live in useFootagePlayback, shared with HeaderFootage. The
  * pause control is required by WCAG 2.2.2 because this loops — keep it
  * keyboard reachable and always visible.
+ *
+ * BOTH EDGES NOW FADE TO THE LIGHT BAND COLOUR, not to the page dark.
+ * This band sits between More work and Skills, and both of those are light
+ * bands, so it is the dark scene in the middle of the light half of the
+ * page: a window of deep water opening in a white page, which is also what
+ * the clip is — the waterline and the mooring ropes dropping away.
+ *
+ * That is why there is no <Seam> on either side of it. The dissolve the
+ * seam would do is already being done here, by the band's own gradient, and
+ * doing it twice would read as a grey stripe above and below the footage.
+ * If this band is ever moved between two DARK sections, both stops go back
+ * to #070d14 — matching whatever is adjacent is the whole job of these
+ * gradients.
  */
 export function FootageBand() {
   const { playing, videoRef, bandRef, toggle } = useFootagePlayback();
@@ -53,7 +66,37 @@ export function FootageBand() {
           that greyed the image out and read as blur, which is exactly what
           it was mistaken for. If a light clip is ever used here, that trade
           reverses.
+
+          Feathers both edges of the band into the LIGHT band colour. The
+          stops are the same eased ramp components/Seam.tsx uses, so this
+          junction and every other junction on the page dissolve at the same
+          rate.
+
+          This lives INSIDE the band div and BEFORE the toggle, so the
+          toggle's z-10 is above it. As a sibling after the band it painted
+          over the control: the button sat at bottom-3, inside the bottom
+          feather, under a nearly opaque stop. It still worked (the overlay
+          is pointer-events-none) but it was dimmed, and against a light
+          feather it would have been washed out instead.
         */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(180deg,' +
+              ' var(--color-paper-band) 0%,' +
+              ' color-mix(in srgb, var(--color-paper-band) 94%, transparent) 4%,' +
+              ' color-mix(in srgb, var(--color-paper-band) 48%, transparent) 13%,' +
+              ' color-mix(in srgb, var(--color-paper-band) 8%, transparent) 24%,' +
+              ' transparent 34%,' +
+              ' transparent 66%,' +
+              ' color-mix(in srgb, var(--color-paper-band) 8%, transparent) 76%,' +
+              ' color-mix(in srgb, var(--color-paper-band) 48%, transparent) 87%,' +
+              ' color-mix(in srgb, var(--color-paper-band) 94%, transparent) 96%,' +
+              ' var(--color-paper-band) 100%)',
+          }}
+        />
 
         <FootageToggle
           playing={playing}
@@ -62,17 +105,6 @@ export function FootageBand() {
           playLabel={bandClip.playLabel}
         />
       </div>
-
-      {/* Feathers both edges of the section into the page colour. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            'linear-gradient(180deg, #070d14 0%, rgba(7,13,20,0) 14%, rgba(7,13,20,0) 86%, #070d14 100%)',
-        }}
-      />
-
     </section>
   );
 }

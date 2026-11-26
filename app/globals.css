@@ -61,10 +61,23 @@
   --color-rule-inner: #22303d;
   --color-rule-outline: #3a4d5f;
 
+  /* Accent wash — a flat tinted surface for the credential cards. It was an
+     inline two-stop gradient tuned for the dark ground; flat survives a
+     light band, and `.band-light` can re-point one token but not an inline
+     `style`. */
+  --color-accent-wash: #191634;
+
   /* Paper (résumé card) — deliberately still light. See note above.
      Everything inside that card MUST use these tokens. The neutral ramp is
      pointed at a dark ground now, so borrowing from it puts light grey on
-     white paper: text-neutral-800 did exactly that and measured 1.37:1. */
+     white paper: text-neutral-800 did exactly that and measured 1.37:1.
+
+     `--color-paper-band` and `--color-paper-card` extend this family out of
+     the résumé card and into the LIGHT BANDS (see `.band-light` below):
+     the band is the desk, the card is a sheet on it, and `--color-paper`
+     stays the résumé sheet specifically. One light family, not two. */
+  --color-paper-band: #f1f1ed;
+  --color-paper-card: #fdfdfb;
   --color-paper: #fbfaf7;
   --color-paper-ink: #1d1f26;
   --color-paper-body: #3f424d;
@@ -188,6 +201,93 @@
       radial-gradient(1000px 620px at 12% -8%, #12243a 0%, transparent 72%),
       radial-gradient(820px 560px at 98% 14%, #0e2b33 0%, transparent 72%),
       var(--color-page);
+  }
+
+  /* --- LIGHT BANDS ----------------------------------------------------
+     The page alternates dark and light scenes down its length. A light
+     section carries ONE class, `band-light`, and everything inside it keeps
+     the class names it already had: `text-neutral-300` is still body copy,
+     `bg-card` is still a card, `border-rule-inner` is still a hairline.
+
+     That works because Tailwind v4 compiles a utility to
+     `color: var(--color-neutral-300)`, so re-pointing the variables on a
+     wrapper re-points every utility beneath it. One override block, no
+     parallel set of `light:` class names to keep in sync, and no component
+     has to know which band it is sitting in. It also means a light band
+     can hold any existing component unchanged — Toolkit and Projects were
+     not written for this and needed no class changes.
+
+     The values are the paper family continued: `--color-paper-band` is the
+     ground, `--color-paper-card` the raised sheet, and the text ramp runs
+     down from `--color-paper-ink`. The accent flips from the brightened
+     violet (which is for a dark ground and measures 1.7:1 on this one) back
+     toward the original brand violet, darkened until it clears AA.
+
+     MEASURED on #f1f1ed, worst case first: neutral-500 5.27:1 (11-12px
+     labels), cyan 5.50:1, neutral-400 6.13:1, accent 7.11:1, body copy
+     9.41:1, headings 14.5:1. Re-run the contrast pass after any change
+     here; the failure mode is text that renders perfectly and cannot be
+     read, which shipped once at 1.37:1. */
+  .band-light {
+    /* Ground + text */
+    --color-page: var(--color-paper-band);
+    --color-ink: var(--color-paper-ink);
+    /* Text on an ink-coloured (now DARK) button — the primary button
+       inverts with the band and stays the loudest thing in it. */
+    --color-ink-invert: #fbfbf8;
+
+    /* Neutral text ramp, re-pointed for a light ground. 300 is body copy. */
+    --color-neutral-100: #0c0e13;
+    --color-neutral-200: #26293a;
+    --color-neutral-300: #3b3e49;
+    --color-neutral-400: #55596a;
+    --color-neutral-500: #5f6373;
+    --color-neutral-600: #6b6f7d;
+    --color-neutral-700: #3b3e49;
+    --color-neutral-800: #26293a;
+    --color-neutral-900: #181a21;
+
+    /* Accent ramp. #9c8cf5 is a dark-ground colour and measures 1.7:1 here. */
+    --color-accent: #4a3bb8;
+    --color-accent-100: #efedfb;
+    --color-accent-300: #3f3298;
+    --color-accent-400: #4a3bb8;
+    --color-accent-700: #2f2673;
+    --color-accent-800: #d8d3f2;
+    --color-accent-soft: #4a3bb8;
+    --color-accent-wash: #efedfb;
+
+    /* Signals */
+    --color-cyan: #0e6a7c;
+    --color-status: #15774a;
+
+    /* Surfaces: a sheet on a desk, not a tint. */
+    --color-surface: #e4e3dc;
+    --color-surface-2: #eceae4;
+    --color-surface-3: #e9e8e1;
+    --color-card: var(--color-paper-card);
+
+    /* Rules — hairlines, warm neutral, no shadow. */
+    --color-rule-section: #e0dfd7;
+    --color-rule-inner: #e4e3dc;
+    --color-rule-outline: #c7c5bb;
+
+    background-color: var(--color-page);
+    color: var(--color-ink);
+  }
+
+  /* One vertical rhythm for every band, so each reads as a scene with room
+     around it rather than a row in a document.
+
+     This is deliberately SMALLER than it first looks like it should be,
+     because a seam is whitespace too. A junction is already a ~104px
+     dissolve with nothing in it; measured at 1440 with the padding at
+     96px, the gap between the last line of one section and the first line
+     of the next came to 324px, which reads as a missing section rather
+     than as breathing room. 64 + 104 + 64 is the number that looks
+     intentional. */
+  .band-y {
+    padding-block: clamp(40px, 4.6vw, 64px);
   }
 
   /* --- Scroll reveal (components/RevealOnScroll.tsx) -------------------

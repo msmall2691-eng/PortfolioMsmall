@@ -11,6 +11,8 @@ import {
   type ChartId,
 } from '@/content/data';
 import { links } from '@/content/site';
+import { Drift } from './Drift';
+import { dataDrift } from '@/content/drift';
 
 type SectionLink = { href: string; label: string };
 
@@ -43,9 +45,12 @@ export function DataSection() {
     <section
       id="data"
       aria-labelledby="data-h"
-      className="section-anchor border-t border-rule-section"
+      className="section-anchor relative overflow-hidden"
     >
-      <Container className="flex flex-col gap-6 py-9 md:gap-9 md:py-12">
+      {/* A DARK band: no background of its own, so `.page-glow` and this
+          layer show through. See content/drift.ts. */}
+      <Drift items={dataDrift} />
+      <Container className="band-y relative z-10 flex flex-col gap-6 md:gap-9">
         <div className="flex max-w-[680px] flex-col gap-3">
           <Eyebrow>{dataSection.eyebrow}</Eyebrow>
           <h2 id="data-h" className={sectionHeading}>

@@ -20,6 +20,12 @@ import { FootageToggle } from './FootageToggle';
  *
  * The bottom edge fades to --color-page so the footage dissolves into the
  * dark rather than ending on a line.
+ *
+ * BOTH EDGES STAY DARK, unlike FootageBand's. The page alternates light and
+ * dark bands now, but this clip's neighbours are both still dark — the
+ * sticky header above it, the intro below it — so #070d14 is still the
+ * colour it has to land on. The rule for both bands is the same: fade to
+ * whatever is actually adjacent.
  */
 export function HeaderFootage() {
   const { playing, videoRef, bandRef, toggle } = useFootagePlayback();

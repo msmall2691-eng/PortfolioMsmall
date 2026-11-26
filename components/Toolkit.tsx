@@ -1,16 +1,24 @@
 import { Container, sectionHeading } from './ui';
 import { toolkit, skillGroups, credentials } from "@/content/skills";
-import { SectionArt } from './SectionArt';
 
+/**
+ * A LIGHT band. Nothing in here carries a light-specific class name: the
+ * `band-light` wrapper in app/page.tsx re-points the tokens the existing
+ * classes already reference. See the note in app/globals.css.
+ *
+ * Two things did change for the light ground, both subtractions. The
+ * nine-colour pastel rail is gone (content/skills.ts says why), and the
+ * artwork panel that used to sit behind the section is gone (the About
+ * section in components/Home.tsx says why).
+ */
 export function Toolkit() {
   return (
     <section
       id="skills"
       aria-labelledby="sk-h"
-      className="section-anchor relative overflow-hidden border-t border-rule-section"
+      className="section-anchor relative overflow-hidden"
     >
-      <SectionArt name="toolkit" />
-      <Container className="relative z-10 flex flex-col gap-7 py-20">
+      <Container className="band-y relative z-10 flex flex-col gap-7">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <h2
             id="sk-h"
@@ -46,16 +54,10 @@ export function Toolkit() {
                   i < 3 ? "flex" : "hidden group-has-[:checked]/sk:flex lg:flex"
                 }`}
               >
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-[3px]"
-                  style={{ background: group.color }}
-                />
-                <div className="flex items-center gap-3">
+                <div className="flex items-baseline gap-3">
                   <span
                     aria-hidden="true"
-                    className="grid size-[34px] place-items-center rounded-[10px] font-mono-ui text-[12px] font-semibold text-ink-invert"
-                    style={{ background: group.color }}
+                    className="font-mono-ui text-[12.5px] font-semibold tracking-[0.1em] text-accent"
                   >
                     {group.n}
                   </span>
@@ -93,7 +95,11 @@ export function Toolkit() {
           {credentials.map((cred) => (
             <div
               key={cred.title}
-              className="flex flex-col gap-1 rounded-[14px] border border-accent-800 bg-[linear-gradient(135deg,rgba(145,132,217,0.18),rgba(95,196,214,0.10))] px-[18px] py-4"
+              /* Flat, not the old two-stop gradient. That gradient was an
+                 inline `style`, which `.band-light` cannot re-point, so on
+                 a light ground it stayed a dark-theme lavender wash. One
+                 token (`--color-accent-wash`) now does it in both bands. */
+              className="flex flex-col gap-1 rounded-[14px] border border-accent-800 bg-accent-wash px-[18px] py-4"
             >
               <span className="font-mono-ui text-[11px] tracking-[0.1em] text-accent-400">
                 {cred.tag}

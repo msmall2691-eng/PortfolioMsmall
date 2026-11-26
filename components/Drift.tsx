@@ -8,10 +8,13 @@ import type { Drifter } from '@/content/drift';
  * 0.01ms — that leaves an infinite animation running and sampling random
  * points on its path, which measured as visible jitter.
  *
- * Must be the first child of a `relative` page wrapper. It takes the full
- * page box, clips itself so nothing can widen the document, and sits at z-0
- * — the header is z-20 and `<main>` is lifted to z-10, so this stays behind
- * everything that matters.
+ * Must be the first child of a box that is `relative` AND `overflow-hidden`:
+ * it fills that box, is clipped by it so nothing can widen the document, and
+ * sits at z-0, so the content in that box needs `relative z-10` above it.
+ *
+ * On a case study that box is the whole page wrapper. On the home page it is
+ * an individual DARK section — a light band is opaque and would simply bury
+ * the layer. See content/drift.ts.
  */
 export function Drift({ items }: { items: readonly Drifter[] }) {
   return (
