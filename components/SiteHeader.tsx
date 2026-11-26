@@ -3,7 +3,7 @@ import { nav, iconLinks, profile } from '@/content/site';
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-20 border-b border-rule-section bg-[rgba(7,13,20,0.82)] backdrop-blur-[10px]">
+    <header className="sticky top-0 z-20 border-b border-rule-section bg-[rgba(246,244,238,0.86)] backdrop-blur-[10px]">
       <Container className="flex flex-wrap items-center gap-x-6 gap-y-2.5 py-3 sm:gap-y-3 sm:py-3.5">
         <a
           href="#top"
@@ -40,7 +40,7 @@ export function SiteHeader() {
               rel="noopener"
               aria-label={link.label}
               title={link.label}
-              className="grid size-9 place-items-center rounded-[10px] border border-rule-inner text-[12.5px] font-bold text-ink transition-colors hover:border-accent hover:text-accent-soft"
+              className="grid size-9 place-items-center rounded-[10px] border border-rule-outline text-[12.5px] font-bold text-ink transition-colors hover:border-accent hover:text-accent-soft"
             >
               {link.glyph}
             </a>

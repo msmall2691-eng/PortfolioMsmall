@@ -106,7 +106,7 @@ export function SmallBuilds() {
               {b.summary}
             </p>
             <div className="mt-auto flex items-center justify-between gap-3 pt-2">
-              <span className="font-mono-ui text-[11px] text-cyan">
+              <span className="font-mono-ui text-[11px] text-accent">
                 {b.stack}
               </span>
               {b.link ? (

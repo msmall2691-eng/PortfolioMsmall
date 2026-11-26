@@ -56,7 +56,7 @@ export function Eyebrow({
   className?: string;
 }) {
   const tones = {
-    cyan: 'text-cyan',
+    cyan: 'text-accent',
     muted: 'text-neutral-300',
     faint: 'text-neutral-500',
   } as const;

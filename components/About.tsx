@@ -56,7 +56,7 @@ export function About() {
                     />
                   </span>
                   <span className="flex flex-col gap-0.5">
-                    <span className="font-mono-ui text-[12px] text-cyan">
+                    <span className="font-mono-ui text-[12px] text-accent">
                       {step.year}
                     </span>
                     <span className="text-[14px] leading-[1.35] font-semibold">

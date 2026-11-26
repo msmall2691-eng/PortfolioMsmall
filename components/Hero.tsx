@@ -8,7 +8,7 @@ export function Hero() {
       <Container className="flex flex-col gap-10">
         <div className="flex flex-col gap-6">
           <span className="inline-flex items-center gap-2 font-mono-ui text-[11.5px] tracking-[0.1em] text-neutral-400">
-            <span aria-hidden="true" className="size-1.5 rounded-full bg-cyan" />
+            <span aria-hidden="true" className="size-1.5 rounded-full bg-accent" />
             {hero.eyebrow}
           </span>
 

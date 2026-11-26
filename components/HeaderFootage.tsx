@@ -18,8 +18,14 @@ import { FootageToggle } from './FootageToggle';
  * the pause control is required by WCAG 2.2.2 because this loops. Do not
  * remove it.
  *
- * The bottom edge fades to --color-page so the footage dissolves into the
- * dark rather than ending on a line.
+ * HOW A DARK CLIP MEETS A LIGHT PAGE. The page is a warm off-white; this
+ * footage is near-black underwater video. It does NOT fade into the page —
+ * it sits on its own near-black plate (--color-deep) and feathers into
+ * that. Fading a dark clip toward #f6f4ee washes both edges to a dead grey
+ * and makes the band look like a loading error; landing it on the plate
+ * keeps the clip's density and turns the whole band into a deliberate dark
+ * slab between two light sections. The page/plate boundary is then a crisp
+ * horizontal edge, which is the point of using it as punctuation.
  */
 export function HeaderFootage() {
   const { playing, videoRef, bandRef, toggle } = useFootagePlayback();
@@ -28,7 +34,7 @@ export function HeaderFootage() {
     <section aria-label="Header footage" className="relative w-full overflow-hidden">
       <div
         ref={bandRef}
-        className="relative h-[clamp(300px,46vw,560px)] w-full overflow-hidden bg-page"
+        className="relative h-[clamp(300px,46vw,560px)] w-full overflow-hidden bg-deep"
       >
         <video
           ref={videoRef}
@@ -42,17 +48,17 @@ export function HeaderFootage() {
           aria-hidden="true"
           tabIndex={-1}
         />
-        {/* Lands BOTH edges on the page colour. The bottom fade was always
-            here; the top one is new. Without it the footage started on a
-            hard horizontal cut directly under the translucent sticky
-            header — the bottom faded over 28% of the height and the top
-            over 0%, which is what read as an abrupt start. Keep both. */}
+        {/* Lands BOTH edges on the plate colour (--color-deep, #0b1118).
+            Without the top fade the footage started on a hard cut directly
+            under the translucent sticky header; without the bottom one the
+            brightest part of the clip ran straight into the light page.
+            Keep both. */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'linear-gradient(180deg, #070d14 0%, rgba(7,13,20,0.62) 5%, rgba(7,13,20,0.18) 13%, rgba(7,13,20,0) 34%, rgba(7,13,20,0.55) 72%, #070d14 100%)',
+              'linear-gradient(180deg, #0b1118 0%, rgba(11,17,24,0.70) 6%, rgba(11,17,24,0.20) 15%, rgba(11,17,24,0) 36%, rgba(11,17,24,0.55) 74%, #0b1118 100%)',
           }}
         />
 

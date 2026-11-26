@@ -21,6 +21,11 @@ import { FootageToggle } from './FootageToggle';
  * Playback rules live in useFootagePlayback, shared with HeaderFootage. The
  * pause control is required by WCAG 2.2.2 because this loops — keep it
  * keyboard reachable and always visible.
+ *
+ * On the light page this is one of only two dark surfaces, and that is the
+ * job it now does: a near-black plate (--color-deep) that breaks the page
+ * in half. It feathers into the plate, never into the page — see the note
+ * in HeaderFootage for why fading dark footage toward off-white fails.
  */
 export function FootageBand() {
   const { playing, videoRef, bandRef, toggle } = useFootagePlayback();
@@ -30,8 +35,9 @@ export function FootageBand() {
       <div
         ref={bandRef}
         className="relative h-[clamp(230px,30vw,430px)] w-full overflow-hidden"
-        /* Behind the poster while it loads, so the band never flashes white. */
-        style={{ backgroundColor: '#0d2430' }}
+        /* Behind the poster while it loads, so the band never flashes the
+           page colour — which on a light page would be a bright flash. */
+        style={{ backgroundColor: 'var(--color-deep)' }}
       >
         <video
           ref={videoRef}
@@ -63,13 +69,13 @@ export function FootageBand() {
         />
       </div>
 
-      {/* Feathers both edges of the section into the page colour. */}
+      {/* Feathers both edges of the clip into the plate colour. */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'linear-gradient(180deg, #070d14 0%, rgba(7,13,20,0) 14%, rgba(7,13,20,0) 86%, #070d14 100%)',
+            'linear-gradient(180deg, #0b1118 0%, rgba(11,17,24,0) 14%, rgba(11,17,24,0) 86%, #0b1118 100%)',
         }}
       />
 

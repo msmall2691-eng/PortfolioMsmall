@@ -201,7 +201,7 @@ function ProjectGroup({
               <div
                 className={`flex flex-col gap-2 px-6 pt-[22px] pb-6 ${spanLast ? "md:justify-center md:px-10" : ""}`}
               >
-                <span className="font-mono-ui text-[11px] tracking-[0.1em] text-cyan">
+                <span className="font-mono-ui text-[11px] tracking-[0.1em] text-accent">
                   {project.tag}
                 </span>
                 <span className="text-[21px] font-semibold tracking-[-0.01em]">
@@ -253,7 +253,7 @@ function ClientSites() {
               />
             </div>
             <div className="flex flex-col gap-1.5 p-5">
-              <span className="font-mono-ui text-[11px] tracking-[0.1em] text-cyan">
+              <span className="font-mono-ui text-[11px] tracking-[0.1em] text-accent">
                 {site.tag}
               </span>
               <span className="text-[18px] font-semibold">{site.name}</span>

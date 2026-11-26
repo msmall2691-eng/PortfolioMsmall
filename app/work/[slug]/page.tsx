@@ -2,8 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Container, Eyebrow } from '@/components/ui';
-import { Drift } from '@/components/Drift';
-import { caseDrift } from '@/content/drift';
 import { SiteFooter } from '@/components/SiteFooter';
 import { caseStudies, getCaseStudy, type CaseSection } from '@/content/caseStudies';
 import { profile } from '@/content/site';
@@ -46,7 +44,7 @@ function SectionBody({ section }: { section: CaseSection }) {
           <ol className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-3">
             {section.steps.map((step, i) => (
               <li key={step.title} className="flex flex-col gap-1.5 rounded-[12px] border border-rule-inner bg-card p-4">
-                <span className="font-mono-ui text-[11.5px] text-cyan">{String(i + 1).padStart(2, '0')}</span>
+                <span className="font-mono-ui text-[11.5px] text-accent">{String(i + 1).padStart(2, '0')}</span>
                 <span className="text-[15px] font-semibold">{step.title}</span>
                 <span className="text-[13.5px] leading-[1.45] text-neutral-400">{step.detail}</span>
               </li>
@@ -86,7 +84,7 @@ function SectionBody({ section }: { section: CaseSection }) {
               className="grid grid-cols-[minmax(0,1fr)_20px_minmax(0,1fr)] items-center gap-3 rounded-[12px] border border-rule-inner bg-card px-4 py-3.5 text-[15px] leading-[1.45]"
             >
               <span className="text-neutral-400">{row.before}</span>
-              <span aria-hidden="true" className="text-center text-cyan">→</span>
+              <span aria-hidden="true" className="text-center text-accent">→</span>
               <span className="font-medium text-ink">{row.after}</span>
             </div>
           ))}
@@ -104,7 +102,7 @@ function SectionBody({ section }: { section: CaseSection }) {
               <div className="flex flex-col gap-2">
                 <p className="text-[15px] leading-[1.55] text-neutral-200">{d.why}</p>
                 <p className="text-[14px] leading-[1.5] text-neutral-400">
-                  <span className="mr-2 font-mono-ui text-[11px] tracking-[0.08em] text-cyan">COST</span>
+                  <span className="mr-2 font-mono-ui text-[11px] tracking-[0.08em] text-accent">COST</span>
                   {d.cost}
                 </p>
               </div>
@@ -152,9 +150,8 @@ export default async function CaseStudyPage({ params }: Props) {
   const others = caseStudies.filter((c) => c.slug !== study.slug);
 
   return (
-    <div className="page-glow relative min-h-screen">
-      <Drift items={caseDrift} />
-      <header className="sticky top-0 z-20 border-b border-rule-section bg-[rgba(7,13,20,0.82)] backdrop-blur-[10px]">
+    <div className="relative min-h-screen">
+      <header className="sticky top-0 z-20 border-b border-rule-section bg-[rgba(246,244,238,0.86)] backdrop-blur-[10px]">
         <Container className="flex flex-wrap items-center gap-x-4 gap-y-3 py-3 sm:gap-x-6 sm:py-3.5">
           <Link href="/" className="flex items-center gap-2.5 text-[16px] font-semibold text-ink">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -183,7 +180,7 @@ export default async function CaseStudyPage({ params }: Props) {
           <dl className="mt-4 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-x-7 gap-y-5">
             {study.meta.map((m) => (
               <div key={m.label} className="border-t border-rule-inner pt-3">
-                <dt className="mb-1.5 font-mono-ui text-[11px] tracking-[0.1em] text-cyan uppercase">{m.label}</dt>
+                <dt className="mb-1.5 font-mono-ui text-[11px] tracking-[0.1em] text-accent uppercase">{m.label}</dt>
                 <dd className="text-[14.5px] leading-[1.5] text-neutral-200">{m.value}</dd>
               </div>
             ))}

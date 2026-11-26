@@ -1,7 +1,6 @@
 import { Container, Eyebrow, sectionHeading } from './ui';
 import { profile } from '@/content/site';
 import { resumeHeader, resumeCard, jobs, education, contactRow } from '@/content/resume';
-import { SectionArt } from './SectionArt';
 
 /**
  * Résumé and contact.
@@ -33,10 +32,9 @@ export function ResumeSection() {
     <section
       id="resume"
       aria-labelledby="ct-h"
-      className="section-anchor relative overflow-hidden border-t border-rule-section bg-surface-3"
+      className="section-anchor border-t border-rule-section bg-surface-3"
     >
-      <SectionArt name="resume" />
-      <Container className="section-anchor relative z-10 flex flex-col gap-10 pt-22 pb-18">
+      <Container className="section-anchor flex flex-col gap-10 pt-22 pb-18">
         <div className="flex flex-wrap items-end justify-between gap-5">
           <div className="flex flex-col gap-2.5">
             <Eyebrow>{resumeHeader.eyebrow}</Eyebrow>

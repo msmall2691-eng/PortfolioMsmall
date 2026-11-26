@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Container, sectionHeading } from './ui';
 import { profile, links } from "@/content/site";
 import { intro, projects, moreWork, github, aboutShort } from "@/content/home";
-import { SectionArt } from './SectionArt';
 
 const label = "font-mono-ui text-[11px] tracking-[0.12em] text-neutral-500";
 // Section heading size lives in ui.tsx as `sectionHeading`. See the note there.
@@ -101,17 +100,16 @@ export function Projects() {
   const featured = projects.slice(0, FEATURED_COUNT);
   const rest = projects.slice(FEATURED_COUNT);
   return (
-    <section id="work" aria-labelledby="work-h" className="section-anchor relative overflow-hidden border-t border-rule-section">
-      <SectionArt name="projects" />
-      <Container className="relative z-10 flex flex-col gap-5 py-9 md:gap-6 md:py-12">
+    <section id="work" aria-labelledby="work-h" className="section-anchor border-t border-rule-section">
+      <Container className="flex flex-col gap-5 py-9 md:gap-6 md:py-12">
         {/*
           The caption sits UNDER the heading, not opposite it.
-          As a right-hand item in a justify-between row it landed on top of
-          the octopus art panel, which is anchored right for this section.
-          Measured over that panel it ran a 6.83:1 median but a 2.88:1
-          minimum, with 2.3% of the text box below the 4.5:1 AA floor --
-          text that renders perfectly and is unreadable in patches.
-          Keeping it in the left column puts it over flat page background.
+          It began as a right-hand item in a justify-between row, which put
+          it on top of the artwork panel this section used to carry: 6.83:1
+          median but a 2.88:1 minimum, with 2.3% of the text box below the
+          4.5:1 AA floor -- text that renders perfectly and is unreadable in
+          patches. The panel is gone now, but the heading-then-caption stack
+          is also simply the clearer read, so it stays.
         */}
         <div className="flex flex-col gap-1.5">
           <h2 id="work-h" className={sectionHeading}>Projects</h2>
@@ -271,9 +269,8 @@ export function MoreWork() {
  */
 export function About() {
   return (
-    <section id="about" aria-labelledby="about-h" className="section-anchor relative overflow-hidden border-t border-rule-section">
-      <SectionArt name="about" />
-      <Container className="relative z-10 grid gap-6 py-9 md:grid-cols-[180px_minmax(0,72ch)] md:gap-10 md:py-12">
+    <section id="about" aria-labelledby="about-h" className="section-anchor border-t border-rule-section">
+      <Container className="grid gap-6 py-9 md:grid-cols-[180px_minmax(0,72ch)] md:gap-10 md:py-12">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/img/meg-headshot.webp"

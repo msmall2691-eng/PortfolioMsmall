@@ -1,16 +1,14 @@
 import { Container, sectionHeading } from './ui';
 import { toolkit, skillGroups, credentials } from "@/content/skills";
-import { SectionArt } from './SectionArt';
 
 export function Toolkit() {
   return (
     <section
       id="skills"
       aria-labelledby="sk-h"
-      className="section-anchor relative overflow-hidden border-t border-rule-section"
+      className="section-anchor border-t border-rule-section"
     >
-      <SectionArt name="toolkit" />
-      <Container className="relative z-10 flex flex-col gap-7 py-20">
+      <Container className="flex flex-col gap-7 py-20">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <h2
             id="sk-h"
@@ -37,7 +35,7 @@ export function Toolkit() {
             {skillGroups.map((group, i) => (
               <div
                 key={group.n}
-                className={`relative flex-col gap-3.5 overflow-hidden rounded-[18px] border border-rule-inner bg-card p-[22px] ${
+                className={`flex-col gap-3.5 rounded-[18px] border border-rule-inner bg-card p-[22px] ${
                   // lg, not sm. At sm the collapse switched off but the grid
                   // was still two columns, so 768 rendered all nine cards at
                   // 1782px -- the tallest section on the page, and TALLER than
@@ -46,16 +44,23 @@ export function Toolkit() {
                   i < 3 ? "flex" : "hidden group-has-[:checked]/sk:flex lg:flex"
                 }`}
               >
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-[3px]"
-                  style={{ background: group.color }}
-                />
+                {/*
+                  NINE COLOURS REMOVED, ON PURPOSE. Each card used to carry a
+                  3px bar in its own pastel plus a badge filled with the same
+                  colour, driven by `group.color` in content/skills.ts. On the
+                  dark page they were the only thing separating nine
+                  near-identical cards. On a warm off-white page nine pastels
+                  at card scale is the loudest thing on the site, and it
+                  fights the one accent the rest of the page uses.
+
+                  The badge stays — a mono number in a hairline box is enough
+                  to index the grid — and `group.color` stays in the content
+                  file. Nothing here reads it any more.
+                */}
                 <div className="flex items-center gap-3">
                   <span
                     aria-hidden="true"
-                    className="grid size-[34px] place-items-center rounded-[10px] font-mono-ui text-[12px] font-semibold text-ink-invert"
-                    style={{ background: group.color }}
+                    className="grid size-[34px] place-items-center rounded-[10px] border border-rule-outline font-mono-ui text-[12px] font-semibold text-neutral-400"
                   >
                     {group.n}
                   </span>
@@ -93,7 +98,10 @@ export function Toolkit() {
           {credentials.map((cred) => (
             <div
               key={cred.title}
-              className="flex flex-col gap-1 rounded-[14px] border border-accent-800 bg-[linear-gradient(135deg,rgba(145,132,217,0.18),rgba(95,196,214,0.10))] px-[18px] py-4"
+              /* Flat accent tint, not a two-stop gradient. The gradient was
+                 mixing the old violet and cyan accents; there is one accent
+                 now, and a flat tint reads cleaner at this size. */
+              className="flex flex-col gap-1 rounded-[14px] border border-accent-800 bg-accent-100 px-[18px] py-4"
             >
               <span className="font-mono-ui text-[11px] tracking-[0.1em] text-accent-400">
                 {cred.tag}
