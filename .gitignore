@@ -6,3 +6,10 @@ out/
 *.tsbuildinfo
 next-env.d.ts
 .vercel
+
+# Scratch checkouts created when a coding agent works in an isolated git
+# worktree. Transient, and each one is a full copy of the repo -- the pair
+# running when this line was added came to 727 MB. Never commit them.
+# Anything else under .claude/ (project skills, settings) is NOT ignored,
+# so it can still be tracked deliberately.
+.claude/worktrees/
