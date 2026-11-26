@@ -1,22 +1,34 @@
-'use client';
-
-import { useId, useState } from 'react';
 import { Container, Eyebrow } from './ui';
 import { profile } from '@/content/site';
-import {
-  resumeHeader,
-  resumeCard,
-  jobs,
-  resumeProjects,
-  education,
-  contactRow,
-} from '@/content/resume';
+import { resumeHeader, resumeCard, jobs, education, contactRow } from '@/content/resume';
 import { SectionArt } from './SectionArt';
 
+/**
+ * Résumé and contact.
+ *
+ * CONTACT COMES FIRST, and it carries `id="contact"`. Both of those are
+ * deliberate and both were bugs.
+ *
+ * The id used to sit on the <Container> wrapping this whole section, so the
+ * nav's "Contact" link scrolled to 5541px while the email and LinkedIn row
+ * was at 6534px -- 993px, more than a full screen, further down. The single
+ * link a hiring manager is most likely to use was pointing at the résumé
+ * heading. Now the id is on the thing it names, and that thing is the first
+ * thing in the section.
+ *
+ * THE CARD IS A SUMMARY, NOT THE WHOLE RÉSUMÉ. It used to render every
+ * bullet of every role: 721 words, of which 379 were those bullets. They
+ * were also collapsed behind a 620px fade, so most of them were invisible
+ * until you clicked -- a click to reveal text that a second click downloads
+ * in better form. The PDF is offered four times on this page and it is the
+ * artefact people actually keep.
+ *
+ * So the card now carries the summary, the roles with their dates, and
+ * education. `jobs[].points` stays in content/resume.ts because the PDF
+ * build uses it; it is simply not rendered here. If you put the bullets
+ * back, put the collapse back with them.
+ */
 export function ResumeSection() {
-  const [open, setOpen] = useState(false);
-  const cardId = useId();
-
   return (
     <section
       id="resume"
@@ -24,13 +36,18 @@ export function ResumeSection() {
       className="section-anchor relative overflow-hidden border-t border-rule-section bg-surface-3"
     >
       <SectionArt name="resume" />
-      <Container id="contact" className="section-anchor relative z-10 flex flex-col gap-10 pt-22 pb-18">
+      <Container className="section-anchor relative z-10 flex flex-col gap-10 pt-22 pb-18">
         <div className="flex flex-wrap items-end justify-between gap-5">
           <div className="flex flex-col gap-2.5">
             <Eyebrow>{resumeHeader.eyebrow}</Eyebrow>
             <h2
               id="ct-h"
-              className="text-[clamp(30px,4vw,44px)] leading-[1.05] font-semibold tracking-[-0.03em]"
+              /*
+                Was clamp(30px,4vw,44px) -- 44px at 1440, which made this the
+                largest type on the page, bigger than the h1 of her own name
+                at 42px. Matched to the Skills heading so the h1 stays on top.
+              */
+              className="text-[clamp(28px,3.2vw,36px)] leading-[1.05] font-semibold tracking-[-0.03em]"
             >
               {resumeHeader.heading}
             </h2>
@@ -56,101 +73,10 @@ export function ResumeSection() {
           </div>
         </div>
 
-        {/* Collapsed to 620px with a bottom fade until expanded. */}
-        <div
-          className="relative overflow-hidden rounded-[18px] transition-[max-height] duration-300"
-          style={{ maxHeight: open ? '4000px' : '620px' }}
-        >
-          <div
-            id={cardId}
-            className="flex flex-col gap-8 bg-paper p-[clamp(24px,5vw,56px)] text-paper-ink shadow-[0_20px_50px_rgba(28,30,50,0.10)]"
-          >
-            <div className="flex flex-col gap-2 border-b border-paper-rule pb-6">
-              <p className="text-[clamp(26px,3vw,34px)] font-bold tracking-[-0.02em]">
-                {resumeCard.name}
-              </p>
-              <p className="text-[15px] font-medium text-paper-label">{resumeCard.title}</p>
-              <p className="text-[13.5px] text-paper-muted">{resumeCard.contact}</p>
-              <p className="max-w-[78ch] pt-2 text-[15px] leading-[1.65] text-paper-body">
-                {resumeCard.summary}
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-6">
-              <p className="text-[11.5px] font-bold tracking-[0.14em] text-paper-soft">
-                EXPERIENCE
-              </p>
-              {jobs.map((job) => (
-                <div key={job.role} className="flex flex-wrap gap-x-8 gap-y-2">
-                  <div className="flex flex-[1_1_220px] flex-col gap-0.5">
-                    <span className="text-[15.5px] font-bold">{job.role}</span>
-                    <span className="text-[13.5px] text-paper-muted">{job.org}</span>
-                    <span className="font-mono-ui text-[12.5px] text-paper-soft">{job.when}</span>
-                  </div>
-                  <ul className="m-0 flex min-w-0 flex-[3_1_420px] list-disc flex-col gap-1.5 pl-[18px] text-[14.5px] leading-[1.55] text-paper-body">
-                    {job.points.map((point) => (
-                      <li key={point}>{point}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] gap-7 border-t border-paper-rule pt-6">
-              <div className="flex flex-col gap-3">
-                <p className="text-[11.5px] font-bold tracking-[0.14em] text-paper-soft">
-                  SELECTED PROJECTS
-                </p>
-                {resumeProjects.map((project) => (
-                  <div key={project.title} className="flex flex-col gap-0.5">
-                    <span className="text-[14.5px] font-bold">
-                      {project.title}{' '}
-                      <span className="font-normal text-paper-soft">· {project.sub}</span>
-                    </span>
-                    <span className="text-[14px] leading-[1.5] text-paper-body">
-                      {project.detail}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-[11.5px] font-bold tracking-[0.14em] text-paper-soft">
-                  EDUCATION AND TRAINING
-                </p>
-                {education.map((item) => (
-                  <div key={item.title} className="flex flex-col gap-0.5">
-                    <span className="text-[14.5px] font-bold">{item.title}</span>
-                    <span className="text-[13.5px] text-paper-muted">{item.detail}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {!open ? (
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-[180px] bg-[linear-gradient(180deg,rgba(251,250,247,0)_0%,#fbfaf7_75%)]"
-            />
-          ) : null}
-        </div>
-
-        <div className="-mt-3 flex justify-center">
-          <button
-            type="button"
-            aria-expanded={open}
-            aria-controls={cardId}
-            onClick={() => setOpen((v) => !v)}
-            className="cursor-pointer rounded-[10px] border border-rule-outline bg-surface-2 px-5 py-[11px] font-[inherit] text-[14.5px] font-semibold text-ink hover:border-accent"
-          >
-            {open ? 'Collapse résumé ↑' : 'Show full résumé ↓'}
-          </button>
-        </div>
-
-        <div className="flex flex-col gap-1.5 pt-6">
+        {/* The nav's "Contact" target. Keep this id here and keep this first. */}
+        <div id="contact" className="section-anchor flex flex-col gap-1.5">
           <p className="text-[18px] font-semibold">Get in touch</p>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,200px),1fr))] border-t border-rule-inner">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,170px),1fr))] border-t border-rule-inner">
             {contactRow.map((item) => (
               <a
                 key={item.label}
@@ -161,9 +87,59 @@ export function ResumeSection() {
                 <span className="font-mono-ui text-[11.5px] tracking-[0.1em] text-neutral-500">
                   {item.label}
                 </span>
-                <span className="truncate text-[17px] font-medium">{item.value}</span>
+                {/*
+                  No `truncate` here. At 768 the grid resolved to 3x240px and
+                  the LinkedIn value clipped to "in/megan-small-75b806..." --
+                  a contact detail cut off mid-string. The 170px minimum lets
+                  it wrap to its own row instead of being cut.
+                */}
+                <span className="text-[17px] font-medium break-words">{item.value}</span>
               </a>
             ))}
+          </div>
+        </div>
+
+        <div className="rounded-[18px] bg-paper p-[clamp(24px,5vw,56px)] text-paper-ink shadow-[0_20px_50px_rgba(28,30,50,0.10)]">
+          <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-2 border-b border-paper-rule pb-6">
+              <p className="text-[clamp(26px,3vw,34px)] font-bold tracking-[-0.02em]">
+                {resumeCard.name}
+              </p>
+              <p className="text-[15px] font-medium text-paper-label">{resumeCard.title}</p>
+              {/*
+                resumeCard.contact is not rendered. It is the same email,
+                studio and GitHub as the contact row directly above this card.
+              */}
+              <p className="max-w-[78ch] pt-2 text-[15px] leading-[1.65] text-paper-body">
+                {resumeCard.summary}
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <p className="text-[11.5px] font-bold tracking-[0.14em] text-paper-soft">EXPERIENCE</p>
+              {jobs.map((job) => (
+                <div key={job.role} className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
+                  <span className="text-[15.5px] font-bold">{job.role}</span>
+                  <span className="text-[13.5px] text-paper-muted">{job.org}</span>
+                  <span className="font-mono-ui text-[12.5px] text-paper-soft">{job.when}</span>
+                </div>
+              ))}
+              <p className="text-[14px] text-paper-soft">
+                Full detail for each role is in the PDF above.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3 border-t border-paper-rule pt-6">
+              <p className="text-[11.5px] font-bold tracking-[0.14em] text-paper-soft">
+                EDUCATION AND TRAINING
+              </p>
+              {education.map((item) => (
+                <div key={item.title} className="flex flex-col gap-0.5">
+                  <span className="text-[14.5px] font-bold">{item.title}</span>
+                  <span className="text-[13.5px] text-paper-muted">{item.detail}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </Container>

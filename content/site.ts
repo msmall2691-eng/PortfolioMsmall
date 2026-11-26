@@ -48,14 +48,31 @@ export const links = {
 } as const;
 
 
+/**
+ * The header nav. FOUR items, and every one goes somewhere different.
+ *
+ * It was seven, and three of them were broken in ways only measurement
+ * showed:
+ *   - "More" landed at 4562px and "GitHub" at 4611px. Forty-nine pixels
+ *     apart, because #github is a <div> inside the #more section. Two nav
+ *     items, one destination.
+ *   - "Contact" landed at 5541px. The email and LinkedIn row is at 6534px.
+ *     So the one link a hiring manager actually needs put them 993px --
+ *     more than a full screen -- above the contact details. (Fixed at both
+ *     ends: #contact now sits on the "Get in touch" block, and that block
+ *     moved above the resume card.)
+ *   - #resume, the largest section on the page, had no nav entry at all.
+ *
+ * Rule for anything added here: the target must be a <section>, not a div
+ * inside one, and it must be somewhere no other item already goes.
+ * "Data" and "More" are deliberately absent -- both are work, and both are
+ * reachable by scrolling on from Work.
+ */
 export const nav = [
-  { href: '#work', label: 'Projects' },
-  { href: '#about', label: 'About' },
+  { href: '#work', label: 'Work' },
   { href: '#skills', label: 'Skills' },
-  { href: '#data', label: 'Data' },
-  { href: '#more', label: 'More' },
-  { href: '#github', label: 'GitHub' },
-  { href: '#contact', label: 'Contact' },
+  { href: '#about', label: 'About' },
+  { href: '#resume', label: 'Résumé' },
 ] as const;
 
 export const iconLinks = [

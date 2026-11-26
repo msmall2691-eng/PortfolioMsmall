@@ -97,21 +97,27 @@ export type MoreRow = {
 };
 
 export const moreWork: readonly MoreRow[] = [
+  /*
+    CLIENT WORK IS DESCRIBED, NOT NAMED. Megan's rule is no client names on
+    the site, and that has to cover more than the label: a link to a client's
+    domain names them just as plainly, and so does a screenshot with their
+    wordmark in the header.
+    So this row carries no client names, no client domains, and no client
+    screenshots. public/img/client-nash.webp and client-remote-admin.webp are
+    still in the repo and are no longer referenced by anything -- restoring
+    this row is a revert of one commit if she decides named client work is
+    worth more to a hiring manager than the rule.
+    What this costs, stated honestly: two live sites with working links and
+    real screenshots became one line of text. That is a real loss of proof.
+  */
   {
     title: 'Client websites',
-    line: 'Built and hosted for two small businesses in New Hampshire.',
-    links: [
-      { label: 'Nash Construction ↗', href: 'https://nashconstructionnh.com' },
-      { label: 'The Remote Admin ↗', href: 'https://the-remote-admin.com' },
-    ],
-    thumbs: [
-      { src: '/img/client-nash.webp', alt: 'Nash Construction homepage', href: 'https://nashconstructionnh.com' },
-      { src: '/img/client-remote-admin.webp', alt: 'The Remote Admin homepage', href: 'https://the-remote-admin.com' },
-    ],
+    line: 'Two marketing sites for small New Hampshire businesses — a general contractor and an admin-services firm. Designed, built, migrated off their old hosts with redirects, and shipped.',
+    links: [],
   },
   {
-    title: 'Arrowhead Explorers',
-    line: 'Brand, website, a 16-page parent guide and a social calendar for a family childcare launch.',
+    title: 'Childcare launch',
+    line: 'Brand, website, a 16-page parent guide and a social calendar for a family childcare business opening its doors.',
     links: [],
   },
   {

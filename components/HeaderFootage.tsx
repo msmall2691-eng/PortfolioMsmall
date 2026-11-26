@@ -28,7 +28,7 @@ export function HeaderFootage() {
     <section aria-label="Header footage" className="relative w-full overflow-hidden">
       <div
         ref={bandRef}
-        className="relative h-[clamp(300px,46vw,560px)] w-full overflow-hidden bg-[#061019]"
+        className="relative h-[clamp(300px,46vw,560px)] w-full overflow-hidden bg-page"
       >
         <video
           ref={videoRef}
@@ -42,13 +42,17 @@ export function HeaderFootage() {
           aria-hidden="true"
           tabIndex={-1}
         />
-        {/* Deepens the lower half and lands it on the page colour. */}
+        {/* Lands BOTH edges on the page colour. The bottom fade was always
+            here; the top one is new. Without it the footage started on a
+            hard horizontal cut directly under the translucent sticky
+            header — the bottom faded over 28% of the height and the top
+            over 0%, which is what read as an abrupt start. Keep both. */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'linear-gradient(180deg, rgba(7,13,20,0) 38%, rgba(7,13,20,0.55) 72%, #070d14 100%)',
+              'linear-gradient(180deg, #070d14 0%, rgba(7,13,20,0.62) 5%, rgba(7,13,20,0.18) 13%, rgba(7,13,20,0) 34%, rgba(7,13,20,0.55) 72%, #070d14 100%)',
           }}
         />
 

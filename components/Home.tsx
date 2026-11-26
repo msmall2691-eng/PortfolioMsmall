@@ -58,8 +58,16 @@ export function Intro() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <h2 className={label}>EXPERIENCE</h2>
-          <ol className="m-0 flex list-none flex-col p-0">
+          {/*
+            This is a label over a list inside the intro, not a section heading.
+            It was an <h2> carrying the 11px eyebrow style, which put an 11px
+            entry -- smaller than body copy -- into a heading outline that
+            otherwise runs 22 to 44px, and announced a section peer that does
+            not exist. It is a <p> now, with the list pointed at it so the
+            association a heading gave is kept.
+          */}
+          <p id="intro-experience" className={label}>EXPERIENCE</p>
+          <ol aria-labelledby="intro-experience" className="m-0 flex list-none flex-col p-0">
             {intro.experience.map((e) => (
               <li
                 key={e.what}
@@ -96,9 +104,18 @@ export function Projects() {
     <section id="work" aria-labelledby="work-h" className="section-anchor relative overflow-hidden border-t border-rule-section">
       <SectionArt name="projects" />
       <Container className="relative z-10 flex flex-col gap-5 py-9 md:gap-6 md:py-12">
-        <div className="flex flex-wrap items-baseline justify-between gap-2">
+        {/*
+          The caption sits UNDER the heading, not opposite it.
+          As a right-hand item in a justify-between row it landed on top of
+          the octopus art panel, which is anchored right for this section.
+          Measured over that panel it ran a 6.83:1 median but a 2.88:1
+          minimum, with 2.3% of the text box below the 4.5:1 AA floor --
+          text that renders perfectly and is unreadable in patches.
+          Keeping it in the left column puts it over flat page background.
+        */}
+        <div className="flex flex-col gap-1.5">
           <h2 id="work-h" className={h2}>Projects</h2>
-          <p className="text-[14px] text-neutral-400">Each one links to a short case study.</p>
+          <p className="max-w-[46ch] text-[14px] text-neutral-400">Each one links to a short case study.</p>
         </div>
         <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2">
           {featured.map((p) => (
@@ -129,9 +146,23 @@ export function Projects() {
                   </Link>
                 </h3>
                 <p className="text-[14.5px] leading-[1.5] text-neutral-300">{p.line}</p>
-                <p className="relative z-10 mt-auto flex gap-4 pt-0.5 text-[14px]">
+                {/*
+                  The card title carries `after:inset-0`, a stretched link that
+                  makes the whole card clickable. Anything given its own stacking
+                  context sits ABOVE that overlay and stops being part of the card
+                  link -- so `relative z-10` belongs on the secondary link alone,
+                  never on this row. With it on the row, "Case study →" became the
+                  one dead spot on the card: the element that looks most like the
+                  link was the only place a click did nothing. Measured dead at
+                  390, 768 and 1440 before this.
+                */}
+                <p className="mt-auto flex gap-4 pt-0.5 text-[14px]">
                   <span className="text-accent-soft">Case study →</span>
-                  {p.extra ? <Go href={p.extra.href}>{p.extra.label} ↗</Go> : null}
+                  {p.extra ? (
+                    <span className="relative z-10">
+                      <Go href={p.extra.href}>{p.extra.label} ↗</Go>
+                    </span>
+                  ) : null}
                 </p>
               </div>
             </li>
@@ -151,9 +182,14 @@ export function Projects() {
                   <span className="font-mono-ui text-[11px] tracking-[0.08em] text-neutral-500 uppercase">{p.tag}</span>
                 </span>
                 <span className="text-[14px] leading-[1.5] text-neutral-400">{p.line}</span>
-                <span className="relative z-10 flex gap-4 pt-0.5 text-[14px]">
+                {/* Same stretched-link rule as the cards above. */}
+                <span className="flex gap-4 pt-0.5 text-[14px]">
                   <span className="text-accent-soft">Case study →</span>
-                  {p.extra ? <Go href={p.extra.href}>{p.extra.label} ↗</Go> : null}
+                  {p.extra ? (
+                    <span className="relative z-10">
+                      <Go href={p.extra.href}>{p.extra.label} ↗</Go>
+                    </span>
+                  ) : null}
                 </span>
               </li>
             ))}
