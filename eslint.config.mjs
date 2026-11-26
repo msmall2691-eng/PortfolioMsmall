@@ -21,7 +21,15 @@ import nextTypeScript from 'eslint-config-next/typescript';
 const config = [
   ...nextCoreWebVitals,
   ...nextTypeScript,
-  { ignores: ['.next/**', 'out/**', 'node_modules/**'] },
+  /*
+    `.claude/**` is NOT optional here. It holds scratch git worktrees made
+    when a coding agent works on an isolated copy of the repo, and each one
+    is a full checkout. .gitignore hides them from git but says nothing to
+    eslint: with two present, `npm run lint` went from clean to 11,121
+    problems, all of them in copies of this same source. Lint output that
+    large is lint output nobody reads.
+  */
+  { ignores: ['.next/**', 'out/**', 'node_modules/**', '.claude/**'] },
 ];
 
 export default config;
