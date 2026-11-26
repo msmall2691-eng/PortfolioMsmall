@@ -1,4 +1,4 @@
-import { Container } from "./ui";
+import { Container, sectionHeading } from './ui';
 import { toolkit, skillGroups, credentials } from "@/content/skills";
 import { SectionArt } from './SectionArt';
 
@@ -14,7 +14,7 @@ export function Toolkit() {
         <div className="flex flex-wrap items-end justify-between gap-3">
           <h2
             id="sk-h"
-            className="text-[clamp(26px,3vw,36px)] font-semibold tracking-[-0.02em]"
+            className={sectionHeading}
           >
             {toolkit.heading}
           </h2>
