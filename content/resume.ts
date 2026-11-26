@@ -43,8 +43,9 @@ export const jobs = [
     when: '2026 – present',
     points: [
       'Build and hand off websites and tools for small businesses, from scoping to launch. Clients own every account.',
-      'Moved Nash Construction off Wix with 301 redirects and Search Console verification, and built and launched the site for The Remote Admin.',
-      'Arrowhead Explorers: brand, website, a 16-page parent guide and a social calendar for a family childcare launch.',
+      // Described, not named -- see the note in content/home.ts.
+      'Moved a general contractor off Wix with 301 redirects and Search Console verification, and built and launched a marketing site for an admin-services firm.',
+      'Childcare launch: brand, website, a 16-page parent guide and a social calendar for a family childcare business.',
       'Built eight free browser tools at mlinx.studio/tools, including an instant quote, a website checker and live Maine weather and tide data, plus a tide and water app for a lobsterman.',
       'Launched M Linx Guide, digital guest guides for rental hosts, with four themes, an intake questionnaire and private delivery of door codes. First paying client July 2026.',
     ],

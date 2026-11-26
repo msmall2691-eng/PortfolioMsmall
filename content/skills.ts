@@ -32,6 +32,10 @@ const RAIL_COLORS = [
   '#9db8f5',
   '#d7a6f0',
   '#cfd3e5',
+  // Ninth. There are nine groups and there were eight colours, so the rail
+  // was assigned with `i % 8` and cards 01 and 09 both came out #b5abfc.
+  // Keep this list the same length as GROUPS below.
+  '#e8b3c4',
 ] as const;
 
 /**

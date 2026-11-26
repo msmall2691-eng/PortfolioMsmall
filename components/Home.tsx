@@ -104,9 +104,18 @@ export function Projects() {
     <section id="work" aria-labelledby="work-h" className="section-anchor relative overflow-hidden border-t border-rule-section">
       <SectionArt name="projects" />
       <Container className="relative z-10 flex flex-col gap-5 py-9 md:gap-6 md:py-12">
-        <div className="flex flex-wrap items-baseline justify-between gap-2">
+        {/*
+          The caption sits UNDER the heading, not opposite it.
+          As a right-hand item in a justify-between row it landed on top of
+          the octopus art panel, which is anchored right for this section.
+          Measured over that panel it ran a 6.83:1 median but a 2.88:1
+          minimum, with 2.3% of the text box below the 4.5:1 AA floor --
+          text that renders perfectly and is unreadable in patches.
+          Keeping it in the left column puts it over flat page background.
+        */}
+        <div className="flex flex-col gap-1.5">
           <h2 id="work-h" className={h2}>Projects</h2>
-          <p className="text-[14px] text-neutral-400">Each one links to a short case study.</p>
+          <p className="max-w-[46ch] text-[14px] text-neutral-400">Each one links to a short case study.</p>
         </div>
         <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2">
           {featured.map((p) => (
