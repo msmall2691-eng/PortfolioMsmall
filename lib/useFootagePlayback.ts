@@ -58,10 +58,50 @@ export function useFootagePlayback() {
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const sync = () => setReduced(mq.matches);
+
+    /**
+     * Data saver counts the same as reduced motion.
+     *
+     * Measured on a 390px viewport: the header clip is 820 KB and it is the
+     * largest single thing a visitor downloads, arriving before they have
+     * read a word. The clip is decorative -- the page says exactly the same
+     * thing without it, and the poster still shows -- so someone who has
+     * asked their phone to use less data should not be spending most of
+     * their page weight on it.
+     *
+     * `preload="none"` already stops the fetch until a band is in view, and
+     * `reduced` short-circuits before the observer is created, so nothing is
+     * fetched at all here.
+     *
+     * `saveData` is Chromium-only. Elsewhere it reads undefined, this is
+     * false, and behaviour is exactly as before -- which is the right way
+     * round for a progressive enhancement: the default is the richer
+     * experience, and the signal can only opt out of it.
+     */
+    type Conn = EventTarget & { saveData?: boolean };
+    const conn = (navigator as Navigator & { connection?: Conn }).connection;
+    const saveData = () => Boolean(conn?.saveData);
+
+    const sync = () => setReduced(mq.matches || saveData());
     sync();
     mq.addEventListener('change', sync);
-    return () => mq.removeEventListener('change', sync);
+
+    /*
+      Subscribe to the connection too, not just read it once.
+      Reduced motion is watched for CHANGES, and data saver has to be watched
+      the same way or the two signals behave differently for no reason a
+      visitor could guess. Measured before this listener existed: with the
+      page already open, turning data saver on and scrolling to the second
+      band still fetched 741 KB and autoplayed it.
+      `connection` is an EventTarget where it exists at all, but it is
+      Chromium-only, so guard the subscription rather than assuming it.
+    */
+    conn?.addEventListener?.('change', sync);
+
+    return () => {
+      mq.removeEventListener('change', sync);
+      conn?.removeEventListener?.('change', sync);
+    };
   }, []);
 
   // The only place `playing` is written. See the note above.
