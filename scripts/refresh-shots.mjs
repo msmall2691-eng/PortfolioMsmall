@@ -51,40 +51,93 @@ export function scanPage({ serialised, thirdParty }) {
          match in a node. Two numbers in one paragraph, first outside the
          crop and second inside, and the gate passes.
 
-    Concatenating without separators means text from unrelated blocks
-    becomes adjacent, so a paragraph ending "Nash" followed by one starting
-    "Construction" is flagged. That is a false positive, and it is the
-    direction to err in: a false positive costs a re-frame, a false
-    negative puts a client's name on the page.
+    Joining the nodes with nothing between them opens a THIRD hole, in the
+    other direction, and it is the dangerous direction. A line break renders
+    as a space but contributes no character, so `Nash<br>Construction`, and
+    `<h1>Nash</h1><p>Construction, est. 1976</p>`, both flatten to
+    "NashConstruction" -- which /Nash\s+Construction/ does not match. That
+    is a client's name, plainly visible, on a job that writes to main
+    unattended. A contractor's homepage is built exactly like that.
+
+    So the page is flattened TWICE and the hits are pooled:
+
+      tight   nodes joined with nothing, which is what catches a name or a
+              number split across inline spans with no gap between them;
+      spaced  a newline inserted wherever the rendered glyphs do not sit
+              side by side on one line, which is what catches a break.
+
+    Two passes rather than one because the spaced pass depends on measured
+    geometry, and pooling means a wrong measurement can only cost a match
+    the tight pass already had -- it can never take one away.
+
+    Either pass can make text from unrelated blocks adjacent, so a paragraph
+    ending "Nash" followed by one starting "Construction" is flagged. That
+    is a false positive, and it is the direction to err in: a false positive
+    costs a re-frame, a false negative puts a client's name on the page.
   */
-  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-  const map = [];
-  let flat = '';
-  for (let n = walker.nextNode(); n; n = walker.nextNode()) {
-    const text = n.nodeValue || '';
-    if (!text) continue;
-    map.push({ node: n, start: flat.length, end: flat.length + text.length });
-    flat += text;
-  }
-  const locate = (i) => {
-    for (const e of map) if (i >= e.start && i < e.end) return { node: e.node, offset: i - e.start };
+  const rectAt = (node, from, to, last) => {
+    const r = document.createRange();
+    r.setStart(node, from);
+    r.setEnd(node, to);
+    const rects = r.getClientRects();
+    return rects.length ? rects[last ? rects.length - 1 : 0] : null;
+  };
+  // Do the last glyph of `a` and the first of `b` sit side by side on one
+  // line? If not, the page shows a gap there that the text nodes do not.
+  const adjacent = (a, b) => {
+    const end = rectAt(a, a.nodeValue.length - 1, a.nodeValue.length, true);
+    const start = rectAt(b, 0, 1, false);
+    if (!end || !start) return false; // unmeasurable: assume a break
+    const sameLine = end.top < start.bottom - 0.5 && start.top < end.bottom - 0.5;
+    return sameLine && start.left - end.right < 0.5;
+  };
+
+  const flatten = (spaced) => {
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const map = [];
+    let flat = '';
+    let prev = null;
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+      const text = n.nodeValue || '';
+      if (!text) continue;
+      // The separator maps to no node, so `locate` has to step over it.
+      if (spaced && prev && !adjacent(prev, n)) flat += '\n';
+      map.push({ node: n, start: flat.length, end: flat.length + text.length });
+      flat += text;
+      prev = n;
+    }
+    return { flat, map };
+  };
+
+  const locate = (map, i, step) => {
+    for (let k = i; k >= 0 && k < 4 + i && k > i - 4; k += step) {
+      for (const e of map) if (k >= e.start && k < e.end) return { node: e.node, offset: k - e.start };
+    }
     return null;
   };
 
-  for (const { label, re } of rules) {
-    const g = new RegExp(re.source, re.flags.includes('g') ? re.flags : re.flags + 'g');
-    let m;
-    while ((m = g.exec(flat)) !== null) {
-      if (m[0].length === 0) { g.lastIndex += 1; continue; } // never spin
-      const a = locate(m.index);
-      const b = locate(m.index + m[0].length - 1);
-      if (!a || !b) continue;
-      const range = document.createRange();
-      range.setStart(a.node, a.offset);
-      range.setEnd(b.node, b.offset + 1);
-      for (const r of range.getClientRects()) {
-        if (r.width < 1 || r.height < 1) continue;
-        hits.push({ label, text: m[0], x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height });
+  const seen = new Set();
+  for (const spaced of [false, true]) {
+    const { flat, map } = flatten(spaced);
+    for (const { label, re } of rules) {
+      const g = new RegExp(re.source, re.flags.includes('g') ? re.flags : re.flags + 'g');
+      let m;
+      while ((m = g.exec(flat)) !== null) {
+        if (m[0].length === 0) { g.lastIndex += 1; continue; } // never spin
+        const a = locate(map, m.index, 1);
+        const b = locate(map, m.index + m[0].length - 1, -1);
+        if (!a || !b) continue;
+        const range = document.createRange();
+        range.setStart(a.node, a.offset);
+        range.setEnd(b.node, b.offset + 1);
+        for (const r of range.getClientRects()) {
+          if (r.width < 1 || r.height < 1) continue;
+          // The same visible text is found by both passes; report it once.
+          const key = `${label}|${Math.round(r.left)}|${Math.round(r.top)}|${Math.round(r.width)}`;
+          if (seen.has(key)) continue;
+          seen.add(key);
+          hits.push({ label, text: m[0], x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height });
+        }
       }
     }
   }
