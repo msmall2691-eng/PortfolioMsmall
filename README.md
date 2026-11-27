@@ -92,43 +92,48 @@ only decide how things look.
 | `content/caseStudies.ts` | The `/work/[slug]/` case studies | **Yes** |
 | `content/skills.ts` | Toolkit groups and credentials | **Yes** — `#skills` |
 | `content/resume.ts` | Web résumé and contact row | **Yes** — `#resume` |
-| `content/work.ts` | Case study, selected work, more builds | No — see below |
-| `content/mock.ts` | Sample data for the BrightBase product mocks | No — see below |
-| `content/tools.ts` | M Studio tools list | No — see below |
 
 ### Page order
 
-`app/page.tsx` renders, in order: `Intro`, `Projects`, `About`, **`Toolkit`**,
-`DataSection`, `MoreWork`, **`ResumeSection`**.
+`app/page.tsx` renders, in order: `HeaderFootage`, `Intro`, `Projects`,
+`DataSection`, `MoreWork`, `FootageBand`, `Toolkit`, `About`, `ResumeSection`.
 
-`Toolkit` and `ResumeSection` were remounted in Nov 2026 after the Nov 7
-compact rewrite had left them orphaned. Each one owns an anchor that a compact
-stand-in in `components/Home.tsx` had been holding, so remounting meant handing
-the anchor back:
+Everything that **is** the work runs together — Projects, the Power BI models,
+the smaller builds — rather than being split up by About and Skills the way it
+was. Skills follows, because by then there is evidence behind the claims.
+About is 55 words of biography and comes after the case is made. The résumé
+and contact details close it. `FootageBand` sits between the work block and
+Skills as the one breather in the middle.
 
-- **`Toolkit` owns `#skills`.** The About section's inline skills column was
-  removed; About is now a two-column grid (headshot + prose). The data it used,
-  `aboutShort.skills`, is kept in `content/home.ts` but is no longer rendered.
-- **`ResumeSection` owns `#contact`** (on its inner `Container`; the `<section>`
-  is `#resume`). It supersedes `Home.tsx`'s `Contact` strip, which is no longer
-  rendered — `ResumeSection` carries the same PDF download plus the full résumé
-  card and a four-link contact row. The `Contact` export is left in place so the
-  strip can be restored.
+### Anchors: four, and each goes somewhere different
 
-Mounting both without that handover would put two `id="skills"` and two
-`id="contact"` on one page, and show the skills and contact blocks twice.
+`nav` in `content/site.ts` is **Work · Skills · About · Résumé**. It was seven,
+and three were broken in ways only measurement showed:
 
-### Sections still not mounted
+- "More" landed at 4562px and "GitHub" at 4611px — 49px apart, because
+  `#github` is a `<div>` inside the `#more` section. Two items, one place.
+- "Contact" landed at 5541px while the email row was at 6534px, so the one
+  link a hiring manager needs put them a full screen *above* the contact
+  details. `#contact` now sits on the "Get in touch" block, and that block
+  moved above the résumé card.
+- `#resume`, the largest section on the page, had no entry at all.
 
-Complete and typechecked, but imported by no route:
+**Rule for anything added:** the target must be a `<section>`, not a div inside
+one, and somewhere no other item already goes. "Data" and "More" are
+deliberately absent — both are work, both reachable by scrolling on from Work.
 
-`Work.tsx` · `Hero.tsx` · `About.tsx` · `CodeYear.tsx` · `BrightBaseMock.tsx` ·
-`ToolsSection.tsx`
+### Deleted: the six unmounted sections
 
-Keep their content files truthful anyway: mounting a stale section is worse
-than mounting none. To put one back, import it in `app/page.tsx`, add it to
-`nav` in `content/site.ts`, and check first whether its anchors collide with a
-section already on the page.
+`Work.tsx`, `Hero.tsx`, `About.tsx`, `CodeYear.tsx`, `BrightBaseMock.tsx` and
+`ToolsSection.tsx` were complete, typechecked and imported by nothing. They are
+gone, along with the three content files only they read — `content/work.ts`,
+`content/mock.ts` and `content/tools.ts`.
+
+They were not deleted for tidiness. `content/work.ts` still carried both client
+names and their domains after those names came off the page: nothing rendered
+it and the built HTML was clean, but it sat one `import` from being live again.
+Dead code that holds data you have promised not to publish is a liability, not
+a spare part. Git history has them if a section is ever wanted back.
 
 ### Things stated in more than one place
 
@@ -168,8 +173,9 @@ functions across 365 files, 1,522 frontend cases across 200 files — 4,178 tota
 and `test_sub_payouts.py` has exactly 19, confirming the ledger figure. Both
 suites run in CI on every pull request.
 
-The copy says "4,100+" so it stays true as the suite grows. Re-count and update
-`requirement.note` in `content/work.ts` if you ever want the exact number.
+The copy says "4,100+" so it stays true as the suite grows. The exact figure
+lived in `content/work.ts`, which has been deleted; re-count from the suites
+above if you ever want it.
 
 ### 4. USM dashboard description — ✅ done
 
@@ -195,9 +201,19 @@ showed a "Rebook Rate" measure that does not exist in the model.
 
 - No client names, addresses, gate codes, phone numbers, revenue-by-client or
   private links anywhere on the page.
-- Every figure in the product mocks (`content/mock.ts`) and in the turnover
-  spotlight is **invented sample data** and must stay that way. The office mock
-  carries a visible "sample data" badge on that promise.
+- Every figure in the product mocks and in the turnover spotlight is
+  **invented sample data** and must stay that way. (`content/mock.ts` held
+  these and is deleted along with the components that read it; the rule stands
+  for anything that replaces them.)
+- **Client work is described, not named** — and that covers more than the
+  label. A link to a client's domain names them just as plainly, and so does a
+  screenshot with their wordmark in it. Megan's call, Nov 2026; it cost two
+  live sites with working links and real screenshots, which is a real loss of
+  proof and was taken deliberately.
+- **Check screenshots, not just text.** Four real phone numbers and a business
+  email were live on this site inside images, where no text search would ever
+  find them — two of the numbers belonged to clients. Replacements follow the
+  mock convention: `555-xxxx`, `example.com`.
 - Google reviews show first name + last initial only.
 - Screenshots have customer details removed.
 
@@ -246,8 +262,12 @@ Two decorative bands, **both cut from one 4K master**:
 
 | | file | size | where |
 |---|---|---|---|
-| surface | `public/video/dive-ropes.mp4` | 1920×840, 1.2 MB, 3.2s | top of the page, `components/DiveHeader.tsx` |
-| reef | `public/video/reef-night.mp4` | 1920×810, 1.0 MB, 4.0s | after the work, before the résumé, `components/Ambient.tsx` |
+| reef | `public/video/reef-night.mp4` | 1920×810, 820 KB, CRF 31 | top of the page, `components/HeaderFootage.tsx` |
+| ropes | `public/video/dive-ropes.mp4` | 1920×840, 741 KB, CRF 31 | between the work and Skills, `components/FootageBand.tsx` |
+
+The reef opens the page and the ropes sit lower down. That is Megan's call,
+made after seeing both, and it inverts the original surface-then-deep idea —
+do not "fix" the order back on the assumption it was a mistake.
 
 Both are `aria-hidden` with no heading — the page reads the same without
 them. Both are AI-generated in Adobe Firefly and carry a visible credit.
@@ -325,93 +345,98 @@ that plays automatically for more than five seconds must be pausable, and
 these loop. Keep both visible and keyboard reachable. Credits sit below
 each band, never over it — grey-on-footage is unreadable.
 
-## The sea-life layer
+## The sea-life layer — removed
 
-Creatures cut out of the Firefly footage, drifting faintly behind every page
-(`content/drift.ts`, `components/Drift.tsx`, keyframes in `globals.css`).
-Nine on the home page, four on each case study.
+Cutouts of Firefly creatures used to drift behind every page
+(`content/drift.ts`, `components/Drift.tsx`). They are gone, with the four
+`SectionArt` artwork panels (`content/sectionArt.ts`).
 
-Decorative and inert: the layer is `aria-hidden`, `pointer-events-none`, sits
-at `z-0` under `<main>` (`z-10`) and the header (`z-20`), and clips itself so
-nothing can widen the document.
+Both were keyed to a near-black ground. On the off-white page the cutouts read
+as grey smudges — the luminance gate that admitted them cannot be met on a
+light background at all — and a dark-cut panel on white is a bruise. The
+images are still in `public/img/art/`.
 
-### Cutting and tuning
+Two findings from that work are kept below because they are about *method*,
+not about this theme: the cutout gate under **Cutting sea life out of the
+artwork**, and this one, which cost real time to find.
 
-See **Cutting sea life out of the artwork** below — it carries the current
-numbers and the pass/fail gate. (An older version of this section described
-tuning for a *light* page and is gone; the site is dark.)
+**An infinite animation is not stopped by `prefers-reduced-motion` alone.**
+The global rule only collapses `animation-duration` to `0.01ms`, and an
+infinite animation at that duration completes thousands of cycles per rendered
+frame, so every frame samples an arbitrary point on the path. Measured: three
+different transforms across 25 frames, one of them `translate(6.9px, -24px)`
+— mid-drift. That is jitter, the exact opposite of the intent. Any looping
+animation added here needs an explicit `animation: none !important` under
+`prefers-reduced-motion: reduce`. Keyframe symmetry is not a substitute.
 
-### Motion
+## The light theme
 
-Three keyframe paths at 29–52s with staggered delays, so the loops never
-visibly line up. Only `transform` and `opacity` animate.
+The page is warm off-white (`--color-page: #f6f4ee`) with dark text, built on
+the `paper` token family the résumé card already used rather than a second,
+parallel system. One accent, indigo `#4b3dc4`. `--color-cyan` is gone.
 
-Each path rests at the origin at 0% **and** 100%, so the resting pose is the
-laid-out position — but that alone does **not** stop them. The global
-`prefers-reduced-motion` rule only collapses `animation-duration` to
-`0.01ms`, and an *infinite* animation at that duration completes thousands of
-cycles per rendered frame, so every frame samples an arbitrary point on the
-path. Measured: three different transforms across 25 frames, one of them
-`translate(6.9px, -24px)` — mid-drift. That is jitter, the opposite of the
-intent.
+It was near-black (`#070d14`) until Nov 2026. Megan asked for simpler and
+"maybe not dark everywhere"; two complete variants were built and measured —
+this one and an alternating light/dark rhythm, still on the
+`alternating-theme` branch — and this is the one she picked. It is genuinely
+simpler and not only lighter: **+219 / −1628 lines**.
 
-`.drift` therefore carries an explicit `animation: none !important` under
-`prefers-reduced-motion: reduce`. Keep it; the keyframe symmetry is not a
-substitute.
-
-The `flip` option uses the independent `scale` property, **not**
-`transform: scaleX(-1)`. The keyframes animate `transform`, and a running
-animation beats an inline transform — the flip would silently do nothing.
-
-## The deep-water theme
-
-The site is dark (`--color-page: #070d14`). It reads as a dive: mooring ropes
-at the surface, then descent into dark water where the sea life drifts, with
-the reef footage as a deep moment just before the résumé.
+**The footage stays dark, and feathers onto its own plate.** Both clips fade
+to `--color-deep: #0b1118`, not to the page. A dark clip fading toward
+off-white washes grey at both edges; against the plate it reads as a
+deliberate panel. This also fixed something the dark theme hid — the product
+screenshots in the project cards were dark-on-dark and now read properly,
+which matters more than the mood to someone scanning the work in thirty
+seconds.
 
 **Two colour families are deliberately still light. Keep them that way:**
 
-- `--color-paper-*` — the résumé card. A white sheet on a dark ground reads
-  as a document on a desk.
-- `--color-mock-*` — the product mocks and the phone/browser frames. Those
-  are screenshots of light software; darkening them would misrepresent the
-  product.
+- `--color-paper-*` — the résumé card.
+- `--color-mock-*` — the product mocks and phone/browser frames. Those are
+  screenshots of light software; recolouring them would misrepresent it.
 
-The accent ramp was brightened: the old `#5546c9` is unreadable on this
-ground. `--color-neutral-300` is body copy.
+**Measure contrast after any colour change; do not eyeball it.** A past bug
+put `text-neutral-800` on the white résumé card at **1.37:1** — text that
+renders perfectly and is invisible. `--color-paper-soft` was likewise `#75798c`
+(4.13:1, under AA) before being darkened to `#5f6373`.
 
-**Everything inside the résumé card must use `--color-paper-*` tokens.** The
-neutral ramp now points at a dark ground, so borrowing from it puts light
-grey on white paper. `text-neutral-800` did exactly that and measured
-**1.37:1** — effectively invisible — which is why `--color-paper-body`
-exists. `--color-paper-soft` was also darkened from `#75798c` (4.13:1, under
-AA, and already so before the dark theme) to `#5f6373` (5.72:1).
+The current pass reports **0 of 186 text nodes below AA on the home page**,
+worst 5.15:1; **0 failures across all six case studies**, worst 5.43:1. Two
+independent methods agree on those numbers — sampling rendered pixels, and
+computing from the declared colour up the background chain. Prefer running
+both: each misses things the other catches.
 
-A contrast pass over the built page measures every distinct text/background
-pair against WCAG AA. It currently reports **0 failures across 55 pairs**;
-the closest pass is 5.12:1. Re-run it after any colour change.
+## The header footage
 
-Hardcoded light values outside the token block had to move with it — the two
-sticky headers' glass, the résumé section ground, and `themeColor` in
-`app/layout.tsx`. Grep for `#f7f6f2` before assuming a theme change is done.
+`components/HeaderFootage.tsx` (was `DiveHeader.tsx`) — the reef clip under
+the sticky header.
 
-## The dive header
+**Fade both edges, not one.** The gradient faded the bottom into the page over
+28% of the height and the top over **0%**, so the band began on a hard
+horizontal line directly beneath the translucent header. That edge, not the
+video, was what read as abrupt. Both edges now land on `--color-deep`.
 
-`components/DiveHeader.tsx` — dock pilings and mooring ropes dropping away
-into the water, under the sticky header.
+**Real video, not a still.** The footage is 3840×2160 at 60fps and the camera
+moves during the shot, so the bands move on their own rather than faking it
+with a CSS sway. The old `.dive-sway` keyframes and `dive-ropes.webp` are gone.
 
-**Real video, not a still.** An earlier note here claimed the rope clip
-"turned out to be the reef artwork". That was wrong: the footage exists,
-it is 3840×2160 at 60fps, and the camera descends during the shot — so the
-header dives on its own rather than faking it with a CSS sway. The old
-`.dive-sway` keyframes and `dive-ropes.webp` are gone.
+**Match the placeholder to the page.** The box behind the `<video>` was
+`#061019` against a `#070d14` page — a near-miss rather than a match, visible
+while the clip loads and anywhere the box is not fully covered. It is bound to
+a token now. Check that the token actually resolves rather than assuming it
+does: a mistyped Tailwind token fails silently and looks like a design choice.
 
-At phone width the band is 390×300 (ratio 1.30) against a 2.29 video, so
-`object-cover` crops ~43% horizontally. Checked: the centre crop keeps both
-ropes, the waterline and the pilings. Re-check if the clip is ever
+`object-cover` crops hard at phone width. Re-check the crop whenever a clip is
 reframed, because a subject off-centre would be cut.
 
 ## Cutting sea life out of the artwork
+
+> **Historical.** Nothing on the site uses these cutouts now — `Drift` and
+> `SectionArt` are deleted. Kept because the gate below is a method, and
+> because it caught two failures that looked fine to the eye. If cutouts ever
+> come back, run it again; the numbers were tuned for a dark ground and would
+> need redoing for this one.
+
 
 Luminance key **multiplied by a radial falloff**, so edges dissolve instead
 of ending. That is necessary but **not sufficient**, and the eye cannot
@@ -485,11 +510,49 @@ column, which is copy. Nothing above ~11% down — the header covers it, and
 a creature in its fade is exactly how the `jelly.webp` rectangle got
 spotted.
 
+## Type scale
+
+One `sectionHeading` token in `components/ui.tsx`, used by every `<h2>` that
+titles a section. Import it; do not write a size next to an `<h2>`.
+
+The ladder is **42 → 32 → 16.5 → 15**: her name, section headings, headings
+inside a card, body. At narrow widths the h1 clamps to 32, so the section
+floor is 24 and not 26 — at 26 there were only 6px between them and the ladder
+collapsed exactly where the page is hardest to scan.
+
+There were three scales before this, written inline, with the same 22px string
+duplicated in two files. Measured, the page ran 42 · 22 · 22 · 22 · 22 · 22 ·
+36 · 36: five sections barely above the 15px body copy, two at 36, and an
+`<h2>` at **11px** carrying the eyebrow style — a heading smaller than body
+text, announcing a section that did not exist.
+
+**A heading inside a card is not a section heading.** It is an `<h3>` at
+16.5px, like the skill-group titles.
+
+## Linting
+
+`eslint.config.mjs` ignores `.claude/**`, and that is not optional. The
+directory holds scratch git worktrees from isolated agent runs, each a full
+checkout. `.gitignore` hides them from git and says nothing to eslint: with
+two present, `npm run lint` went from clean to **11,121 problems**, every one
+in a duplicate of this same source. Lint output that size is lint output
+nobody reads, which is how a real finding gets lost.
+
+`eslint-config-next` is pinned to the same version as `next`. Version 16 ships
+flat config directly — do not wrap it in `FlatCompat`, which crashes config
+validation with a circular-reference error inside `JSON.stringify` whose
+message (`property 'react' closes the circle`) says nothing about the cause.
+
 ## Design tokens
 
-All colour, radius and layout tokens come from the Nocturne theme in the handoff
-and live in the `@theme` block in `app/globals.css`. Change them there, not in
-components.
+All colour, radius and layout tokens live in the `@theme` block in
+`app/globals.css`. Change them there, not in components.
+
+They began as the Nocturne theme from the handoff, which was dark; the ramp was
+re-pointed for the light page in Nov 2026 and made monotonic. Hardcoded values
+outside the token block have to move with it — the sticky headers' glass, the
+résumé ground, and `themeColor` in `app/layout.tsx` have each been missed
+before. Grep for a raw hex before assuming a theme change is finished.
 
 ## Fonts
 
