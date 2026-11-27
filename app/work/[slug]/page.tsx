@@ -53,6 +53,32 @@ function SectionBody({ section }: { section: CaseSection }) {
           {section.note ? <p className="max-w-[680px] text-[14px] text-neutral-400">{section.note}</p> : null}
         </div>
       );
+    case 'phone':
+      /*
+        A phone screen, centred and capped at 300px. NOT the diagram branch:
+        that one sets min-w-[820px] and scrolls sideways, which would stretch
+        a portrait screenshot to 820px wide and several thousand tall.
+      */
+      return (
+        <figure className="flex flex-col items-center gap-4">
+          <div className="overflow-hidden rounded-[22px] border border-rule-inner bg-white">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={section.src}
+              alt={section.alt}
+              width={section.width}
+              height={section.height}
+              loading="lazy"
+              className="block h-auto w-[min(300px,80vw)]"
+            />
+          </div>
+          {section.note ? (
+            <figcaption className="max-w-[62ch] text-center text-[13.5px] leading-[1.6] text-neutral-400">
+              {section.note}
+            </figcaption>
+          ) : null}
+        </figure>
+      );
     case 'diagram':
       return (
         <div className="flex flex-col gap-4">
