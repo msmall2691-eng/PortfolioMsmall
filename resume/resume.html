@@ -1,91 +1,125 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><title>Megan M. Small — Résumé</title>
-<meta name="author" content="Megan M. Small"><meta name="description" content="Business Systems Analyst · Implementation · Front-End Developer">
+<meta name="author" content="Megan M. Small"><meta name="description" content="Business Systems Analyst · Implementation · Operations">
+<!--
+  The source of public/Megan-Small-Resume.pdf.  Rebuild it with:
+      node resume/build-pdf.mjs
+
+  Client names never appear here.  The freelance bullet describes the two
+  clients by sector instead of naming them, matching content/resume.ts and
+  content/home.ts; see the privacy rules in README.md.
+-->
 <style>
 @font-face{font-family:Inter;src:url(../app/fonts/inter-latin-var.woff2);font-weight:400 700}
-@page{size:letter;margin:34pt 46pt 32pt 46pt}
+@page{size:letter;margin:32.25pt 39.375pt}
 *{box-sizing:border-box}
-body{margin:0;font-family:Inter;color:#1d1f26;font-size:9.3pt;line-height:1.34}
-a{color:#2f5a96;text-decoration:underline;text-decoration-thickness:.6pt;text-underline-offset:1.6pt}
-h1{font-size:26pt;letter-spacing:-.02em;margin:0;line-height:1.1;font-weight:700}
-.disc{color:#2f5a96;font-size:11.5pt;margin-top:3pt}
-.c{color:#595d6c;font-size:9pt;margin-top:6pt}
-.c .sep{color:#9a9eab;margin:0 4pt}
-.pf{display:flex;align-items:center;gap:14pt;margin:12pt 0 4pt;padding:10pt 14pt;border-radius:7pt;background:#eef2fa;border:1pt solid #c9d5ec;color:#1d1f26;text-decoration:none}
-.pf .tx{flex:1}
-.pf .k{font-size:7.8pt;letter-spacing:.2em;color:#2f5a96;font-weight:700}
-.pf .u{display:block;font-size:16pt;font-weight:700;color:#2f5a96;letter-spacing:-.01em;margin-top:1pt;text-decoration:underline;text-decoration-thickness:1pt;text-underline-offset:2.5pt}
-.pf p{margin-top:3pt;color:#3a3d48;font-size:9pt}
-.pf .btn{flex:none;background:#2f5a96;color:#fff;font-weight:700;font-size:10pt;padding:8pt 13pt;border-radius:6pt;white-space:nowrap}
-h2{font-size:8.6pt;letter-spacing:.22em;color:#2f5a96;font-weight:700;margin:10pt 0 5pt;display:flex;align-items:center;gap:9pt;text-transform:uppercase;break-after:avoid}
-h2::after{content:"";flex:1;border-top:.6pt solid #dcdbd6}
+body{margin:0;font-family:Inter;color:#1F2933;font-size:9.4pt;line-height:1.325}
+h1{font-size:22pt;letter-spacing:.007em;margin:0;line-height:1.045;font-weight:700;color:#111}
+.disc{color:#1F4E79;font-size:11.5pt;letter-spacing:.0195em;line-height:1.74;font-weight:600}
+.c{color:#4A5561;line-height:1.43;margin-top:3.7pt}
+.c .sep{color:#9AA5B1;margin:0 5.25pt}
+.c .lb{color:#1F2933;font-weight:500}
+.rule{border-top:1.5pt solid #1F4E79;margin-top:7.1pt;padding-bottom:2.34pt}
+h2{font-size:10pt;letter-spacing:.1125em;color:#1F4E79;font-weight:600;text-transform:uppercase;
+   margin:5.56pt 0 0;padding-bottom:3pt;border-bottom:.75pt solid #D5DDE5;break-after:avoid}
 p{margin:0}
-.sk{display:grid;grid-template-columns:112pt 1fr;row-gap:4pt}
-.sk b{font-weight:600}
-.job{margin-top:8pt}.job:first-of-type{margin-top:0}
-.hd{display:flex;justify-content:space-between;align-items:baseline}
-.hd b{font-weight:600}.hd .o{color:#4a4d58}.hd .d{color:#75798c;font-size:8.8pt;white-space:nowrap}
-ul{margin:4pt 0 0;padding:0;list-style:none}
-li{position:relative;padding-left:12pt;margin-top:2pt;break-inside:avoid}
-li::before{content:"";position:absolute;left:4pt;top:6pt;width:3pt;height:3pt;border-radius:50%;background:#8a93b8}
-.pr{margin-top:5pt;break-inside:avoid}.pr:first-of-type{margin-top:0}
-.pr .m{color:#75798c;font-size:8.8pt}
-.ed{margin-top:7pt;break-inside:avoid}.ed:first-of-type{margin-top:0}
-.ed p{color:#4a4d58}
-strong{font-weight:700}
-.pl i{font-style:normal;color:#4a4d58;font-weight:600}
+.sum{font-size:10.6pt;line-height:1.46;margin-top:2.9pt}
+.job{margin-top:3.75pt;break-inside:avoid}
+.hd{display:flex;justify-content:space-between;align-items:baseline;gap:12pt;line-height:1.22}
+.hd b{font-weight:650;font-size:11pt;color:#111}
+.hd .d{color:#4A5561;white-space:nowrap;font-weight:500}
+.org{color:#4A5561;font-size:10.2pt;line-height:1.39}
+.grp{font-size:8.9pt;letter-spacing:.09em;color:#6B7785;font-weight:600;text-transform:uppercase;margin-top:2.7pt;break-after:avoid}
+ul{margin:1.2pt 0 0;padding:0;list-style:none}
+li{position:relative;padding-left:12pt;margin-top:1.75pt;break-inside:avoid}
+li::before{content:"";position:absolute;left:-.75pt;top:5.1pt;width:3pt;height:3pt;border-radius:50%;background:#1F4E79}
+strong{font-weight:700;color:#111}
+.pr{margin-top:4.2pt;break-inside:avoid}
+.pr b{font-weight:650;color:#111}
+.pr .m{color:#6B7785}
+.sk{width:100%;table-layout:fixed;border-collapse:collapse;font-size:10pt;line-height:1.35;margin-top:3.3pt}
+.sk th{width:112.5pt;text-align:left;vertical-align:top;font-weight:650;color:#1F4E79;
+       padding:2pt 12pt 2pt 0;border-bottom:.75pt solid #EEF1F4}
+.sk td{vertical-align:top;padding:2pt 0;border-bottom:.75pt solid #EEF1F4}
+.ed{margin-top:2.4pt;break-inside:avoid}
+.ed b{font-weight:650;font-size:9.4pt;color:#111}
+.ed p{color:#4A5561;font-size:9.8pt;line-height:1.69}
 </style></head><body>
+
 <h1>Megan M. Small</h1>
-<div class="disc">Business Systems Analyst · Implementation · Front-End Developer</div>
-<div class="c">North Waterboro, ME<span class="sep">·</span>207-432-9492<span class="sep">·</span>megan.small@maine.edu<span class="sep">·</span><a href="https://www.linkedin.com/in/megan-small-75b806410/">LinkedIn</a><span class="sep">·</span><a href="https://github.com/msmall2691-eng">GitHub</a></div>
-<a class="pf" href="https://megan.mlinx.studio"><span class="tx"><span class="k">PORTFOLIO · CLICK TO OPEN</span><span class="u">megan.mlinx.studio</span>
-<p>Case studies, live apps and the data behind the numbers on this page.</p></span><span class="btn">View portfolio ↗</span></a>
+<div class="disc">Business Systems Analyst &nbsp;·&nbsp; Implementation &nbsp;·&nbsp; Operations</div>
+<div class="c">North Waterboro, ME<span class="sep">·</span>207-432-9492<span class="sep">·</span>megan.small@maine.edu<span class="sep">·</span>linkedin.com/in/megan-small-75b806410<br>
+<span class="lb">Portfolio</span> megan.mlinx.studio (case studies and process diagrams)<span class="sep">·</span><span class="lb">GitHub</span> github.com/msmall2691-eng</div>
+<div class="rule"></div>
 
 <h2>Summary</h2>
-<p>Eight years running a multi-crew cleaning company and every system behind it, from booking to payroll. When the apps we paid for didn&rsquo;t fit how we worked, I designed and built BrightBase, the system the company runs on today. Now looking for a team where I can do this full-time: figure out how the work really flows, find where it breaks, and build the fix.</p>
-
-<h2>Skills</h2>
-<div class="sk">
-<b>Business analysis</b><span>Requirements gathering, stakeholder interviews, process mapping, fit-gap analysis, functional specifications, user stories, acceptance criteria, UAT, data migration and validation, go-live and cutover, change management, Agile, training</span>
-<b>Systems and CRM</b><span>System implementation and rollout, CRM setup and data modeling, workflow automation, vendor evaluation, subscription and licence audits</span>
-<b>Development</b><span>React, TypeScript, Next.js, Tailwind CSS, Python (FastAPI), PostgreSQL, SQL, REST APIs, webhooks, OAuth 2.0, automated testing</span>
-<b>Integrations and cloud</b><span>Stripe Connect, Twilio, Google Calendar and Gmail APIs, Jobber API, iCal sync, Railway, Vercel, Supabase, Google Cloud, Docker, GitHub Actions</span>
-<b>Data and reporting</b><span>Power BI (DAX, star schemas), SQL, pandas, KPI and revenue reporting</span>
-<b>AI</b><span>Claude API and Agent SDK, Claude Code, Gemini API, prompt design</span>
-<b>Platforms</b><span>Jobber, Housecall Pro, Connecteam, Maidily, Turno, Breezeway, BookingKoala, HubSpot, HighLevel, Attio, Twenty, Airtable, Zapier, Make, AppSheet, Google Apps Script, Bubble, Noloco, Softr, Adalo, Glide, Base44, Replit, monday.com, Jira, QuickBooks, Square, OpenPhone, Lodgify, Wix, Notion, Excel, Google Workspace, Microsoft 365</span>
-</div>
+<p class="sum">Eight years scaling a service business and building custom operational platforms from the ground up, bridging technical execution and business strategy. Currently pursuing a B.S. in Business Analytics and AI, focused on finding operational bottlenecks and designing solutions that fix them: custom CRM integrations, automated workflows and data-driven dashboards. Ready to bring this mix of entrepreneurship and hands-on technical skill to a business systems, implementation or operations role.</p>
 
 <h2>Experience</h2>
-<div class="job"><div class="hd"><span><b>Operations and Systems Manager (Owner)</b> <span class="o">· The Maine Cleaning Company</span></span><span class="d">2018 &ndash; present</span></div><ul>
-<li>Collected <strong>$1M+ since 2023</strong> (peak year 2024: $410K+) across <strong>4,900+</strong> residential, commercial and rental visits in 40+ Maine towns. 4.9-star Google rating, 63% of clients rebooked, and bad debt stayed under 0.1%.</li>
-<li>Got visits with a cleaner assigned from <strong>74% to 96%</strong> and recurring work from 90% to 97% (2023&ndash;2025), with booked value per hour up 20%.</li>
-<li>Ran intake, quoting, scheduling, payroll and billing, including <strong>500+ online booking requests</strong>, about 70% of which booked.</li>
-<li>Tested the big field-service and CRM apps, including Jobber, Housecall Pro, Connecteam and HubSpot. None fit, so I gathered requirements from the office and crews, documented the data model and built BrightBase.</li>
-<li>Led an audit that folded <strong>12 of 28 paid subscriptions</strong> into one system.</li>
-<li>Rolled BrightBase out in phases, migrating and validating the data, until it ran scheduling, dispatch, invoicing, payments and subcontractor payouts.</li>
-<li>Tested every release against written acceptance criteria, with automated tests and user acceptance testing by the office and crews. Ran payroll in parallel for a full pay period and tested invoices and Stripe payments before billing real customers.</li>
-<li>Wrote the business rules for subcontractor payouts and fixed the sync errors that were creating duplicate jobs.</li>
-<li>Connected Stripe, Twilio, Google Calendar, Gmail, Airbnb and VRBO calendars and Facebook lead ads, with one intake path for every website form.</li>
-<li>Hired, trained and managed <strong>50+</strong> employees and subcontractors, and wrote the SOPs and training courses they used.</li></ul></div>
-<div class="job"><div class="hd"><span><b>Freelance Web Developer</b> <span class="o">· M Studio (mlinx.studio)</span></span><span class="d">2026 &ndash; present</span></div><ul>
-<li>Build and hand off websites and tools for small businesses, from scoping to launch. Clients own every account.</li>
-<li>Moved Nash Construction off Wix with 301 redirects and Search Console verification, and built and launched the site for The Remote Admin.</li>
-<li>Arrowhead Explorers: brand, website, a 16-page parent guide and a social calendar for a family childcare launch.</li>
-<li>Built eight free browser tools at mlinx.studio/tools, including an instant quote, a website checker and live Maine weather and tide data, plus a tide and water app for a lobsterman.</li>
-<li>Launched M Linx Guide, digital guest guides for rental hosts, with four themes, an intake questionnaire and private delivery of door codes. First paying client July 2026.</li></ul></div>
-<div class="job"><div class="hd"><span><b>Lead Dental Assistant and Administrative Support</b> <span class="o">· Southern Maine practices</span></span><span class="d">2014 &ndash; 2018</span></div><ul><li>Scheduling, documentation, patient flow and staff training.</li></ul></div>
-<div class="job"><div class="hd"><span><b>Administrative Assistant</b> <span class="o">· SMCC Office of the President</span></span><span class="d">2013 &ndash; 2014</span></div><ul><li>Correspondence, scheduling and confidential records.</li></ul></div>
+<div class="job">
+<div class="hd"><b>Operations and Systems Manager (Owner)</b><span class="d">2018 &ndash; present</span></div>
+<div class="org">The Maine Cleaning Company · North Waterboro, ME</div>
+<div class="grp">Operations</div>
+<ul>
+<li>Grew the business to <strong>$1M+ collected since 2023</strong> (peak 2024: <strong>$410K+</strong>) across <strong>4,900+</strong> residential, commercial and rental visits in <strong>40+ towns</strong>; <strong>4.9-star</strong> Google rating.</li>
+<li>Ran intake, quoting, scheduling, dispatch, payroll and billing; converted about <strong>70%</strong> of <strong>500+</strong> online booking requests.</li>
+<li>Hired, trained and managed <strong>50+</strong> staff and subcontractors; wrote the SOPs and training courses used at onboarding.</li>
+<li>Raised the cleaner-assigned visit rate from <strong>74% to 96%</strong>, recurring retention from <strong>90% to 97%</strong> and booked value per hour by <strong>20%</strong> (2023&ndash;2025); <strong>63%</strong> of clients rebooked; bad debt under <strong>0.1%</strong>.</li>
+</ul>
+<div class="grp">Systems and implementation</div>
+<ul>
+<li>Administered the full platform stack (Jobber and Connecteam for 7 years each, Airtable, Zapier, Make, Twenty CRM); audited <strong>28</strong> subscriptions and consolidated <strong>12</strong> redundant tools into one system.</li>
+<li>Built a custom Jobber-to-Airtable integration through the Jobber Developer Center, plus Make and Zapier workflows that synced data and cut manual entry between platforms.</li>
+<li>Configured a full custom data model in Twenty CRM (Properties, Quote Requests, Jobs, Job Visits, iCal Feed) with iCal sync that auto-generated jobs from Airbnb and VRBO booking calendars.</li>
+<li>Evaluated 10+ off-the-shelf tools (Maidily, monday.com, Turno, Breezeway, Attio and others). Finding no fit, led the design and rollout of <strong>BrightBase</strong>, a custom operations platform: gathered requirements from office staff and field crews, documented the data model, migrated and validated the data and went live in phases.</li>
+<li>BrightBase now runs scheduling, dispatch, invoicing, Stripe payments and subcontractor payouts, with rental turnovers auto-scheduled from booking calendars and multi-tenant security (<strong>86</strong> row-level security policies in Supabase).</li>
+<li>Wrote acceptance criteria for every release; ran UAT with office and field staff; validated payroll, invoices and Stripe payments in a parallel run for a full pay period before cutover.</li>
+<li>Wrote the business rules for subcontractor payouts; diagnosed and fixed sync errors that were creating duplicate jobs.</li>
+</ul>
+</div>
+
+<div class="job">
+<div class="hd"><b>Freelance Web Developer</b><span class="d">2026 &ndash; present</span></div>
+<div class="org">M Studio · mlinx.studio</div>
+<ul>
+<li>Build and launch websites and small business tools for local clients, end to end: scoping, design, development and handoff.</li>
+<li>Migrated a general contractor's site off Wix with 301 redirects and Search Console verification; built and launched the site for an admin-services firm.</li>
+<li>Set up HubSpot workflows and configured Twenty, an open-source CRM, for small-business pipelines and client intake.</li>
+<li>Built <strong>M Linx Guide</strong>, digital guest guides for rental hosts with an intake questionnaire and private delivery of door codes and Wi-Fi details.</li>
+</ul>
+</div>
+
+<div class="job">
+<div class="hd"><b>Lead Dental Assistant and Admin Support</b><span class="d">2014 &ndash; 2018</span></div>
+<div class="org">Southern Maine practices</div>
+<ul>
+<li>Charted care and maintained patient records in practice health software; supported scheduling, documentation and patient flow. 5+ years of administrative support across SMCC and dental practices.</li>
+</ul>
+</div>
+
+<div class="job">
+<div class="hd"><b>Administrative Assistant</b><span class="d">2013 &ndash; 2014</span></div>
+<div class="org">SMCC Office of the President</div>
+</div>
 
 <h2>Selected projects</h2>
-<div class="pr"><b><a href="https://megan.mlinx.studio/work/brightbase/">BrightBase</a></b> <span class="m">· Python, FastAPI, React, PostgreSQL</span><br>The operations system the company runs on: rental turnovers from booking calendars, client texts, one lead inbox and an offline crew app. 4,100+ automated tests.</div>
-<div class="pr"><b><a href="https://megan.mlinx.studio/work/linx/">linx</a></b> <span class="m">· Python, FastAPI, React, PostgreSQL</span><br>A marketplace app where rental owners post cleanings and vetted cleaners bid. Stripe Connect payouts, 900+ automated tests.</div>
-<div class="pr"><b><a href="https://megan.mlinx.studio/work/agent-command-center/">Agent Command Center</a></b> <span class="m">· React, FastAPI, Claude Agent SDK</span><br>AI agents for operations, code and coursework that draft the work and wait for my approval before changing anything.</div>
-<div class="pr"><b><a href="https://megan.mlinx.studio/work/maineclean/">maineclean.co</a></b> <span class="m">· React, TypeScript</span><br>Live booking site with instant prices that feed straight into BrightBase.</div>
-<div class="pr"><b>Power BI portfolio</b> <span class="m">· Power BI, DAX</span><br>Four reports built from real data: company operations, 26 code repositories, coursework and the software stack. Star-schema models with time-intelligence and retention measures, saved as Power BI projects in Git.</div>
-<div class="pr"><b>Twenty CRM build</b> <span class="m">· Twenty (open source)</span><br>An earlier version on open-source Twenty CRM, with custom objects for properties, quotes, jobs and visits.</div>
+<div class="pr"><b>Power BI portfolio</b> <span class="m">· Power BI, DAX, Power Query</span><br>Four reports from real data: company operations (revenue, retention, crew assignment), 26 code repositories, coursework and the software stack. Star-schema models with time-intelligence and retention measures, saved as PBIP projects in Git.</div>
+<div class="pr"><b>linx</b> <span class="m">· Python (FastAPI), React, PostgreSQL, Stripe Connect</span><br>Marketplace where rental hosts post turnovers and vetted cleaners bid, with automatic payouts. Pre-launch.</div>
+<div class="pr"><b>AI command center</b> <span class="m">· React, FastAPI, Claude Agent SDK</span><br>Agents that draft operations and code work and queue it for approval before acting; includes five custom agent skills (systems architect, backend engineer, ops assistant, data cleanup analyst, documentation writer).</div>
+<div class="pr"><b>mlinx.studio tools</b> <span class="m">· Web</span><br>Live Maine weather and tide data, an instant quote tool and a website checker.</div>
+
+<h2>Skills</h2>
+<table class="sk"><tbody>
+<tr><th>Business analysis</th><td>Requirements gathering, stakeholder interviews, process mapping, fit-gap analysis, functional specifications, user stories, acceptance criteria, UAT, data migration and validation, configuration, cutover and go-live, change management, Agile, training, documentation</td></tr>
+<tr><th>Business platforms</th><td>Jobber, Connecteam, HubSpot (workflows), Twenty CRM, Housecall Pro, Turno, Attio, Airtable, Zapier, Make, Notion, QuickBooks, Square, Jira, Excel, Google Workspace, Microsoft 365</td></tr>
+<tr><th>Data and reporting</th><td>SQL, PostgreSQL, Power BI (DAX, star schemas), pandas, KPI and revenue reporting</td></tr>
+<tr><th>Development</th><td>React, TypeScript, Next.js, Tailwind CSS, Python (FastAPI), REST APIs, webhooks, OAuth, WordPress, automated testing</td></tr>
+<tr><th>Integrations and cloud</th><td>Stripe Connect, Twilio, Google Calendar and Gmail APIs, Jobber API, iCal sync, Supabase (row-level security), Railway, Vercel, Google Cloud, Docker, GitHub Actions</td></tr>
+<tr><th>AI</th><td>Claude API and Agent SDK, Gemini API, AI-assisted development</td></tr>
+</tbody></table>
 
 <h2>Education and training</h2>
-<div class="ed"><div class="hd"><span><b>B.S. Business Analytics and Artificial Intelligence</b> <span class="o">· University of Southern Maine</span></span><span class="d">In progress</span></div><p>Minor in Computer Science</p></div>
-<div class="ed"><div class="hd"><span><b>IBM Full Stack Software Developer Professional Certificate</b> <span class="o">· Coursera</span></span><span class="d">Expected Dec 2026</span></div></div>
-<div class="ed"><div class="hd"><span><b>BCG GenAI Job Simulation</b> <span class="o">· Forage</span></span><span class="d">Feb 2026</span></div><p>Built a rule-based financial chatbot in Python and pandas, reading 10-K and 10-Q data.</p></div>
-<div class="ed"><div class="hd"><span><b>Vista Equity Partners AI in Action Job Simulation</b> <span class="o">· Forage</span></span><span class="d">Feb 2026</span></div><p>Turned NPS survey feedback into executive-ready insights and tested repeatable GenAI workflows, using a four-part prompt framework.</p></div>
+<div class="ed"><div class="hd"><b>B.S. Business Analytics and Artificial Intelligence, Minor in Computer Science</b><span class="d">In progress</span></div><p>University of Southern Maine</p></div>
+<div class="ed"><div class="hd"><b>IBM Full Stack Software Developer Professional Certificate</b><span class="d">Expected Dec 2026</span></div><p>Coursera</p></div>
+<div class="ed"><div class="hd"><b>BCG GenAI Job Simulation</b><span class="d">Feb 2026</span></div><p>Forage · Built a rule-based financial chatbot in Python and pandas from 10-K and 10-Q data.</p></div>
+<div class="ed"><div class="hd"><b>Vista Equity Partners AI in Action Job Simulation</b><span class="d">Feb 2026</span></div><p>Forage · Turned NPS survey feedback into insights and tested repeatable GenAI workflows.</p></div>
 </body></html>

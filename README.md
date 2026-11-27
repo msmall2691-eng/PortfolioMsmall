@@ -92,6 +92,7 @@ only decide how things look.
 | `content/caseStudies.ts` | The `/work/[slug]/` case studies | **Yes** |
 | `content/skills.ts` | Toolkit groups and credentials | **Yes** — `#skills` |
 | `content/resume.ts` | Web résumé and contact row | **Yes** — `#resume` |
+| `resume/resume.html` | The downloadable PDF (`node resume/build-pdf.mjs`) | **Yes** — the résumé link |
 
 ### Page order
 
@@ -214,6 +215,13 @@ showed a "Rebook Rate" measure that does not exist in the model.
   email were live on this site inside images, where no text search would ever
   find them — two of the numbers belonged to clients. Replacements follow the
   mock convention: `555-xxxx`, `example.com`.
+- **The résumé PDF counts as part of the page.** It is downloadable from the
+  site, so the no-names rule applies to it too. It named two clients for a
+  day after the rest of the site had stopped doing so, because it had been
+  built outside the repo and dropped into `public/`. It is now generated from
+  `resume/resume.html`, and `resume/build-pdf.mjs` refuses to write the PDF if
+  a client name survives into the rendered page. Megan's own number and town
+  are on it on purpose — a recruiter has to be able to reach her.
 - Google reviews show first name + last initial only.
 - Screenshots have customer details removed.
 
