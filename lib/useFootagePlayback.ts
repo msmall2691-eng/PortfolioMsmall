@@ -78,16 +78,30 @@ export function useFootagePlayback() {
      * round for a progressive enhancement: the default is the richer
      * experience, and the signal can only opt out of it.
      */
-    const saveData = () =>
-      Boolean(
-        (navigator as Navigator & { connection?: { saveData?: boolean } })
-          .connection?.saveData,
-      );
+    type Conn = EventTarget & { saveData?: boolean };
+    const conn = (navigator as Navigator & { connection?: Conn }).connection;
+    const saveData = () => Boolean(conn?.saveData);
 
     const sync = () => setReduced(mq.matches || saveData());
     sync();
     mq.addEventListener('change', sync);
-    return () => mq.removeEventListener('change', sync);
+
+    /*
+      Subscribe to the connection too, not just read it once.
+      Reduced motion is watched for CHANGES, and data saver has to be watched
+      the same way or the two signals behave differently for no reason a
+      visitor could guess. Measured before this listener existed: with the
+      page already open, turning data saver on and scrolling to the second
+      band still fetched 741 KB and autoplayed it.
+      `connection` is an EventTarget where it exists at all, but it is
+      Chromium-only, so guard the subscription rather than assuming it.
+    */
+    conn?.addEventListener?.('change', sync);
+
+    return () => {
+      mq.removeEventListener('change', sync);
+      conn?.removeEventListener?.('change', sync);
+    };
   }, []);
 
   // The only place `playing` is written. See the note above.
