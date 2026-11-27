@@ -56,7 +56,8 @@ export default function Page() {
         <div data-reveal>
           <ResumeSection />
         </div>
-        <SiteFooter />
+        {/* Two clips render on this page, so the credit belongs here. */}
+        <SiteFooter footage />
       </main>
     </div>
   );
