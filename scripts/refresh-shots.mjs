@@ -22,6 +22,7 @@ import { chromium } from 'playwright';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import { execFileSync } from 'node:child_process';
+import { pathToFileURL } from 'node:url';
 import { FORBIDDEN, TARGETS } from './shot-targets.mjs';
 
 const CHECK_ONLY = process.argv.includes('--check');
@@ -29,37 +30,81 @@ const VIEWPORT = { width: 1280, height: 720 };
 const SCALE = 2; // capture is VIEWPORT * SCALE, so 2560x1440
 
 /** Every pixel rect in the page whose text matches a forbidden rule. */
-async function findForbidden(page, rules, thirdParty) {
-  return page.evaluate(({ serialised, thirdParty }) => {
-    const rules = serialised.map((r) => ({ label: r.label, re: new RegExp(r.source, r.flags) }));
-    const hits = [];
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    for (let n = walker.nextNode(); n; n = walker.nextNode()) {
-      const text = n.nodeValue || '';
-      if (!text.trim()) continue;
-      for (const { label, re } of rules) {
-        const m = re.exec(text);
-        if (!m) continue;
-        const range = document.createRange();
-        range.setStart(n, m.index);
-        range.setEnd(n, m.index + m[0].length);
-        for (const r of range.getClientRects()) {
-          if (r.width < 1 || r.height < 1) continue;
-          hits.push({ label, text: m[0], x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height });
-        }
+/**
+ * Runs INSIDE the page. Exported so the test exercises the same function
+ * that ships, rather than a copy that can drift from it.
+ */
+export function scanPage({ serialised, thirdParty }) {
+  const rules = serialised.map((r) => ({ label: r.label, re: new RegExp(r.source, r.flags) }));
+  const hits = [];
+  /*
+    Flatten every text node into ONE string, keeping a map back to the node
+    and offset each character came from, then match over the flat string.
+
+    Matching node by node, which is the obvious way, has two holes, and both
+    were reproduced before this was rewritten:
+
+      1. A name split by inline markup -- `Nash <span>Construction</span>`
+         -- lives in two text nodes, so neither one matches and the gate
+         reports the frame clean while the name is plainly visible.
+      2. `re.exec()` on a non-global expression returns only the FIRST
+         match in a node. Two numbers in one paragraph, first outside the
+         crop and second inside, and the gate passes.
+
+    Concatenating without separators means text from unrelated blocks
+    becomes adjacent, so a paragraph ending "Nash" followed by one starting
+    "Construction" is flagged. That is a false positive, and it is the
+    direction to err in: a false positive costs a re-frame, a false
+    negative puts a client's name on the page.
+  */
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  const map = [];
+  let flat = '';
+  for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+    const text = n.nodeValue || '';
+    if (!text) continue;
+    map.push({ node: n, start: flat.length, end: flat.length + text.length });
+    flat += text;
+  }
+  const locate = (i) => {
+    for (const e of map) if (i >= e.start && i < e.end) return { node: e.node, offset: i - e.start };
+    return null;
+  };
+
+  for (const { label, re } of rules) {
+    const g = new RegExp(re.source, re.flags.includes('g') ? re.flags : re.flags + 'g');
+    let m;
+    while ((m = g.exec(flat)) !== null) {
+      if (m[0].length === 0) { g.lastIndex += 1; continue; } // never spin
+      const a = locate(m.index);
+      const b = locate(m.index + m[0].length - 1);
+      if (!a || !b) continue;
+      const range = document.createRange();
+      range.setStart(a.node, a.offset);
+      range.setEnd(b.node, b.offset + 1);
+      for (const r of range.getClientRects()) {
+        if (r.width < 1 || r.height < 1) continue;
+        hits.push({ label, text: m[0], x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height });
       }
     }
-    // Logos are images, not text, so match them separately -- and only on
-    // sites Megan does not own. Her own wordmark on her own site is fine.
-    if (thirdParty) for (const el of document.querySelectorAll('img, svg, [class*="logo" i], [id*="logo" i]')) {
-      const hay = `${el.getAttribute('alt') || ''} ${el.getAttribute('src') || ''} ${el.className?.baseVal ?? el.className ?? ''} ${el.id || ''}`;
-      if (!/logo|wordmark|brand/i.test(hay)) continue;
-      const r = el.getBoundingClientRect();
-      if (r.width < 4 || r.height < 4) continue;
-      hits.push({ label: 'logo', text: hay.trim().slice(0, 60), x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height });
-    }
-    return hits;
-  }, { serialised: rules.map((r) => ({ label: r.label, source: r.re.source, flags: r.re.flags })), thirdParty });
+  }
+  // Logos are images, not text, so match them separately -- and only on
+  // sites Megan does not own. Her own wordmark on her own site is fine.
+  if (thirdParty) for (const el of document.querySelectorAll('img, svg, [class*="logo" i], [id*="logo" i]')) {
+    const hay = `${el.getAttribute('alt') || ''} ${el.getAttribute('src') || ''} ${el.className?.baseVal ?? el.className ?? ''} ${el.id || ''}`;
+    if (!/logo|wordmark|brand/i.test(hay)) continue;
+    const r = el.getBoundingClientRect();
+    if (r.width < 4 || r.height < 4) continue;
+    hits.push({ label: 'logo', text: hay.trim().slice(0, 60), x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height });
+  }
+  return hits;
+}
+
+async function findForbidden(page, rules, thirdParty) {
+  return page.evaluate(scanPage, {
+    serialised: rules.map((r) => ({ label: r.label, source: r.re.source, flags: r.re.flags })),
+    thirdParty,
+  });
 }
 
 /** Swap text in the live DOM so it renders in the site's own type. */
@@ -167,7 +212,14 @@ const main = async () => {
   console.log(`\nAll ${written.length} frames clean and written.`);
 };
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+/*
+  Only run when this file IS the command. Without the guard, importing it --
+  which the gate test does, so the test exercises the shipped function rather
+  than a copy -- would silently fire the whole capture-and-write job.
+*/
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
+}

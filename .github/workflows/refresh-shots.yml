@@ -45,6 +45,10 @@ jobs:
           npm install --no-save playwright
           npx playwright install --with-deps chromium
 
+      # The gate protects the whole job, so test the gate before trusting it.
+      - name: Test the forbidden-content gate
+        run: node scripts/gate.test.mjs
+
       - name: Capture and verify
         run: node scripts/refresh-shots.mjs
 
