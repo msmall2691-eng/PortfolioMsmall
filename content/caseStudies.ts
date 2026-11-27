@@ -323,7 +323,7 @@ export const caseStudies: readonly CaseStudy[] = [
     liveUrl: { href: 'https://mlinx.studio/tools', label: 'Try the tools ↗' },
     image: {
       src: '/img/mstudio-live.webp',
-      alt: 'The mlinx.studio homepage with a live preview of a client site and the free tools list',
+      alt: 'The mlinx.studio homepage: "Websites, web apps and custom tools for small businesses" over underwater footage',
       caption: 'mlinx.studio, where the tools live.',
       width: 1280,
       height: 720,
