@@ -172,7 +172,7 @@ export function Projects() {
             {rest.map((p) => (
               <li key={p.title} className="group relative flex flex-col gap-1 border-t border-rule-inner py-3.5">
                 <span className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
-                  <h3 className="text-[15.5px] font-semibold">
+                  <h3 className="text-[16.5px] font-semibold">
                     <Link href={p.href} className="text-ink after:absolute after:inset-0 hover:text-accent-700">
                       {p.title}
                     </Link>

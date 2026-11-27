@@ -14,7 +14,8 @@ export const resumeHeader = {
 
 export const resumeCard = {
   name: profile.fullName,
-  title: 'Business Systems Analyst · Implementation · Front-End Developer',
+  // Must match the PDF's subtitle exactly; they sit on the same page.
+  title: 'Business Systems Analyst · Implementation · Operations',
   contact: `${profile.locationShort} · ${profile.email} · ${links.studioLabel} · github.com/${links.githubLabel}`,
   summary: `${YEARS_IN_BUSINESS_WORD} years running a multi-crew cleaning company and every system behind it, from booking to payroll. When the apps we paid for didn’t fit how we worked, I designed and built BrightBase, the system the company runs on today. Now looking for a team where I can do this full-time: figure out how the work really flows, find where it breaks, and build the fix.`,
 } as const;

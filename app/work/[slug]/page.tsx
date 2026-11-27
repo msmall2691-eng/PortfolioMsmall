@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Container, Eyebrow } from '@/components/ui';
+import { Container, Eyebrow, sectionHeading } from '@/components/ui';
 import { SiteFooter } from '@/components/SiteFooter';
 import { caseStudies, getCaseStudy, type CaseSection } from '@/content/caseStudies';
 import { profile } from '@/content/site';
@@ -155,7 +155,7 @@ function SectionBody({ section }: { section: CaseSection }) {
           <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,280px),1fr))] gap-4">
             {section.boxes.map((box) => (
               <div key={box.title} className="rounded-[12px] border border-rule-inner bg-card p-5">
-                <h3 className="mb-3 text-[15.5px] font-semibold">{box.title}</h3>
+                <h3 className="mb-3 text-[16.5px] font-semibold">{box.title}</h3>
                 <ul className="flex list-disc flex-col gap-2 pl-5 text-[14.5px] leading-[1.5] text-neutral-300 marker:text-neutral-500">
                   {box.items.map((item) => (
                     <li key={item}>{item}</li>
@@ -247,7 +247,7 @@ export default async function CaseStudyPage({ params }: Props) {
           <section className="border-t border-rule-section">
             <Container className="flex flex-col gap-5 py-14">
               <Eyebrow>HOW IT WORKS</Eyebrow>
-              <h2 className="-mt-1 text-[clamp(24px,3.2vw,34px)] leading-[1.15] font-semibold tracking-[-0.02em] text-balance">
+              <h2 className={`-mt-1 ${sectionHeading} text-balance`}>
                 {study.diagram.heading}
               </h2>
               <div
@@ -275,7 +275,7 @@ export default async function CaseStudyPage({ params }: Props) {
           <section key={section.heading} className="border-t border-rule-section">
             <Container className="flex flex-col gap-5 py-14">
               <Eyebrow>{section.eyebrow}</Eyebrow>
-              <h2 className="-mt-1 text-[clamp(24px,3.2vw,34px)] leading-[1.15] font-semibold tracking-[-0.02em] text-balance">
+              <h2 className={`-mt-1 ${sectionHeading} text-balance`}>
                 {section.heading}
               </h2>
               <SectionBody section={section} />
