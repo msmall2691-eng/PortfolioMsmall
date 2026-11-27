@@ -1,0 +1,69 @@
+# Re-capture the live sites shown on the portfolio.
+#
+# The screenshots went a year stale once and nobody noticed: two of Megan's
+# own sites had been fully redesigned while the portfolio still showed the
+# old ones. This stops that happening silently.
+#
+# It pushes straight to main, which is safe only because of the gate in
+# scripts/refresh-shots.mjs: every forbidden string is located in the live
+# DOM and the run FAILS, writing nothing, if any of them falls inside a
+# frame. A red run here means a client's site changed and a crop needs
+# re-framing -- not that the check should be relaxed.
+name: Refresh live screenshots
+
+on:
+  schedule:
+    # Mondays, 11:23 UTC (03:23 Pacific). Off the hour on purpose: scheduled
+    # runs bunch up at :00 and get queued.
+    - cron: '23 11 * * 1'
+  workflow_dispatch: # run it by hand from the Actions tab any time
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-shots
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: Install Playwright
+        # --no-save: this is a tool for the job, not a dependency of the site.
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+
+      # The gate protects the whole job, so test the gate before trusting it.
+      - name: Test the forbidden-content gate
+        run: node scripts/gate.test.mjs
+
+      - name: Capture and verify
+        run: node scripts/refresh-shots.mjs
+
+      - name: Commit if anything changed
+        run: |
+          if git diff --quiet -- public/img; then
+            echo "No visual change in any of the four sites. Nothing to commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/img
+          git commit -m "Refresh live site screenshots
+
+          Captured by .github/workflows/refresh-shots.yml. Every frame passed
+          the forbidden-content gate in scripts/refresh-shots.mjs: no client
+          name, domain, logo or non-555 phone number falls inside any crop."
+          git push

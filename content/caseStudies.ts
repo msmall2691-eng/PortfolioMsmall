@@ -25,6 +25,12 @@ export type CaseSection =
   | { kind: 'prose'; eyebrow: string; heading: string; paragraphs: readonly string[] }
   | { kind: 'flow'; eyebrow: string; heading: string; steps: readonly { title: string; detail: string }[]; note?: string }
   | { kind: 'diagram'; eyebrow: string; heading: string; src: string; alt: string; width: number; height: number; note?: string }
+  /**
+   * A phone screenshot. Separate from `diagram` because that one forces
+   * `min-w-[820px]` and sideways scrolling, which is right for a wide flow
+   * chart and very wrong for a portrait screen.
+   */
+  | { kind: 'phone'; eyebrow: string; heading: string; src: string; alt: string; width: number; height: number; note?: string }
   | { kind: 'decisions'; eyebrow: string; heading: string; items: readonly Decision[] }
   | { kind: 'beforeAfter'; eyebrow: string; heading: string; rows: readonly { before: string; after: string }[] }
   | { kind: 'boxes'; eyebrow: string; heading: string; intro?: string; facts?: readonly { value: string; label: string }[]; boxes: readonly { title: string; items: readonly string[] }[]; note?: string };
@@ -87,6 +93,16 @@ export const caseStudies: readonly CaseStudy[] = [
         width: 1568,
         height: 344,
         note: 'Payroll stayed in Connecteam until BrightBase matched it for a full pay period, and no customer was billed until invoices and Stripe payments had been tested end to end.',
+      },
+      {
+        kind: 'phone',
+        eyebrow: 'THE CREW APP',
+        heading: 'What a cleaner sees on the day',
+        src: '/img/bb-crew-turnover.webp',
+        alt: 'The crew phone app showing a turnover job: the time, the property, its address, a photo of the house, guest check-out and check-in times, and the booking note from the office.',
+        width: 660,
+        height: 1434,
+        note: 'A real screen from the app. Every customer detail is sample data \u2014 property, address, guest name, booking reference and door code \u2014 and the photo is one of Megan\u2019s own properties, not a customer\u2019s.',
       },
       {
         kind: 'decisions',
@@ -323,7 +339,7 @@ export const caseStudies: readonly CaseStudy[] = [
     liveUrl: { href: 'https://mlinx.studio/tools', label: 'Try the tools ↗' },
     image: {
       src: '/img/mstudio-live.webp',
-      alt: 'The mlinx.studio homepage with a live preview of a client site and the free tools list',
+      alt: 'The mlinx.studio homepage: "Websites, web apps and custom tools for small businesses" over underwater footage',
       caption: 'mlinx.studio, where the tools live.',
       width: 1280,
       height: 720,

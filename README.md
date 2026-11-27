@@ -510,6 +510,50 @@ column, which is copy. Nothing above ~11% down — the header covers it, and
 a creature in its fade is exactly how the `jelly.webp` rectangle got
 spotted.
 
+## Keeping the live screenshots current
+
+`.github/workflows/refresh-shots.yml` re-captures all four live sites every
+Monday, and on demand from the Actions tab. It exists because the shots went
+a year stale once and nobody noticed: two of Megan's own sites had been
+fully redesigned while the portfolio still showed the old ones.
+
+Run it locally:
+
+```
+npm install --no-save playwright && npx playwright install chromium
+node scripts/refresh-shots.mjs --check   # capture and verify, write nothing
+node scripts/refresh-shots.mjs           # ... and write the WebPs
+```
+
+**The gate is the point, not the screenshotting.** Client names must not
+appear on this site, and a fixed crop box cannot promise that: if a client
+redesigns, the box keeps "working" while quietly framing their name. So
+every forbidden string in `scripts/shot-targets.mjs` is located in the LIVE
+DOM, its pixel rectangle measured, and the run **fails and writes nothing**
+if any of them falls inside a kept frame. One violation blocks all four.
+
+Verified by deliberately widening a crop until a client's name fell inside
+it: the run exits 1 and the file on disk stays byte-identical.
+
+A red run means a site changed and a crop needs re-framing in
+`scripts/shot-targets.mjs`. Re-frame it. Do not widen the rules to make it
+pass — that is the one change that turns this from a safeguard into
+decoration.
+
+Two details worth keeping:
+
+- **Text is swapped in the DOM before the shot, not painted over after.**
+  Megan's phone number on maineclean.co becomes `555-0100` by editing the
+  text node, so it renders in the site's own font, weight and colour. The
+  painted-pixel version needed correct coordinates, had to guess the
+  background, and broke whenever the layout moved.
+- **The logo check only runs on sites Megan does not own** (`thirdParty` in
+  the target). Her own wordmark on her own site is not a leak, and treating
+  it as one made the job refuse to update maineclean.co for no reason.
+
+The workflow pushes straight to `main`, which is only safe because of the
+gate above.
+
 ## Type scale
 
 One `sectionHeading` token in `components/ui.tsx`, used by every `<h2>` that

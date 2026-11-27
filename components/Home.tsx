@@ -211,12 +211,29 @@ export function MoreWork() {
                 <span className="text-[14px] leading-[1.5] text-neutral-400">{row.line}</span>
                 {row.thumbs ? (
                   <span className="grid max-w-[420px] grid-cols-2 gap-2.5 pt-1.5">
-                    {row.thumbs.map((t) => (
-                      <a key={t.src} href={t.href} target="_blank" rel="noopener" className="block overflow-hidden rounded-[8px] border border-rule-inner">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                    {row.thumbs.map((t) => {
+                      const img = (
+                        // eslint-disable-next-line @next/next/no-img-element
                         <img src={t.src} alt={t.alt} loading="lazy" width={1280} height={720} className="block aspect-[16/9] w-full object-cover object-top" />
-                      </a>
-                    ))}
+                      );
+                      const cls = 'block overflow-hidden rounded-[8px] border border-rule-inner';
+                      /*
+                        No href means no <a>. Client thumbs deliberately carry
+                        no link, and an anchor without href is not focusable
+                        and not a link -- it would read to a keyboard or
+                        screen-reader user as something to activate that does
+                        nothing.
+                      */
+                      return t.href ? (
+                        <a key={t.src} href={t.href} target="_blank" rel="noopener" className={cls}>
+                          {img}
+                        </a>
+                      ) : (
+                        <span key={t.src} className={cls}>
+                          {img}
+                        </span>
+                      );
+                    })}
                   </span>
                 ) : null}
                 {row.links.length ? (
@@ -234,6 +251,26 @@ export function MoreWork() {
         <div id="github" className="section-anchor flex flex-col gap-3 self-start rounded-card border border-rule-inner bg-card p-5">
           {/* An h3: this is a card inside #more, not a section of its own. */}
           <h3 className="text-[16.5px] font-semibold">On GitHub</h3>
+          {/*
+            A real capture of the live profile, not a mock. It links out,
+            unlike the client thumbs above, because this one is Megan's own.
+          */}
+          <a
+            href={links.github}
+            target="_blank"
+            rel="noopener"
+            className="block overflow-hidden rounded-[8px] border border-rule-inner"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={github.shot.src}
+              alt={github.shot.alt}
+              loading="lazy"
+              width={1280}
+              height={720}
+              className="block aspect-[16/9] w-full object-cover object-top"
+            />
+          </a>
           <p className="text-[14px] leading-[1.5] text-neutral-300">{github.stats}</p>
           <ul className="m-0 flex list-none flex-col p-0">
             {github.repos.map((r) => (
