@@ -92,8 +92,12 @@ export type MoreRow = {
   title: string;
   line: string;
   links: readonly { label: string; href: string }[];
-  /** Small real captures of the live sites, each linking to the site. */
-  thumbs?: readonly { src: string; alt: string; href: string }[];
+  /**
+   * Real captures of live sites. `href` is OPTIONAL and is left off for
+   * client work on purpose: a link to a client's domain names them exactly
+   * as plainly as a label would, which is the thing the rule is about.
+   */
+  thumbs?: readonly { src: string; alt: string; href?: string }[];
 };
 
 export const moreWork: readonly MoreRow[] = [
@@ -102,18 +106,24 @@ export const moreWork: readonly MoreRow[] = [
     the site, and that has to cover more than the label: a link to a client's
     domain names them just as plainly, and so does a screenshot with their
     wordmark in the header.
-    So this row carries no client names, no client domains, and no client
-    screenshots. public/img/client-nash.webp and client-remote-admin.webp are
-    still in the repo and are no longer referenced by anything -- restoring
-    this row is a revert of one commit if she decides named client work is
-    worth more to a hiring manager than the rule.
-    What this costs, stated honestly: two live sites with working links and
-    real screenshots became one line of text. That is a real loss of proof.
+    The row carries no client names and no client domains. It DOES carry
+    screenshots, captured from the live sites and framed so that no wordmark,
+    logo or phone number is in shot -- for one that meant the typographic
+    half of the hero, for the other everything above the paragraph that names
+    them. Both are real pixels from real sites; nothing is painted out, which
+    is why they do not look censored. Erasing the logo was tried first and
+    looked exactly as bad as it sounds.
+    If a client ever redesigns, re-crop from the live site and check the new
+    frame -- do not assume the old crop box still excludes the name.
   */
   {
     title: 'Client websites',
     line: 'Two marketing sites for small New Hampshire businesses — a general contractor and an admin-services firm. Designed, built, migrated off their old hosts with redirects, and shipped.',
     links: [],
+    thumbs: [
+      { src: '/img/client-contractor.webp', alt: 'A general contractor site: a full-bleed streetscape behind the headline "Built on 50 Years of Experience."' },
+      { src: '/img/client-admin.webp', alt: 'An admin-services site: a serif headline reading "Administrative office support for contractors and small service-based businesses"' },
+    ],
   },
   {
     title: 'Childcare launch',
@@ -129,6 +139,11 @@ export const moreWork: readonly MoreRow[] = [
 
 /** Counted from git across nine repos, Jan 1 to Nov 7, 2026. Bots excluded. */
 export const github = {
+  /** A real capture of the live profile page, re-shoot it if it changes. */
+  shot: {
+    src: '/img/github-profile.webp',
+    alt: 'The GitHub profile for msmall2691-eng: a README headed "Mainer | Web designer | Systems guru" and a selected-work table',
+  },
   stats: '2,084 commits across 9 repos in 2026, including work done with Claude Code.',
   repos: [
     { label: 'maine-cleaning-co', line: 'Website and quoting platform', href: 'https://github.com/msmall2691-eng/maine-cleaning-co' },
